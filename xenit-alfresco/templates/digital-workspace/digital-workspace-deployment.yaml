@@ -1,0 +1,72 @@
+{{- if .Values.digitalWorkspace.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digital-workspace
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalAnnotations" . | indent 4 }}
+    {{- if .Values.digitalWorkspace.podAnnotations }}
+    {{ toYaml .Values.digitalWorkspace.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: digital-workspace
+spec:
+  replicas: {{ .Values.digitalWorkspace.replicaCount }}
+  selector:
+    matchLabels:
+      app: digital-workspace
+  strategy:
+    {{- if eq .Values.digitalWorkspace.strategy.type "Recreate" }}
+    type: {{ .Values.digitalWorkspace.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.digitalWorkspace.serviceAccount }}
+  serviceAccountName: {{ .Values.digitalWorkspace.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: digital-workspace
+    spec:
+      containers:
+        - name: digital-workspace-container
+          image: {{ .Values.digitalWorkspace.image.repository }}{{ if .Values.digitalWorkspace.image.tag }}:{{ .Values.digitalWorkspace.image.tag }}{{ end }}
+          imagePullPolicy: {{ .Values.digitalWorkspace.image.pullPolicy | default "IfNotPresent" }}
+          livenessProbe:
+            failureThreshold: 4
+            httpGet:
+              path: {{ .Values.digitalWorkspace.basePath }}
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 4
+          readinessProbe:
+            failureThreshold: 4
+            httpGet:
+              path: {{ .Values.digitalWorkspace.basePath }}
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 3
+          envFrom:
+            - configMapRef:
+                name: digital-workspace-configmap
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "150m"
+      imagePullSecrets:
+        - name: alfrescocred
+        {{- if .Values.global.imagePullSecrets}}
+        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- end }}
+{{- end }}

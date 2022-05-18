@@ -1,0 +1,71 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transform-router
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalAnnotations" . | indent 4 }}
+    {{- if .Values.transformServices.transformRouter.podAnnotations }}
+    {{ toYaml .Values.transformServices.transformRouter.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: transform-router
+spec:
+  replicas: {{ .Values.transformServices.transformRouter.replicaCount }}
+  selector:
+    matchLabels:
+      app: transform-router
+  strategy:
+    {{- if eq .Values.transformServices.transformRouter.strategy.type "Recreate" }}
+    type: {{ .Values.transformServices.transformRouter.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.transformServices.transformRouter.serviceAccount }}
+  serviceAccountName: {{ .Values.transformServices.transformRouter.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: transform-router
+    spec:
+      containers:
+        - name: transform-router-container
+          image: {{ .Values.transformServices.transformRouter.image.repository }}{{ if .Values.transformServices.transformRouter.image.tag }}:{{ .Values.transformServices.transformRouter.image.tag }}{{ end }}
+          imagePullPolicy: {{ .Values.transformServices.transformRouter.image.pullPolicy | default "IfNotPresent" }}
+          livenessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /actuator/health
+              port: 8095
+              scheme: HTTP
+            initialDelaySeconds: 140
+            periodSeconds: 120
+            successThreshold: 1
+            timeoutSeconds: 60
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/health
+              port: 8095
+              scheme: HTTP
+            initialDelaySeconds: 140
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 10
+          envFrom:
+            - configMapRef:
+                name: transform-router-configmap
+          ports:
+            - containerPort: 8095
+              protocol: TCP
+          resources:
+            requests:
+              memory: "128Mi"
+      imagePullSecrets:
+        - name: alfrescocred
+        {{- if .Values.global.imagePullSecrets}}
+        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- end }}
+{{- end }}

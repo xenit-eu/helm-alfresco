@@ -1,0 +1,22 @@
+{{- if .Values.solr.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: solr-service
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    app: solr
+  ports:
+      - name: 'solr-web'
+        protocol: TCP
+        port: 30300
+        targetPort: 8080
+      - name: 'solr-ssl'
+        protocol: TCP
+        port: 8443
+        targetPort: 8443
+  {{- if .Values.global.serviceType }}
+  type: {{ .Values.global.serviceType }}
+  {{- end }}
+{{- end }}

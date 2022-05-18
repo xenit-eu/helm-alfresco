@@ -1,0 +1,16 @@
+{{- if .Values.mq.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mq-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: mq
+data:
+  ACTIVEMQ_CONFIG_MINMEMORY: 512Mi
+  ACTIVEMQ_CONFIG_MAXMEMORY: 2048Mi
+  ACTIVEMQ_BROKER_NAME: mq
+  {{- if .Values.mq.additionalEnvironmentVariables }}
+  {{ toYaml .Values.mq.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,10 @@
+{{- $namespace := .Release.Namespace -}}
+{{- with .Values.persistentStorage.postgres }}
+{{- if .enabled}}
+{{- $name := "postgres" -}}
+{{- $storageClassName := .storageClassName -}}
+{{- $storage := .storage -}}
+{{- $efsVolumeHandle := .efs.volumeHandle -}}
+{{- include "hepers.volumeHelper" (list $namespace $name $storageClassName $storage $efsVolumeHandle) }}
+{{- end }}
+{{- end }}

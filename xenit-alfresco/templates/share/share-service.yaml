@@ -1,0 +1,17 @@
+{{- if .Values.share.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: share-service
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    app: share
+  ports:
+      - protocol: TCP
+        port: 30100
+        targetPort: 8080
+  {{- if .Values.global.serviceType }}
+  type: {{ .Values.global.serviceType }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,14 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: transform-core-aio-service
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    app: transform-core-aio
+  ports:
+      - protocol: TCP
+        port: 80
+        targetPort: 8090
+{{- end }}

@@ -1,0 +1,14 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: transform-router-service
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    app: transform-router
+  ports:
+      - protocol: TCP
+        port: 30500
+        targetPort: 8095
+{{- end }}

@@ -1,0 +1,21 @@
+# Defines the deployment for the alfresco content repository app
+apiVersion: v1
+kind: Service
+metadata:
+  name: acs-service
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    app: acs
+  ports:
+      - name: 'acs'
+        protocol: TCP
+        port: 30000
+        targetPort: 8080
+      - name: 'acs-ssl'
+        protocol: TCP
+        port: 8443
+        targetPort: 8443
+  {{- if .Values.global.serviceType }}
+  type: {{ .Values.global.serviceType }}
+  {{- end }}

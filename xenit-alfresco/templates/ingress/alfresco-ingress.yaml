@@ -1,0 +1,77 @@
+# Defines the deployment for the alfresco content repository app
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: alfresco-ingress
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.ingress.ingressAnnotations}}
+    {{ toYaml .Values.ingress.ingressAnnotations | nindent 4 }}
+    {{- end }}
+spec:
+  {{- if eq .Values.ingress.protocol "https" }}
+  tls:
+    - hosts:
+        # Provide the desired host
+        - {{ required "A host where your alfresco services can be reached on must be specified in values.ingress.host" .Values.ingress.host }}
+        {{- if .Values.syncService.enabled }}
+        - {{ required "If sync Services are enabled a specific host for sync services must be specified in values.ingress.syncServiceHost" .Values.ingress.syncServiceHost }}
+        {{- end }}
+      # Provide a unique secret to store the SSL credentials
+      secretName: tls-alfresco-{{ .Release.Name }}-secret
+  {{- end }}
+  defaultBackend:
+    service:
+      name: acs-service
+      port:
+        number: 30000
+  rules:
+  - host: {{ required "A host where your alfresco services can be reached on must be specified in values.ingress.host" .Values.ingress.host }}
+    http:
+      paths:
+      - path: /alfresco
+        pathType: Prefix
+        backend:
+          service:
+            name: acs-service
+            port:
+              number: 30000
+      {{- if .Values.share.enabled }}
+      - path: /share
+        pathType: Prefix
+        backend:
+          service:
+            name: share-service
+            port:
+              number: 30100
+      {{- end }}
+      {{- if .Values.digitalWorkspace.enabled }}
+      - path: {{ .Values.digitalWorkspace.basePath }}
+        pathType: Prefix
+        backend:
+          service:
+            name: digital-workspace-service
+            port:
+              number: 30200
+      {{- end }}
+      {{- if .Values.solr.enabled }}
+      - path: /solr
+        pathType: Prefix
+        backend:
+          service:
+            name: solr-service
+            port:
+              number: 30300
+      {{- end }}
+  {{- if .Values.syncService.enabled }}
+  - host: {{ required "If sync Services are enabled a specific host for sync services must be specified in values.ingress.syncServiceHost" .Values.ingress.syncServiceHost }}
+    http:
+      paths:
+        - path: /alfresco
+          pathType: Prefix
+          backend:
+            service:
+              name: sync-service-service
+              port:
+                number: 30400
+  {{- end }}

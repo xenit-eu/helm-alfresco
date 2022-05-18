@@ -1,0 +1,14 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: shared-file-store-service
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    app: shared-file-store
+  ports:
+      - protocol: TCP
+        port: 80
+        targetPort: 8099
+{{- end }}

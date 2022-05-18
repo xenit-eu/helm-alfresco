@@ -1,0 +1,17 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shared-file-store-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: shared-file-store
+data:
+  livenessPercent: "150"
+  livenessSavePeriodSeconds: "600"
+  scheduler.cleanup.interval: "86400000"
+  scheduler.content.age.millis: "86400000"
+  {{- if .Values.transformServices.sharedFileStore.additionalEnvironmentVariables }}
+  {{ toYaml .Values.transformServices.sharedFileStore.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}
+{{- end }}

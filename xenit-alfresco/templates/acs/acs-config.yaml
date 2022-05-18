@@ -1,0 +1,43 @@
+# Defines the properties required by the content repository
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: acs-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: acs
+data:
+  DB_URL: {{ quote .Values.acs.dbUrl }}
+  DB_DRIVER: {{ quote .Values.acs.dbDriver }}
+  {{- if .Values.share.enabled }}
+  SHARE_HOST: {{ quote .Values.ingress.host }}
+  SHARE_PORT: {{ quote .Values.acs.sharePort }}
+  SHARE_PROTOCOL: {{ quote .Values.acs.shareProtocol }}
+  {{- end }}
+  SOLR_HOST: 'solr-service'
+  {{- if .Values.acs.s3Datastore.enabled }}
+  GLOBAL_objectstorage.rootStore: 'myS3ContentStore'
+  GLOBAL_objectstorage.stores: 'myS3ContentStore'
+  GLOBAL_objectstorage.store.myS3ContentStore.type: 's3'
+  GLOBAL_objectstorage.store.myS3ContentStore.value.bucketName: {{ required "You must provide the bucketName in .Values.acs.s3Datastore.bucketName if s3 is enabled" quote .Values.acs.s3Datastore.bucketName }}
+  GLOBAL_objectstorage.store.myS3ContentStore.value.bucketLocation: {{ required "You must provide the bucketLocation in .Values.acs.s3Datastore.bucketLocation if s3 is enabled" quote .Values.acs.s3Datastore.bucketLocation }}
+  {{- end }}
+  {{- if .Values.syncService.enabled }}
+  GLOBAL_dsync.service.uris: '{{ .Values.ingress.protocol }}://{{ .Values.ingress.syncServiceHost }}/alfresco'
+  {{- end }}
+  {{- if .Values.mq.enabled }}
+  GLOBAL_messaging.broker.url: 'failover:(nio://mq-service:61616)?timeout=3000&jms.useCompression=true'
+  {{- end }}
+  {{- if gt .Values.acs.replicaCount 1.0 }}
+  GLOBAL_alfresco.cluster.enabled: 'true'
+  {{- end }}
+  {{- if .Values.transformServices.enabled }}
+  GLOBAL_transform.service.enabled: 'true'
+  GLOBAL_transform.service.url: 'http://transform-router-service:30500'
+  GLOBAL_sfs.url: 'http://shared-file-store-service:80/'
+  GLOBAL_localTransform.core-aio.url: 'http://transform-core-aio-service:80/'
+  {{- end }}
+  GLOBAL_aos.baseUrlOverwrite: '{{ .Values.ingress.syncServiceHost }}://{{ .Values.ingress.host }}/alfresco/aos'
+  {{- if .Values.acs.additionalEnvironmentVariables }}
+  {{ toYaml .Values.acs.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}

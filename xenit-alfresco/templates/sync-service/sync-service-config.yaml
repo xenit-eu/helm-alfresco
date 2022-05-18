@@ -1,0 +1,18 @@
+{{- if .Values.syncService.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sync-service-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: sync-service
+data:
+  JAVA_OPTS: -Dsql.db.driver={{ .Values.acs.dbDriver }} -Dsql.db.url={{ .Values.acs.dbUrl }}
+      -Dsql.db.username={{ .Values.global.dbUser }} -Dsql.db.password={{ .Values.global.dbPassword }} -Drepo.hostname=acs-service
+      -Drepo.port=30000 -Dmessaging.broker.host=mq-service -Dmessaging.username={{ .Values.mq.adminLogin }}
+      -Dmessaging.password={{ .Values.mq.adminPassword }} -Dmessaging.broker.port=61616 -Dmessaging.broker.protocol=tcp
+      -Ddw.server.applicationConnectors[0].type=http -Dsync.metrics.reporter.graphite.enabled=false
+  {{- if .Values.syncService.additionalEnvironmentVariables }}
+  {{ toYaml .Values.syncService.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}
+{{- end }}

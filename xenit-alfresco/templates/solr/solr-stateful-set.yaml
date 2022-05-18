@@ -1,0 +1,73 @@
+{{- if .Values.solr.enabled -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: solr
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalAnnotations" . | indent 4 }}
+    {{- if .Values.solr.podAnnotations }}
+    {{ toYaml .Values.solr.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: solr
+spec:
+  replicas: {{ .Values.solr.replicaCount }}
+  selector:
+    matchLabels:
+      app: solr
+  updateStrategy:
+    type: {{ .Values.solr.strategy.type }}
+  serviceName: solr-service
+  {{- if .Values.solr.serviceAccount }}
+  serviceAccountName: {{ .Values.solr.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: solr
+    spec:
+      containers:
+      - name: solr-container
+        image: {{ .Values.solr.image.repository }}{{ if .Values.solr.image.tag }}:{{ .Values.solr.image.tag }}{{ end }}
+        imagePullPolicy: {{ .Values.solr.image.pullPolicy | default "IfNotPresent" }}
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - rm -f /opt/alfresco-search-services/data/index/archive/index/write.lock
+                - rm -f /opt/alfresco-search-services/data/index/alfresco/index/write.lock
+        envFrom:
+          - configMapRef:
+              name: solr-configmap
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 8443
+            protocol: TCP
+        resources:
+          requests:
+            memory: "2000Mi"
+        volumeMounts:
+          - name: data
+            mountPath: /opt/alfresco-search-services/data
+            subPath: solr/data
+      imagePullSecrets:
+        - name: privatecred
+        {{- if .Values.global.imagePullSecrets}}
+        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- end }}
+  {{- with .Values.persistentStorage.solr }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ required "If solr is enabled you need to provide what storage class should be used for the persistency in  persistentStorage.solr.storageClassName" .storageClassName }}
+        resources:
+          requests:
+            storage: {{ .storage }}Gi
+  {{- end }}
+{{- end }}

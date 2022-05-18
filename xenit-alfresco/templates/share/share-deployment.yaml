@@ -1,0 +1,58 @@
+{{- if .Values.share.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: share
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalAnnotations" . | indent 4 }}
+    {{- if .Values.share.podAnnotations }}
+    {{ toYaml .Values.share.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: share
+spec:
+  replicas: {{ .Values.share.replicaCount }}
+  selector:
+    matchLabels:
+      app: share
+  strategy:
+    {{- if eq .Values.share.strategy.type "Recreate" }}
+    type: {{ .Values.share.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.share.serviceAccount }}
+  serviceAccountName: {{ .Values.share.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: share
+    spec:
+      containers:
+      - name: share-container
+        image: {{ .Values.share.image.repository }}{{ if .Values.share.image.tag }}:{{ .Values.share.image.tag }}{{ end }}
+        imagePullPolicy: {{ .Values.share.image.pullPolicy | default "IfNotPresent" }}
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - sleep 20
+        envFrom:
+          - configMapRef:
+              name: share-configmap
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "0.5"
+      imagePullSecrets:
+        {{- if .Values.global.imagePullSecrets}}
+        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- end }}
+{{- end }}

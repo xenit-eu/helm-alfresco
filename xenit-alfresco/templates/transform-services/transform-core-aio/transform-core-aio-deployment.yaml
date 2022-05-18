@@ -1,0 +1,51 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transform-core-aio
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalAnnotations" . | indent 4 }}
+    {{- if .Values.transformServices.transformCoreAio.podAnnotations }}
+    {{ toYaml .Values.transformServices.transformCoreAio.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: transform-core-aio
+spec:
+  replicas: {{ .Values.transformServices.transformCoreAio.replicaCount }}
+  selector:
+    matchLabels:
+      app: transform-core-aio
+  strategy:
+    {{- if eq .Values.transformServices.transformCoreAio.strategy.type "Recreate" }}
+    type: {{ .Values.transformServices.transformCoreAio.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.transformServices.transformCoreAio.serviceAccount }}
+  serviceAccountName: {{ .Values.transformServices.transformCoreAio.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: transform-core-aio
+    spec:
+      containers:
+        - name: transform-core-aio-container
+          image: {{ .Values.transformServices.transformCoreAio.image.repository }}{{ if .Values.transformServices.transformCoreAio.image.tag }}:{{ .Values.transformServices.transformCoreAio.image.tag }}{{ end }}
+          imagePullPolicy: {{ .Values.transformServices.transformCoreAio.image.pullPolicy | default "IfNotPresent" }}
+          envFrom:
+            - configMapRef:
+                name: transform-core-aio-configmap
+          ports:
+            - containerPort: 8090
+              protocol: TCP
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "150m"
+      imagePullSecrets:
+        {{- if .Values.global.imagePullSecrets}}
+        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- end }}
+{{- end }}

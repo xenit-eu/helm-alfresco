@@ -1,0 +1,18 @@
+{{- if .Values.share.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: share-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: share
+data:
+  ALFRESCO_INTERNAL_HOST: 'acs-service'
+  ALFRESCO_INTERNAL_PORT: '30000'
+  ALFRESCO_HOST: {{ .Values.ingress.host }}
+  ALFRESCO_PORT: '443'
+  ALFRESCO_PROTOCOL: 'https'
+  {{- if .Values.share.additionalEnvironmentVariables }}
+  {{ toYaml .Values.share.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}
+{{- end }}
