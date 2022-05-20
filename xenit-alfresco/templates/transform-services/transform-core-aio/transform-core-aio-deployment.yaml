@@ -5,7 +5,7 @@ metadata:
   name: transform-core-aio
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.transformServices.transformCoreAio.podAnnotations }}
     {{ toYaml .Values.transformServices.transformCoreAio.podAnnotations | nindent 4 }}
     {{- end }}
@@ -20,7 +20,7 @@ spec:
     {{- if eq .Values.transformServices.transformCoreAio.strategy.type "Recreate" }}
     type: {{ .Values.transformServices.transformCoreAio.strategy.type }}
     {{- else }}
-    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
   {{- if .Values.transformServices.transformCoreAio.serviceAccount }}
   serviceAccountName: {{ .Values.transformServices.transformCoreAio.serviceAccount }}
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: transform-core-aio-container
-          image: {{ .Values.transformServices.transformCoreAio.image.repository }}{{ if .Values.transformServices.transformCoreAio.image.tag }}:{{ .Values.transformServices.transformCoreAio.image.tag }}{{ end }}
+          image: {{ .Values.transformServices.transformCoreAio.image.repository }}
           imagePullPolicy: {{ .Values.transformServices.transformCoreAio.image.pullPolicy | default "IfNotPresent" }}
           envFrom:
             - configMapRef:
@@ -45,7 +45,7 @@ spec:
               memory: "256Mi"
               cpu: "150m"
       imagePullSecrets:
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
 {{- end }}

@@ -1,17 +1,11 @@
-global:
+general:
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
-  podAnnotations:
-    exampleKey: exampleValueGlobal
-  imagePullSecrets:
-    - name: Joost
-    - name: Thijs
 
 ingress:
-  host: 'alfresco.joost.xenit.eu'
   protocol: 'https'
   ingressAnnotations:
     kubernetes.io/ingress.class: "nginx"
@@ -27,17 +21,12 @@ acs:
     enabled: false
   sharePort: '443'
   shareProtocol: 'https'
-  additionalEnvironmentVariables:
-    testVariable: testje
-  podAnnotations:
-    exampleKey2: "exampleValueLocal"
 
 digitalWorkspace:
   enabled: true
   replicaCount: 1
   image:
-    repository: 'quay.io/alfresco/alfresco-digital-workspace'
-    tag: '2.4.2-adw'
+    repository: 'quay.io/alfresco/alfresco-digital-workspace:2.4.2-adw'
   strategy:
     type: RollingUpdate
   basePath: "/workspace"
@@ -46,8 +35,7 @@ share:
   enabled: true
   replicaCount: 1
   image:
-    repository: 'xenit/alfresco-share-community'
-    tag: '7.0'
+    repository: 'xenit/alfresco-share-community:7.0'
   strategy:
     type: RollingUpdate
 
@@ -55,8 +43,7 @@ mq:
   enabled: true
   replicaCount: 1
   image:
-    repository: 'alfresco/alfresco-activemq'
-    tag: '5.16.1'
+    repository: 'alfresco/alfresco-activemq:5.16.1'
   strategy:
     type: RollingUpdate
 
@@ -71,8 +58,7 @@ solr:
   enabled: true
   replicaCount: 2
   image:
-    repository: 'hub.xenit.eu/alfresco-enterprise/alfresco-solr6'
-    tag: '2.0.2'
+    repository: 'hub.xenit.eu/alfresco-enterprise/alfresco-solr6:2.0.2'
   strategy:
     type: RollingUpdate
 
@@ -81,8 +67,7 @@ transformServices:
   sharedFileStore:
     replicaCount: 1
     image:
-      repository: 'quay.io/alfresco/alfresco-shared-file-store'
-      tag: '0.16.0'
+      repository: 'quay.io/alfresco/alfresco-shared-file-store:0.16.0'
     strategy:
       type: RollingUpdate
   transformCoreAio:
@@ -94,8 +79,7 @@ transformServices:
   transformRouter:
     replicaCount: 1
     image:
-      repository: 'quay.io/alfresco/alfresco-transform-router'
-    tag: '1.5.2'
+      repository: 'quay.io/alfresco/alfresco-transform-router:1.5.2'
     strategy:
       type: RollingUpdate
 
@@ -103,38 +87,38 @@ syncService:
   enabled: false
   replicaCount: 1
   image:
-    repository: 'hub.xenit.eu/customer-oup/dauntless-alfresco-sync-service'
+    repository: 'quay.io/alfresco/service-sync:3.4.0'
   strategy:
     type: RollingUpdate
 
 persistentStorage:
   alfresco:
     enabled: true
-    storageClassName: "scw-bssd" # Standard for local / scw-bssd for scaleway / efs-storage-class for efs
+    storageClassName: "" # Standard for local / scw-bssd for scaleway / efs-storage-class for efs
     storage: 3
     efs:
       volumeHandle: {}
   postgres:
     enabled: true
-    storageClassName: "scw-bssd"
+    storageClassName: ""
     storage: 2
     efs:
       volumeHandle: {}
   solr:
     enabled: true
-    storageClassName: "scw-bssd"
+    storageClassName: ""
     storage: 3
     efs:
       volumeHandle: {}
   sharedFileStore:
     enabled: true
-    storageClassName: "scw-bssd"
+    storageClassName: ""
     storage: 2
     efs:
       volumeHandle: {}
   mq:
     enabled: true
-    storageClassName: "scw-bssd"
+    storageClassName: ""
     storage: 1
     efs:
       volumeHandle: {}

@@ -5,7 +5,7 @@ metadata:
   name: acs
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.acs.podAnnotations }}
     {{ toYaml .Values.acs.podAnnotations | nindent 4 }}
     {{- end }}
@@ -20,7 +20,7 @@ spec:
     {{- if eq .Values.acs.strategy.type "Recreate" }}
     type: {{ .Values.acs.strategy.type }}
     {{- else }}
-    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
   {{- if .Values.acs.serviceAccount }}
   serviceAccountName: {{ .Values.acs.serviceAccount }}
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: acs-container
-        image: {{ required "An image for the ACS pod needs to be specified under acs.image.repository" .Values.acs.image.repository }}{{ if .Values.acs.image.tag }}:{{ .Values.acs.image.tag }}{{ end }}
+        image: {{ required "An image for the ACS pod needs to be specified under acs.image.repository" .Values.acs.image }}
         imagePullPolicy: {{ .Values.acs.image.pullPolicy | default "IfNotPresent" }}
         readinessProbe:
           failureThreshold: 6
@@ -92,6 +92,6 @@ spec:
             claimName: alfresco-pvc
       imagePullSecrets:
         - name: privatecred
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}

@@ -5,7 +5,7 @@ metadata:
   name: share
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.share.podAnnotations }}
     {{ toYaml .Values.share.podAnnotations | nindent 4 }}
     {{- end }}
@@ -20,7 +20,7 @@ spec:
     {{- if eq .Values.share.strategy.type "Recreate" }}
     type: {{ .Values.share.strategy.type }}
     {{- else }}
-    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
   {{- if .Values.share.serviceAccount }}
   serviceAccountName: {{ .Values.share.serviceAccount }}
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: share-container
-        image: {{ .Values.share.image.repository }}{{ if .Values.share.image.tag }}:{{ .Values.share.image.tag }}{{ end }}
+        image: {{ .Values.share.image.repository }}
         imagePullPolicy: {{ .Values.share.image.pullPolicy | default "IfNotPresent" }}
         lifecycle:
           preStop:
@@ -52,7 +52,7 @@ spec:
             memory: "250Mi"
             cpu: "0.5"
       imagePullSecrets:
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
 {{- end }}

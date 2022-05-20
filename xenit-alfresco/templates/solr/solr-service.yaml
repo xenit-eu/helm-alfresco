@@ -16,7 +16,7 @@ spec:
         protocol: TCP
         port: 8443
         targetPort: 8443
-  {{- if .Values.global.serviceType }}
-  type: {{ .Values.global.serviceType }}
+  {{- if .Values.general.serviceType }}
+  type: {{ .Values.general.serviceType }}
   {{- end }}
 {{- end }}

@@ -5,7 +5,7 @@ metadata:
   name: sync-service
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.syncService.podAnnotations }}
     {{ toYaml .Values.syncService.podAnnotations | nindent 4 }}
     {{- end }}
@@ -20,7 +20,7 @@ spec:
     {{- if eq .Values.syncService.strategy.type "Recreate" }}
     type: {{ .Values.syncService.strategy.type }}
     {{- else }}
-    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
   {{- if .Values.syncService.serviceAccount }}
   serviceAccountName: {{ .Values.syncService.serviceAccount }}
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: sync-service-container
-          image: {{ .Values.syncService.image.repository }}{{ if .Values.syncService.image.tag }}:{{ .Values.syncService.image.tag }}{{ end }}
+          image: {{ .Values.syncService.image.repository }}
           imagePullPolicy: {{ .Values.syncService.image.pullPolicy | default "IfNotPresent" }}
           livenessProbe:
             failureThreshold: 3
@@ -73,8 +73,8 @@ spec:
               memory: "2000Mi"
               cpu: "1"
       imagePullSecrets:
-        - name: privatecred
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        - name: alfrescocred
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
 {{- end }}

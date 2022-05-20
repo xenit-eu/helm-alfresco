@@ -5,7 +5,7 @@ metadata:
   name: postgresql
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.postgresql.podAnnotations }}
     {{ toYaml .Values.postgresql.podAnnotations | nindent 4 }}
     {{- end }}
@@ -20,7 +20,7 @@ spec:
     {{- if eq .Values.postgresql.strategy.type "Recreate" }}
     type: {{ .Values.postgresql.strategy.type }}
     {{- else }}
-    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
   {{- if .Values.postgresql.serviceAccount }}
   serviceAccountName: {{ .Values.postgresql.serviceAccount }}
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: postgresql-container
-        image: {{ .Values.postgresql.image.repository }}{{ if .Values.postgresql.image.tag }}:{{ .Values.postgresql.image.tag }}{{ end }}
+        image: {{ .Values.postgresql.image.repository }}
         imagePullPolicy: {{ .Values.postgresql.image.pullPolicy | default "IfNotPresent" }}
         envFrom:
           - configMapRef:
@@ -50,8 +50,8 @@ spec:
             subPath: postgres/data
       imagePullSecrets:
         - name: privatecred
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
       volumes:
         - name: data

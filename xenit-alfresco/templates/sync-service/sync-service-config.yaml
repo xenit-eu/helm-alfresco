@@ -8,7 +8,7 @@ metadata:
     app: sync-service
 data:
   JAVA_OPTS: -Dsql.db.driver={{ .Values.acs.dbDriver }} -Dsql.db.url={{ .Values.acs.dbUrl }}
-      -Dsql.db.username={{ .Values.global.dbUser }} -Dsql.db.password={{ .Values.global.dbPassword }} -Drepo.hostname=acs-service
+      -Dsql.db.username={{ .Values.general.dbUser }} -Dsql.db.password={{ .Values.general.dbPassword }} -Drepo.hostname=acs-service
       -Drepo.port=30000 -Dmessaging.broker.host=mq-service -Dmessaging.username={{ .Values.mq.adminLogin }}
       -Dmessaging.password={{ .Values.mq.adminPassword }} -Dmessaging.broker.port=61616 -Dmessaging.broker.protocol=tcp
       -Ddw.server.applicationConnectors[0].type=http -Dsync.metrics.reporter.graphite.enabled=false

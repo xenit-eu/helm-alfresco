@@ -14,9 +14,9 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 
 ## Configuration
 
-### Global
+### General
 
-#### `global.strategy`
+#### `general.strategy`
 
 * Required: false
 * Default: 
@@ -28,7 +28,7 @@ This helm chart supports a lot of features like share and desktop sync. You are 
   ```
 * Description: You can overwrite here the rollout strategy of deployments. This will be effective on ALL deployments in the helm chart that have strategy type RollingUpdate (default)
 
-#### `global.podAnnotations`
+#### `general.podAnnotations`
 
 * Required: false
 * Default: None
@@ -39,7 +39,7 @@ This helm chart supports a lot of features like share and desktop sync. You are 
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to ALL deployments and statefullSets
 
-#### `global.imagePullSecrets`
+#### `general.imagePullSecrets`
 
 * Required: false
 * Default: None
@@ -50,19 +50,19 @@ This helm chart supports a lot of features like share and desktop sync. You are 
   ```
 * Description: If you use an image that is hosted on a private repo besides the xenit repo or the quay alfresco repo you can create secrets on your cluster and reference them here. The secrets will be referenced in all Deployments and StatefullSets.
 
-#### `global.serviceType`
+#### `general.serviceType`
 
 * Required: false
 * Default: None
 * Description: will set a serviceType on the services that are exposed via an ingress. This might be useful for example when you are working on AWS infra with an AWS ALB which requires NodePort services
 
-#### `global.dbUser`
+#### `general.dbUser`
 
 * Required: true
 * Default: None
 * Description: Used in the ACS and SyncService pod to access the Database and to set the username of the rootuser of the postgres (if enabled)
 
-#### `global.dbPassword`
+#### `general.dbPassword`
 
 * Required: true
 * Default: None
@@ -105,13 +105,6 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Required: true
 * Default: None
 * Description: The repository of the docker image that will be used
-
-
-#### `acs.image.tag`
-
-* Required: false
-* Default: None
-* Description: The tag of the docker image that will be used
 
 #### `acs.image.pullPolicy`
 
@@ -212,15 +205,8 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 #### `digitalWorkspace.image.repository`
 
 * Required: true
-* Default: `quay.io/alfresco/alfresco-digital-workspace`
+* Default: `quay.io/alfresco/alfresco-digital-workspace:2.4.2-adw`
 * Description: The repository of the docker image that will be used
-
-
-#### `digitalWorkspace.image.tag`
-
-* Required: false
-* Default: `2.4.2-adw`
-* Description: The tag of the docker image that will be used
 
 #### `digitalWorkspace.image.pullPolicy`
 
@@ -285,15 +271,8 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 #### `share.image.repository`
 
 * Required: true
-* Default: `xenit/alfresco-share-community`
+* Default: `xenit/alfresco-share-community:7.0`
 * Description: The repository of the docker image that will be used
-
-
-#### `share.image.tag`
-
-* Required: false
-* Default: `7.0`
-* Description: The tag of the docker image that will be used
 
 #### `share.image.pullPolicy`
 
@@ -364,15 +343,8 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 #### `mq.image.repository`
 
 * Required: true
-* Default: `alfresco/alfresco-activemq`
+* Default: `alfresco/alfresco-activemq:5.16.1`
 * Description: The repository of the docker image that will be used
-
-
-#### `mq.image.tag`
-
-* Required: false
-* Default: `5.16.1`
-* Description: The tag of the docker image that will be used
 
 #### `mq.image.pullPolicy`
 
@@ -431,15 +403,8 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 #### `postgresql.image.repository`
 
 * Required: true
-* Default: `docker.io/xenit/postgres`
+* Default: `docker.io/xenit/postgres:9.6.23`
 * Description: The repository of the docker image that will be used
-
-
-#### `postgresql.image.tag`
-
-* Required: false
-* Default: `9.6.23`
-* Description: The tag of the docker image that will be used
 
 #### `postgresql.image.pullPolicy`
 
@@ -498,15 +463,8 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 #### `solr.image.repository`
 
 * Required: true
-* Default: `hub.xenit.eu/alfresco-enterprise/alfresco-solr6`
+* Default: `hub.xenit.eu/alfresco-enterprise/alfresco-solr6:2.0.2`
 * Description: The repository of the docker image that will be used
-
-
-#### `solr.image.tag`
-
-* Required: false
-* Default: `2.0.2`
-* Description: The tag of the docker image that will be used
 
 #### `solr.image.pullPolicy`
 
@@ -567,15 +525,8 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 #### `transformServices.sharedFileStore.image.repository`
 
 * Required: true
-* Default: `quay.io/alfresco/alfresco-shared-file-store`
+* Default: `quay.io/alfresco/alfresco-shared-file-store:0.16.0`
 * Description: The repository of the docker image that will be used
-
-
-#### `transformServices.sharedFileStore.image.tag`
-
-* Required: false
-* Default: `0.16.0`
-* Description: The tag of the docker image that will be used
 
 #### `transformServices.sharedFileStore.image.pullPolicy`
 
@@ -631,13 +582,6 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Default: `alfresco/alfresco-transform-core-aio`
 * Description: The repository of the docker image that will be used
 
-
-#### `transformServices.transformCoreAio.image.tag`
-
-* Required: false
-* Default: None
-* Description: The tag of the docker image that will be used
-
 #### `transformServices.transformCoreAio.image.pullPolicy`
 
 * Required: false
@@ -689,15 +633,8 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 #### `transformServices.transformRouter.image.repository`
 
 * Required: true
-* Default: `quay.io/alfresco/alfresco-transform-router`
+* Default: `quay.io/alfresco/alfresco-transform-router:1.5.2`
 * Description: The repository of the docker image that will be used
-
-
-#### `transformServices.transformRouter.image.tag`
-
-* Required: false
-* Default: `1.5.2`
-* Description: The tag of the docker image that will be used
 
 #### `transformServices.transformRouter.image.pullPolicy`
 
@@ -756,15 +693,8 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 #### `syncService.image.repository`
 
 * Required: true
-* Default: `docker.io/xenit/postgres`
+* Default: `quay.io/alfresco/service-sync:3.4.0`
 * Description: The repository of the docker image that will be used
-
-
-#### `syncService.image.tag`
-
-* Required: false
-* Default: `9.6.23`
-* Description: The tag of the docker image that will be used
 
 #### `syncService.image.pullPolicy`
 

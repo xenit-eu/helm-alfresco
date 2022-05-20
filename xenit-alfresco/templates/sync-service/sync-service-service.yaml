@@ -11,7 +11,7 @@ spec:
       - protocol: TCP
         port: 30400
         targetPort: 9090
-  {{- if .Values.global.serviceType }}
-  type: {{ .Values.global.serviceType }}
+  {{- if .Values.general.serviceType }}
+  type: {{ .Values.general.serviceType }}
   {{- end }}
 {{- end }}

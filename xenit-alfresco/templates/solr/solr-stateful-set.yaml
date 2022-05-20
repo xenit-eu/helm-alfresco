@@ -5,7 +5,7 @@ metadata:
   name: solr
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.solr.podAnnotations }}
     {{ toYaml .Values.solr.podAnnotations | nindent 4 }}
     {{- end }}
@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: solr-container
-        image: {{ .Values.solr.image.repository }}{{ if .Values.solr.image.tag }}:{{ .Values.solr.image.tag }}{{ end }}
+        image: {{ .Values.solr.image.repository }}
         imagePullPolicy: {{ .Values.solr.image.pullPolicy | default "IfNotPresent" }}
         lifecycle:
           postStart:
@@ -56,8 +56,8 @@ spec:
             subPath: solr/data
       imagePullSecrets:
         - name: privatecred
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
   {{- with .Values.persistentStorage.solr }}
   volumeClaimTemplates:
@@ -65,7 +65,9 @@ spec:
         name: data
       spec:
         accessModes: [ "ReadWriteOnce" ]
+        {{- if ne .storageClassName "" }}
         storageClassName: {{ required "If solr is enabled you need to provide what storage class should be used for the persistency in  persistentStorage.solr.storageClassName" .storageClassName }}
+        {{- end }}
         resources:
           requests:
             storage: {{ .storage }}Gi

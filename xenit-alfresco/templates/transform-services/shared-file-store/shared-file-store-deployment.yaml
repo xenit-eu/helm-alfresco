@@ -5,7 +5,7 @@ metadata:
   name: shared-file-store
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.transformServices.sharedFileStore.podAnnotations }}
     {{ toYaml .Values.transformServices.sharedFileStore.podAnnotations | nindent 4 }}
     {{- end }}
@@ -20,7 +20,7 @@ spec:
     {{- if eq .Values.transformServices.sharedFileStore.strategy.type "Recreate" }}
     type: {{ .Values.transformServices.sharedFileStore.strategy.type }}
     {{- else }}
-    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
   {{- if .Values.transformServices.sharedFileStore.serviceAccount }}
   serviceAccountName: {{ .Values.transformServices.sharedFileStore.serviceAccount }}
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: shared-file-store-container
-          image: {{ .Values.transformServices.sharedFileStore.image.repository }}{{ if .Values.transformServices.sharedFileStore.image.tag }}:{{ .Values.transformServices.sharedFileStore.image.tag }}{{ end }}
+          image: {{ .Values.transformServices.sharedFileStore.image.repository }}
           imagePullPolicy: {{ .Values.transformServices.sharedFileStore.image.pullPolicy | default "IfNotPresent" }}
           envFrom:
             - configMapRef:
@@ -48,8 +48,8 @@ spec:
               mountPath: /tmp/Alfresco
       imagePullSecrets:
         - name: alfrescocred
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
       volumes:
         - name: data

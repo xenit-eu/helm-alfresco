@@ -5,7 +5,7 @@ metadata:
   name: digital-workspace
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.digitalWorkspace.podAnnotations }}
     {{ toYaml .Values.digitalWorkspace.podAnnotations | nindent 4 }}
     {{- end }}
@@ -20,7 +20,7 @@ spec:
     {{- if eq .Values.digitalWorkspace.strategy.type "Recreate" }}
     type: {{ .Values.digitalWorkspace.strategy.type }}
     {{- else }}
-    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
   {{- if .Values.digitalWorkspace.serviceAccount }}
   serviceAccountName: {{ .Values.digitalWorkspace.serviceAccount }}
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: digital-workspace-container
-          image: {{ .Values.digitalWorkspace.image.repository }}{{ if .Values.digitalWorkspace.image.tag }}:{{ .Values.digitalWorkspace.image.tag }}{{ end }}
+          image: {{ .Values.digitalWorkspace.image.repository }}
           imagePullPolicy: {{ .Values.digitalWorkspace.image.pullPolicy | default "IfNotPresent" }}
           livenessProbe:
             failureThreshold: 4
@@ -66,7 +66,7 @@ spec:
               cpu: "150m"
       imagePullSecrets:
         - name: alfrescocred
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
 {{- end }}

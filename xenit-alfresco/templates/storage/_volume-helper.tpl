@@ -15,7 +15,9 @@ spec:
   resources:
     requests:
       storage: {{ $storage }}Gi
+  {{- if ne $storageClassName "" }}
   storageClassName: {{ $storageClassName }}
+  {{- end }}
 ---
 {{- if eq $storageClassName "standard" -}}
 apiVersion: v1
@@ -29,7 +31,9 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
+  {{- if ne $storageClassName "" }}
   storageClassName: {{ $storageClassName }}
+  {{- end }}
   claimRef:
     apiVersion: v1
     kind: PersistentVolumeClaim
@@ -52,7 +56,9 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
+  {{- if ne $storageClassName "" }}
   storageClassName: {{ $storageClassName }}
+  {{- end }}
 
   csi:
     driver: efs.csi.aws.com

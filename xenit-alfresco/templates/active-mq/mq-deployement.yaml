@@ -5,7 +5,7 @@ metadata:
   name: mq
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.mq.podAnnotations }}
     {{ toYaml .Values.mq.podAnnotations | nindent 4 }}
     {{- end }}
@@ -20,7 +20,7 @@ spec:
     {{- if eq .Values.mq.strategy.type "Recreate" }}
     type: {{ .Values.mq.strategy.type }}
     {{- else }}
-    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
   {{- if .Values.mq.serviceAccount }}
   serviceAccountName: {{ .Values.mq.serviceAccount }}
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: activemq
-          image: {{ .Values.mq.image.repository }}{{ if .Values.mq.image.tag }}:{{ .Values.mq.image.tag }}{{ end }}
+          image: {{ .Values.mq.image.repository }}
           imagePullPolicy: {{ .Values.mq.image.pullPolicy | default "IfNotPresent" }}
           envFrom:
             - configMapRef:
@@ -86,8 +86,8 @@ spec:
               mountPath: /opt/activemq/data
               subPath: mq/data
       imagePullSecrets:
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
       volumes:
         - name: data

@@ -1,5 +1,5 @@
-{{- define "globalAnnotations" }}
-{{- if .Values.global.podAnnotations }}
-{{ toYaml .Values.global.podAnnotations }}
+{{- define "globalPodAnnotations" }}
+{{- if .Values.general.podAnnotations }}
+{{ toYaml .Values.general.podAnnotations }}
 {{- end }}
 {{- end }}

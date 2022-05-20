@@ -5,7 +5,7 @@ metadata:
   name: transform-router
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- include "globalAnnotations" . | indent 4 }}
+    {{- include "globalPodAnnotations" . | indent 4 }}
     {{- if .Values.transformServices.transformRouter.podAnnotations }}
     {{ toYaml .Values.transformServices.transformRouter.podAnnotations | nindent 4 }}
     {{- end }}
@@ -20,7 +20,7 @@ spec:
     {{- if eq .Values.transformServices.transformRouter.strategy.type "Recreate" }}
     type: {{ .Values.transformServices.transformRouter.strategy.type }}
     {{- else }}
-    {{ toYaml .Values.global.strategy | nindent 4 }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
   {{- if .Values.transformServices.transformRouter.serviceAccount }}
   serviceAccountName: {{ .Values.transformServices.transformRouter.serviceAccount }}
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: transform-router-container
-          image: {{ .Values.transformServices.transformRouter.image.repository }}{{ if .Values.transformServices.transformRouter.image.tag }}:{{ .Values.transformServices.transformRouter.image.tag }}{{ end }}
+          image: {{ .Values.transformServices.transformRouter.image.repository }}
           imagePullPolicy: {{ .Values.transformServices.transformRouter.image.pullPolicy | default "IfNotPresent" }}
           livenessProbe:
             failureThreshold: 1
@@ -65,7 +65,7 @@ spec:
               memory: "128Mi"
       imagePullSecrets:
         - name: alfrescocred
-        {{- if .Values.global.imagePullSecrets}}
-        {{ toYaml .Values.global.imagePullSecrets | nindent 8 }}
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
 {{- end }}
