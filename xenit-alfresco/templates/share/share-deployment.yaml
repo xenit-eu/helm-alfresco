@@ -47,10 +47,17 @@ spec:
         ports:
           - containerPort: 8080
             protocol: TCP
+        {{- if or (.Values.share.resources.requests) ((.Values.share.resources.limits)) }}
         resources:
+          {{- if .Values.share.resources.requests }}
           requests:
-            memory: "250Mi"
-            cpu: "0.5"
+          {{ toYaml .Values.share.resources.requests | nindent 12 }}
+          {{- end }}
+          {{- if .Values.share.resources.limits }}
+          limits:
+          {{ toYaml .Values.share.resources.limits | nindent 12 }}
+          {{- end }}
+        {{- end }}
       imagePullSecrets:
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}

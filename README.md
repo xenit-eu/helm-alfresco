@@ -9,8 +9,20 @@ Make sure you have the following installed:
 Make sure that the cluster you are installing Alfresco on has the following
 * An ingress controller installed
 
-## Cluster Requirements
-This helm chart supports a lot of features like share and desktop sync. You are however yourself responsible to provide an ACS image with the correct amps installed to support these features
+## Image Requirements
+This helm chart supports a lot of features like share and desktop sync. You are however yourself responsible to provide an ACS image with the correct amps installed to support these features.
+Please note that this helm chart is build to support the xenit open source images. These are build on the official Alfresco Images but have additional K8S support.
+The deployments that rely on Xenit Images are the following:
+* acs
+* share
+* postgresql
+* solr
+
+For more information take a look at 
+
+* https://hub.docker.com/u/xenit
+* https://github.com/xenit-eu
+
 
 ## Configuration
 
@@ -105,7 +117,7 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 #### `acs.image.repository`
 
 * Required: true
-* Default: None
+* Default: xenit/alfresco-repository-community:7.2.0
 * Description: The repository of the docker image that will be used
 
 #### `acs.image.pullPolicy`
@@ -202,6 +214,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
+#### `acs.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "2Gi"
+    cpu: "2"
+  ```
+* Description: The resources a node should keep reserved for your pod
+* 
+#### `acs.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
+
 ### Digital Workspace
 
 #### `digitalWorkspace.enabled`
@@ -268,6 +297,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
+#### `digitalWorkspace.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "256Mi"
+    cpu: "150m"
+  ```
+* Description: The resources a node should keep reserved for your pod
+*
+#### `digitalWorkspace.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
+
 ### Share
 
 #### `share.enabled`
@@ -327,6 +373,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Required: false
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+
+#### `share.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "256Mi"
+    cpu: "0.5"
+  ```
+* Description: The resources a node should keep reserved for your pod
+*
+#### `share.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
 
 ### Active MQ
 
@@ -402,6 +465,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
+#### `mq.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "512Mi"
+    cpu: "0.5"
+  ```
+* Description: The resources a node should keep reserved for your pod
+*
+#### `mq.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
+
 ### PostgresQl
 
 #### `postgresql.enabled`
@@ -462,6 +542,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
+#### `postgresql.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "1Gi"
+    cpu: "1"
+  ```
+* Description: The resources a node should keep reserved for your pod
+
+#### `postgresql.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
+
 ### SOLR
 
 #### `solr.enabled`
@@ -521,6 +618,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Required: false
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+
+#### `solr.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "4Gi"
+    cpu: "1"
+  ```
+* Description: The resources a node should keep reserved for your pod
+*
+#### `solr.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
 
 ### Transform Services
 
@@ -584,6 +698,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
+#### `transformServices.sharedFileStore.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "512Mi"
+    cpu: "200mi"
+  ```
+* Description: The resources a node should keep reserved for your pod
+
+#### `transformServices.sharedFileStore.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
+
 ### Transform Core All In One
 
 #### `transformServices.transformCoreAio.replicaCount`
@@ -638,6 +769,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
+#### `transformServices.transformCoreAio.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "256Mi"
+    cpu: "150m"
+  ```
+* Description: The resources a node should keep reserved for your pod
+*
+#### `transformServices.transformCoreAio.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
+
 ### Transform Router
 
 #### `transformServices.transformRouter.replicaCount`
@@ -691,6 +839,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Required: false
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+
+#### `transformServices.transformRouter.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  ```
+* Description: The resources a node should keep reserved for your pod
+*
+#### `transformServices.transformRouter.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
 
 ### Sync Service
 
@@ -751,6 +916,23 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Required: false
 * Default: None
 * Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+
+#### `syncService.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "512Mi"
+    cpu: "0.5"
+  ```
+* Description: The resources a node should keep reserved for your pod
+*
+#### `syncService.resources.limits`
+
+* Required: false
+* Default: None
+* Description: The maximum resources a pod may consume from a node
 
 ### Persistent Storage
 

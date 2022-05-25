@@ -40,10 +40,17 @@ spec:
           ports:
             - containerPort: 8090
               protocol: TCP
+          {{- if or (.Values.transformServices.transformCoreAio.resources.requests) ((.Values.transformServices.transformCoreAio.resources.limits)) }}
           resources:
+            {{- if .Values.transformServices.transformCoreAio.resources.requests }}
             requests:
-              memory: "256Mi"
-              cpu: "150m"
+            {{ toYaml .Values.transformServices.transformCoreAio.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.transformServices.transformCoreAio.resources.limits }}
+            limits:
+            {{ toYaml .Values.transformServices.transformCoreAio.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
       imagePullSecrets:
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}

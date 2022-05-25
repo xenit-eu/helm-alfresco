@@ -60,10 +60,17 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
+          {{- if or (.Values.digitalWorkspace.resources.requests) ((.Values.digitalWorkspace.resources.limits)) }}
           resources:
+            {{- if .Values.digitalWorkspace.resources.requests }}
             requests:
-              memory: "256Mi"
-              cpu: "150m"
+            {{ toYaml .Values.digitalWorkspace.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.digitalWorkspace.resources.limits }}
+            limits:
+            {{ toYaml .Values.digitalWorkspace.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
       imagePullSecrets:
         - name: alfrescocred
         {{- if .Values.general.imagePullSecrets}}

@@ -60,9 +60,17 @@ spec:
           ports:
             - containerPort: 8095
               protocol: TCP
+          {{- if or (.Values.transformServices.transformRouter.resources.requests) ((.Values.transformServices.transformRouter.resources.limits)) }}
           resources:
+            {{- if .Values.transformServices.transformRouter.resources.requests }}
             requests:
-              memory: "128Mi"
+            {{ toYaml .Values.transformServices.transformRouter.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.transformServices.transformRouter.resources.limits }}
+            limits:
+            {{ toYaml .Values.transformServices.transformRouter.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
       imagePullSecrets:
         - name: alfrescocred
         {{- if .Values.general.imagePullSecrets}}

@@ -48,6 +48,17 @@ spec:
           - name: data
             mountPath: /var/lib/postgresql/data
             subPath: postgres/data
+        {{- if or (.Values.postgresql.resources.requests) ((.Values.postgresql.resources.limits)) }}
+        resources:
+          {{- if .Values.postgresql.resources.requests }}
+          requests:
+          {{ toYaml .Values.postgresql.resources.requests | nindent 12 }}
+          {{- end }}
+          {{- if .Values.postgresql.resources.limits }}
+          limits:
+          {{ toYaml .Values.postgresql.resources.limits | nindent 12 }}
+          {{- end }}
+        {{- end }}
       imagePullSecrets:
         - name: privatecred
         {{- if .Values.general.imagePullSecrets}}

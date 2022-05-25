@@ -77,10 +77,17 @@ spec:
             protocol: TCP
           - containerPort: 8443
             protocol: TCP
+        {{- if or (.Values.acs.resources.requests) ((.Values.acs.resources.limits)) }}
         resources:
-          requests:
-            memory: "2Gi"
-            cpu: "2"
+          {{- if .Values.acs.resources.requests }}
+            requests:
+            {{ toYaml .Values.acs.resources.requests | nindent 14 }}
+          {{- end }}
+          {{- if .Values.acs.resources.limits }}
+            limits:
+            {{ toYaml .Values.acs.resources.limits | nindent 14 }}
+          {{- end }}
+        {{- end }}
         volumeMounts:
           - name: data
             mountPath: /opt/alfresco/alf_data

@@ -62,11 +62,17 @@ spec:
             periodSeconds: 20
             failureThreshold: 1
             timeoutSeconds: 10
+          {{- if or (.Values.mq.resources.requests) ((.Values.mq.resources.limits)) }}
           resources:
+            {{- if .Values.mq.resources.requests }}
             requests:
-              memory: "512Mi"
+            {{ toYaml .Values.mq.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.mq.resources.limits }}
             limits:
-              memory: "2048Mi"
+            {{ toYaml .Values.mq.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
           volumeMounts:
             - name: data
               mountPath: /opt/activemq/data

@@ -40,9 +40,17 @@ spec:
           ports:
             - containerPort: 8099
               protocol: TCP
+          {{- if or (.Values.transformServices.sharedFileStore.resources.requests) ((.Values.transformServices.sharedFileStore.resources.limits)) }}
           resources:
+            {{- if .Values.transformServices.sharedFileStore.resources.requests }}
             requests:
-              memory: "1000Mi"
+            {{ toYaml .Values.transformServices.sharedFileStore.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.transformServices.sharedFileStore.resources.limits }}
+            limits:
+            {{ toYaml .Values.transformServices.sharedFileStore.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
           volumeMounts:
             - name: data
               mountPath: /tmp/Alfresco

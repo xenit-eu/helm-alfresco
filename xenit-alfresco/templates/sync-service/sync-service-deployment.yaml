@@ -70,10 +70,17 @@ spec:
           ports:
             - containerPort: 9090
               protocol: TCP
+          {{- if or (.Values.syncService.resources.requests) ((.Values.syncService.resources.limits)) }}
           resources:
+            {{- if .Values.syncService.resources.requests }}
             requests:
-              memory: "2000Mi"
-              cpu: "1"
+            {{ toYaml .Values.syncService.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.syncService.resources.limits }}
+            limits:
+            {{ toYaml .Values.syncService.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
       imagePullSecrets:
         - name: alfrescocred
         {{- if .Values.general.imagePullSecrets}}

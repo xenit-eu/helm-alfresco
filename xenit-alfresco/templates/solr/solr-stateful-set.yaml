@@ -47,9 +47,17 @@ spec:
             protocol: TCP
           - containerPort: 8443
             protocol: TCP
+        {{- if or (.Values.solr.resources.requests) ((.Values.solr.resources.limits)) }}
         resources:
+          {{- if .Values.solr.resources.requests }}
           requests:
-            memory: "2000Mi"
+          {{ toYaml .Values.solr.resources.requests | nindent 12 }}
+          {{- end }}
+          {{- if .Values.solr.resources.limits }}
+          limits:
+          {{ toYaml .Values.solr.resources.limits | nindent 12 }}
+          {{- end }}
+        {{- end }}
         volumeMounts:
           - name: data
             mountPath: /opt/alfresco-search-services/data
