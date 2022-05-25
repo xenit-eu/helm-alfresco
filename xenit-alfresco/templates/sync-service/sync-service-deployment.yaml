@@ -64,7 +64,9 @@ spec:
             - configMapRef:
                 name: sync-service-configmap
             - secretRef:
-                name: sync-service-secret
+                name: mq-secret
+            - secretRef:
+                name: db-secret
           ports:
             - containerPort: 9090
               protocol: TCP

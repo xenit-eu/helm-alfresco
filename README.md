@@ -56,17 +56,19 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Default: None
 * Description: will set a serviceType on the services that are exposed via an ingress. This might be useful for example when you are working on AWS infra with an AWS ALB which requires NodePort services
 
-#### `general.dbUser`
+#### `general.db.username`
 
-* Required: true
+* Required: false
 * Default: None
 * Description: Used in the ACS and SyncService pod to access the Database and to set the username of the rootuser of the postgres (if enabled)
+* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random user will be used.
 
-#### `general.dbPassword`
+#### `general.db.password`
 
-* Required: true
+* Required: false
 * Default: None
 * Description: Used in the ACS and SyncService pod to access the Database and to set the password of the rootuser of the postgres (if enabled)
+* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random password will be used.
 
 ### Ingress
 
@@ -147,6 +149,18 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 * Required: when `acs.s3Datastore.enabled` is `true`
 * Default: None
 * Description: Set the bucketLocation of the bucket you want to use
+
+#### `acs.s3Datastore.accessKey`
+
+* Required: when `acs.s3Datastore.enabled` is `true`
+* Default: None
+* Description: The accessKey of the S3 bucket - will be stored b64 encoded in a secret
+
+#### `acs.s3Datastore.secretKey`
+
+* Required: when `acs.s3Datastore.enabled` is `true`
+* Default: None
+* Description: Set the bucketLocation of the bucket - will be stored b64 encoded in a secret
 
 #### `acs.sharePort`
 
@@ -316,17 +330,19 @@ This helm chart supports a lot of features like share and desktop sync. You are 
 
 ### Active MQ
 
-#### `mq.adminlogin`
+#### `mq.adminLogin`
 
-* Required: when `mq.enabled` is `true`
+* Required: false
 * Default: None
 * Description: Sets the username of the admin user of the MQ
+* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random login will be used.
 
 #### `mq.adminPassword`
 
-* Required: when `mq.enabled` is `true`
+* Required: false
 * Default: None
 * Description: Sets the password of the admin user of the MQ
+* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random password will be used.
 
 #### `mq.enabled`
 

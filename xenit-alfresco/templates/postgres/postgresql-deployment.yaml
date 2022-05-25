@@ -38,7 +38,7 @@ spec:
           - configMapRef:
               name: postgresql-configmap
           - secretRef:
-              name: postgresql-secret
+              name: mq-secret
           - secretRef:
               name: db-secret
         ports:
