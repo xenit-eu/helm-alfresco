@@ -100,7 +100,7 @@ transformServices:
     resources:
       requests:
         memory: "512Mi"
-        cpu: "200mi"
+        cpu: "200m"
   transformCoreAio:
     replicaCount: 1
     image:
