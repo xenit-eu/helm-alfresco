@@ -1,0 +1,58 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transform-core-aio
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalPodAnnotations" . | indent 4 }}
+    {{- if .Values.transformServices.transformCoreAio.podAnnotations }}
+    {{ toYaml .Values.transformServices.transformCoreAio.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: transform-core-aio
+spec:
+  replicas: {{ .Values.transformServices.transformCoreAio.replicaCount }}
+  selector:
+    matchLabels:
+      app: transform-core-aio
+  strategy:
+    {{- if eq .Values.transformServices.transformCoreAio.strategy.type "Recreate" }}
+    type: {{ .Values.transformServices.transformCoreAio.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.transformServices.transformCoreAio.serviceAccount }}
+  serviceAccountName: {{ .Values.transformServices.transformCoreAio.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: transform-core-aio
+    spec:
+      containers:
+        - name: transform-core-aio-container
+          image: {{ .Values.transformServices.transformCoreAio.image.repository }}
+          imagePullPolicy: {{ .Values.transformServices.transformCoreAio.image.pullPolicy | default "IfNotPresent" }}
+          envFrom:
+            - configMapRef:
+                name: transform-core-aio-configmap
+          ports:
+            - containerPort: 8090
+              protocol: TCP
+          {{- if or (.Values.transformServices.transformCoreAio.resources.requests) ((.Values.transformServices.transformCoreAio.resources.limits)) }}
+          resources:
+            {{- if .Values.transformServices.transformCoreAio.resources.requests }}
+            requests:
+            {{ toYaml .Values.transformServices.transformCoreAio.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.transformServices.transformCoreAio.resources.limits }}
+            limits:
+            {{ toYaml .Values.transformServices.transformCoreAio.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
+      imagePullSecrets:
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+{{- end }}

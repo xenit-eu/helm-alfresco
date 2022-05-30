@@ -1,0 +1,89 @@
+{{- if .Values.syncService.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sync-service
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalPodAnnotations" . | indent 4 }}
+    {{- if .Values.syncService.podAnnotations }}
+    {{ toYaml .Values.syncService.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: sync-service
+spec:
+  replicas: {{ .Values.syncService.replicaCount }}
+  selector:
+    matchLabels:
+      app: sync-service
+  strategy:
+    {{- if eq .Values.syncService.strategy.type "Recreate" }}
+    type: {{ .Values.syncService.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.syncService.serviceAccount }}
+  serviceAccountName: {{ .Values.syncService.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: sync-service
+    spec:
+      containers:
+        - name: sync-service-container
+          image: {{ .Values.syncService.image.repository }}
+          imagePullPolicy: {{ .Values.syncService.image.pullPolicy | default "IfNotPresent" }}
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /alfresco/healthcheck
+              port: 9090
+              scheme: HTTP
+            initialDelaySeconds: 150
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 12
+            httpGet:
+              path: /alfresco/healthcheck
+              port: 9090
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /opt/alfresco-sync-service/sync_service_entrypoint.sh
+                  - stop
+          envFrom:
+            - configMapRef:
+                name: sync-service-configmap
+            - secretRef:
+                name: mq-secret
+            - secretRef:
+                name: db-secret
+          ports:
+            - containerPort: 9090
+              protocol: TCP
+          {{- if or (.Values.syncService.resources.requests) ((.Values.syncService.resources.limits)) }}
+          resources:
+            {{- if .Values.syncService.resources.requests }}
+            requests:
+            {{ toYaml .Values.syncService.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.syncService.resources.limits }}
+            limits:
+            {{ toYaml .Values.syncService.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
+      imagePullSecrets:
+        - name: alfrescocred
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+{{- end }}

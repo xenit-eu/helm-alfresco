@@ -1,0 +1,173 @@
+general:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  db: {}
+
+ingress:
+  protocol: 'https'
+  ingressAnnotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+
+acs:
+  replicaCount: 1
+  image:
+    repository: 'xenit/alfresco-repository-community:7.2.0'
+  strategy:
+    type: RollingUpdate
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "2"
+  dbUrl: 'jdbc:postgresql://postgresql-service:5432/alfresco'
+  dbDriver: 'org.postgresql.Driver'
+  s3Datastore:
+    enabled: false
+  sharePort: '443'
+  shareProtocol: 'https'
+
+digitalWorkspace:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: 'quay.io/alfresco/alfresco-digital-workspace:2.4.2-adw'
+  strategy:
+    type: RollingUpdate
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "150m"
+  basePath: "/workspace"
+
+share:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: 'xenit/alfresco-share-community:7.0'
+  strategy:
+    type: RollingUpdate
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "0.5"
+
+mq:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: 'alfresco/alfresco-activemq:5.16.1'
+  strategy:
+    type: RollingUpdate
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "0.5"
+
+postgresql:
+  enabled: true
+  image:
+    repository: 'docker.io/xenit/postgres'
+  strategy:
+    type: RollingUpdate
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "1"
+
+solr:
+  enabled: true
+  replicaCount: 2
+  image:
+    repository: 'hub.xenit.eu/alfresco-enterprise/alfresco-solr6:2.0.2'
+  strategy:
+    type: RollingUpdate
+  resources:
+    requests:
+      memory: "4Gi"
+      cpu: "1"
+
+transformServices:
+  enabled: true
+  sharedFileStore:
+    replicaCount: 1
+    image:
+      repository: 'quay.io/alfresco/alfresco-shared-file-store:0.16.0'
+    strategy:
+      type: RollingUpdate
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "200m"
+  transformCoreAio:
+    replicaCount: 1
+    image:
+      repository: 'alfresco/alfresco-transform-core-aio'
+    strategy:
+      type: RollingUpdate
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "150m"
+  transformRouter:
+    replicaCount: 1
+    image:
+      repository: 'quay.io/alfresco/alfresco-transform-router:1.5.2'
+    strategy:
+      type: RollingUpdate
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+
+syncService:
+  enabled: false
+  replicaCount: 1
+  image:
+    repository: 'quay.io/alfresco/service-sync:3.4.0'
+  strategy:
+    type: RollingUpdate
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "0.5"
+
+persistentStorage:
+  alfresco:
+    enabled: true
+    storageClassName: "" # Standard for local / scw-bssd for scaleway / efs-storage-class for efs
+    storage: 3
+    efs:
+      volumeHandle: {}
+  postgres:
+    enabled: true
+    storageClassName: ""
+    storage: 2
+    efs:
+      volumeHandle: {}
+  solr:
+    enabled: true
+    storageClassName: ""
+    storage: 3
+    efs:
+      volumeHandle: {}
+  sharedFileStore:
+    enabled: true
+    storageClassName: ""
+    storage: 2
+    efs:
+      volumeHandle: {}
+  mq:
+    enabled: true
+    storageClassName: ""
+    storage: 1
+    efs:
+      volumeHandle: {}
+
+imageCredentials:
+  private:
+    registry: 'hub.xenit.eu'
+  alfresco:
+    registry: 'quay.io'

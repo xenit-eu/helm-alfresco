@@ -1,0 +1,7 @@
+{{- if or (eq .Values.persistentStorage.alfresco.storageClassName "efs-storage-class") (eq .Values.persistentStorage.postgres.storageClassName "efs-storage-class") (eq .Values.persistentStorage.solr.storageClassName "efs-storage-class") (eq .Values.persistentStorage.sharedFileStore.storageClassName "efs-storage-class") -}}
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: efs-storage-class
+provisioner: efs.csi.aws.com
+{{- end }}

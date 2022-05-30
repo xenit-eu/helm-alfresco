@@ -1,0 +1,71 @@
+{{- if .Values.postgresql.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalPodAnnotations" . | indent 4 }}
+    {{- if .Values.postgresql.podAnnotations }}
+    {{ toYaml .Values.postgresql.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  strategy:
+    {{- if eq .Values.postgresql.strategy.type "Recreate" }}
+    type: {{ .Values.postgresql.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.postgresql.serviceAccount }}
+  serviceAccountName: {{ .Values.postgresql.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+      - name: postgresql-container
+        image: {{ .Values.postgresql.image.repository }}
+        imagePullPolicy: {{ .Values.postgresql.image.pullPolicy | default "IfNotPresent" }}
+        envFrom:
+          - configMapRef:
+              name: postgresql-configmap
+          - secretRef:
+              name: mq-secret
+          - secretRef:
+              name: db-secret
+        ports:
+          - containerPort: 5432
+            protocol: TCP
+        volumeMounts:
+          - name: data
+            mountPath: /var/lib/postgresql/data
+            subPath: postgres/data
+        {{- if or (.Values.postgresql.resources.requests) ((.Values.postgresql.resources.limits)) }}
+        resources:
+          {{- if .Values.postgresql.resources.requests }}
+          requests:
+          {{ toYaml .Values.postgresql.resources.requests | nindent 12 }}
+          {{- end }}
+          {{- if .Values.postgresql.resources.limits }}
+          limits:
+          {{ toYaml .Values.postgresql.resources.limits | nindent 12 }}
+          {{- end }}
+        {{- end }}
+      imagePullSecrets:
+        - name: privatecred
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+{{- end }}

@@ -1,0 +1,15 @@
+{{- if .Values.postgresql.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgresql-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: postgresql
+data:
+  POSTGRES_DB: 'alfresco'
+  RELEASE_NAME: postgresql
+  {{- if .Values.postgresql.additionalEnvironmentVariables }}
+  {{ toYaml .Values.postgresql.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}
+{{- end }}

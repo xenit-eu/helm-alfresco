@@ -1,0 +1,106 @@
+# Defines the deployment for the alfresco content repository app
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acs
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalPodAnnotations" . | indent 4 }}
+    {{- if .Values.acs.podAnnotations }}
+    {{ toYaml .Values.acs.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: acs
+spec:
+  replicas: {{ .Values.acs.replicaCount }}
+  selector:
+    matchLabels:
+      app: acs
+  strategy:
+    {{- if eq .Values.acs.strategy.type "Recreate" }}
+    type: {{ .Values.acs.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.acs.serviceAccount }}
+  serviceAccountName: {{ .Values.acs.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: acs
+    spec:
+      containers:
+      - name: acs-container
+        image: {{ required "An image for the ACS pod needs to be specified under acs.image.repository" .Values.acs.image.repository }}
+        imagePullPolicy: {{ .Values.acs.image.pullPolicy | default "IfNotPresent" }}
+        readinessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-ready-
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 60
+          periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 10
+        livenessProbe:
+          failureThreshold: 1
+          httpGet:
+            path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-live-
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 130
+          periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 10
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - sleep 20
+        envFrom:
+          - configMapRef:
+              name: acs-configmap
+          - secretRef:
+              name: acs-secret
+          - secretRef:
+              name: db-secret
+          - secretRef:
+              name: mq-secret
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 5701
+            protocol: TCP
+          - containerPort: 8443
+            protocol: TCP
+        {{- if or (.Values.acs.resources.requests) ((.Values.acs.resources.limits)) }}
+        resources:
+          {{- if .Values.acs.resources.requests }}
+            requests:
+            {{ toYaml .Values.acs.resources.requests | nindent 14 }}
+          {{- end }}
+          {{- if .Values.acs.resources.limits }}
+            limits:
+            {{ toYaml .Values.acs.resources.limits | nindent 14 }}
+          {{- end }}
+        {{- end }}
+        volumeMounts:
+          - name: data
+            mountPath: /opt/alfresco/alf_data
+            subPath: alfresco/data
+          - name: data
+            mountPath: /tmp/solr
+            subPath: solr/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: alfresco-pvc
+      imagePullSecrets:
+        - name: privatecred
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}

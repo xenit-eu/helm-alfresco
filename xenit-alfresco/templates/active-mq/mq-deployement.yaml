@@ -1,0 +1,102 @@
+{{- if .Values.mq.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mq
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalPodAnnotations" . | indent 4 }}
+    {{- if .Values.mq.podAnnotations }}
+    {{ toYaml .Values.mq.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: mq
+spec:
+  replicas: {{ .Values.mq.replicaCount }}
+  selector:
+    matchLabels:
+      app: mq
+  strategy:
+    {{- if eq .Values.mq.strategy.type "Recreate" }}
+    type: {{ .Values.mq.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.mq.serviceAccount }}
+  serviceAccountName: {{ .Values.mq.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: mq
+    spec:
+      containers:
+        - name: activemq
+          image: {{ .Values.mq.image.repository }}
+          imagePullPolicy: {{ .Values.mq.image.pullPolicy | default "IfNotPresent" }}
+          envFrom:
+            - configMapRef:
+                name: mq-configmap
+            - secretRef:
+                name: mq-secret
+          ports:
+            - name: stomp
+              containerPort: 61613
+            - name: openwire
+              containerPort: 61616
+            - name: amqp
+              containerPort: 5672
+            - name: web-console
+              containerPort: 8161
+          readinessProbe:
+            tcpSocket:
+              port: 61616
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            failureThreshold: 6
+            timeoutSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 61616
+            initialDelaySeconds: 130
+            periodSeconds: 20
+            failureThreshold: 1
+            timeoutSeconds: 10
+          {{- if or (.Values.mq.resources.requests) ((.Values.mq.resources.limits)) }}
+          resources:
+            {{- if .Values.mq.resources.requests }}
+            requests:
+            {{ toYaml .Values.mq.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.mq.resources.limits }}
+            limits:
+            {{ toYaml .Values.mq.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /opt/activemq/data
+              subPath: mq/data
+      initContainers:
+        - name: init-fs
+          image: "busybox:1.35.0"
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "5Mi"
+            limits:
+              memory: "10Mi"
+          command: [ "sh", "-c", "chown -R 33031:1000 /opt/activemq/data" ]
+          volumeMounts:
+            - name: data
+              mountPath: /opt/activemq/data
+              subPath: mq/data
+      imagePullSecrets:
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: mq-pvc
+{{- end }}

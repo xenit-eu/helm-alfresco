@@ -1,0 +1,79 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transform-router
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalPodAnnotations" . | indent 4 }}
+    {{- if .Values.transformServices.transformRouter.podAnnotations }}
+    {{ toYaml .Values.transformServices.transformRouter.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: transform-router
+spec:
+  replicas: {{ .Values.transformServices.transformRouter.replicaCount }}
+  selector:
+    matchLabels:
+      app: transform-router
+  strategy:
+    {{- if eq .Values.transformServices.transformRouter.strategy.type "Recreate" }}
+    type: {{ .Values.transformServices.transformRouter.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.transformServices.transformRouter.serviceAccount }}
+  serviceAccountName: {{ .Values.transformServices.transformRouter.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: transform-router
+    spec:
+      containers:
+        - name: transform-router-container
+          image: {{ .Values.transformServices.transformRouter.image.repository }}
+          imagePullPolicy: {{ .Values.transformServices.transformRouter.image.pullPolicy | default "IfNotPresent" }}
+          livenessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /actuator/health
+              port: 8095
+              scheme: HTTP
+            initialDelaySeconds: 140
+            periodSeconds: 120
+            successThreshold: 1
+            timeoutSeconds: 60
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/health
+              port: 8095
+              scheme: HTTP
+            initialDelaySeconds: 140
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 10
+          envFrom:
+            - configMapRef:
+                name: transform-router-configmap
+          ports:
+            - containerPort: 8095
+              protocol: TCP
+          {{- if or (.Values.transformServices.transformRouter.resources.requests) ((.Values.transformServices.transformRouter.resources.limits)) }}
+          resources:
+            {{- if .Values.transformServices.transformRouter.resources.requests }}
+            requests:
+            {{ toYaml .Values.transformServices.transformRouter.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.transformServices.transformRouter.resources.limits }}
+            limits:
+            {{ toYaml .Values.transformServices.transformRouter.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
+      imagePullSecrets:
+        - name: alfrescocred
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+{{- end }}

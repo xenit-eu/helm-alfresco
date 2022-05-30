@@ -1,0 +1,16 @@
+{{- if .Values.digitalWorkspace.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: digital-workspace-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: digital-workspace
+data:
+  BASE_PATH: {{ .Values.digitalWorkspace.basePath }}
+  API_URL: '{protocol}//{hostname}{:port}'
+  APP_CONFIG_AUTH_TYPE: 'BASIC'
+  {{- if .Values.digitalWorkspace.additionalEnvironmentVariables }}
+  {{ toYaml .Values.digitalWorkspace.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}
+{{- end }}

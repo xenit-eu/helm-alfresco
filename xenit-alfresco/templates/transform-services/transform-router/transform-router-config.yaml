@@ -1,0 +1,16 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: transform-router-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: transform-router
+data:
+  ACTIVEMQ_URL: "nio://mq-service:61616"
+  CORE_AIO_URL: "http://transform-core-aio-service:80"
+  FILE_STORE_URL: "http://shared-file-store-service:80/alfresco/api/-default-/private/sfs/versions/1/file"
+  {{- if .Values.transformServices.transformRouter.additionalEnvironmentVariables }}
+  {{ toYaml .Values.transformServices.transformRouter.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}
+{{- end }}

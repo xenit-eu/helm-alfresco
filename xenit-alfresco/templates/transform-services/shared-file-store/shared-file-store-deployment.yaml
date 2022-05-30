@@ -1,0 +1,66 @@
+{{- if .Values.transformServices.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shared-file-store
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalPodAnnotations" . | indent 4 }}
+    {{- if .Values.transformServices.sharedFileStore.podAnnotations }}
+    {{ toYaml .Values.transformServices.sharedFileStore.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: shared-file-store
+spec:
+  replicas: {{ .Values.transformServices.sharedFileStore.replicaCount }}
+  selector:
+    matchLabels:
+      app: shared-file-store
+  strategy:
+    {{- if eq .Values.transformServices.sharedFileStore.strategy.type "Recreate" }}
+    type: {{ .Values.transformServices.sharedFileStore.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.transformServices.sharedFileStore.serviceAccount }}
+  serviceAccountName: {{ .Values.transformServices.sharedFileStore.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: shared-file-store
+    spec:
+      containers:
+        - name: shared-file-store-container
+          image: {{ .Values.transformServices.sharedFileStore.image.repository }}
+          imagePullPolicy: {{ .Values.transformServices.sharedFileStore.image.pullPolicy | default "IfNotPresent" }}
+          envFrom:
+            - configMapRef:
+                name: shared-file-store-configmap
+          ports:
+            - containerPort: 8099
+              protocol: TCP
+          {{- if or (.Values.transformServices.sharedFileStore.resources.requests) ((.Values.transformServices.sharedFileStore.resources.limits)) }}
+          resources:
+            {{- if .Values.transformServices.sharedFileStore.resources.requests }}
+            requests:
+            {{ toYaml .Values.transformServices.sharedFileStore.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.transformServices.sharedFileStore.resources.limits }}
+            limits:
+            {{ toYaml .Values.transformServices.sharedFileStore.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /tmp/Alfresco
+      imagePullSecrets:
+        - name: alfrescocred
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: shared-file-store-pvc
+{{- end }}

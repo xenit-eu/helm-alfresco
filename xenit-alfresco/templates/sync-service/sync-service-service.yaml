@@ -1,0 +1,17 @@
+{{- if .Values.syncService.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: sync-service-service
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    app: sync-service
+  ports:
+      - protocol: TCP
+        port: 30400
+        targetPort: 9090
+  {{- if .Values.general.serviceType }}
+  type: {{ .Values.general.serviceType }}
+  {{- end }}
+{{- end }}

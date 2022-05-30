@@ -1,0 +1,17 @@
+{{- if .Values.solr.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: solr-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: solr
+data:
+  ALFRESCO_HOST: 'acs-service'
+  {{- if gt .Values.solr.replicaCount 1.0 }}
+  SHARDING.cluster.enabled: 'true'
+  {{- end }}
+  {{- if .Values.solr.additionalEnvironmentVariables }}
+  {{ toYaml .Values.solr.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}
+{{- end }}
