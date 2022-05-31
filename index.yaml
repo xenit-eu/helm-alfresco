@@ -3,12 +3,12 @@ entries:
   xenit-alfresco:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2022-05-31T16:05:38.1197417+02:00"
+    created: "2022-05-31T16:11:12.0888417+02:00"
     description: A Helm chart for Alfresco
     digest: b254ff134e15d51f18205ab93e1264c4d56d69dd4f2ee14e22350659082fc36d
     name: xenit-alfresco
     type: application
     urls:
-    - https://github.com/xenit-eu/xenit-k8s-alfresco/xenit-alfresco-0.1.0.tgz
+    - https://xenit-eu.github.io/xenit-k8s-alfresco/xenit-alfresco-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-31T16:05:38.0291045+02:00"
+generated: "2022-05-31T16:11:12.0782149+02:00"
