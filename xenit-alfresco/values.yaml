@@ -140,31 +140,31 @@ persistentStorage:
     storageClassName: "" # Standard for local / scw-bssd for scaleway / efs-storage-class for efs
     storage: 3
     efs:
-      volumeHandle: {}
+      volumeHandle: ""
   postgres:
     enabled: true
     storageClassName: ""
     storage: 2
     efs:
-      volumeHandle: {}
+      volumeHandle: ""
   solr:
     enabled: true
     storageClassName: ""
     storage: 3
     efs:
-      volumeHandle: {}
+      volumeHandle: ""
   sharedFileStore:
     enabled: true
     storageClassName: ""
     storage: 2
     efs:
-      volumeHandle: {}
+      volumeHandle: ""
   mq:
     enabled: true
     storageClassName: ""
     storage: 1
     efs:
-      volumeHandle: {}
+      volumeHandle: ""
 
 imageCredentials:
   private:
