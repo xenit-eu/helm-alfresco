@@ -19,8 +19,8 @@ data:
   GLOBAL_objectstorage.rootStore: 'myS3ContentStore'
   GLOBAL_objectstorage.stores: 'myS3ContentStore'
   GLOBAL_objectstorage.store.myS3ContentStore.type: 's3'
-  GLOBAL_objectstorage.store.myS3ContentStore.value.bucketName: {{ required "You must provide the bucketName in .Values.acs.s3Datastore.bucketName if s3 is enabled" quote .Values.acs.s3Datastore.bucketName }}
-  GLOBAL_objectstorage.store.myS3ContentStore.value.bucketLocation: {{ required "You must provide the bucketLocation in .Values.acs.s3Datastore.bucketLocation if s3 is enabled" quote .Values.acs.s3Datastore.bucketLocation }}
+  GLOBAL_objectstorage.store.myS3ContentStore.value.bucketName: {{ required "You must provide the bucketName in .Values.acs.s3Datastore.bucketName if s3 is enabled" .Values.acs.s3Datastore.bucketName }}
+  GLOBAL_objectstorage.store.myS3ContentStore.value.bucketLocation: {{ required "You must provide the bucketLocation in .Values.acs.s3Datastore.bucketLocation if s3 is enabled" .Values.acs.s3Datastore.bucketLocation }}
   {{- end }}
   {{- if .Values.syncService.enabled }}
   GLOBAL_dsync.service.uris: '{{ .Values.ingress.protocol }}://{{ .Values.ingress.syncServiceHost }}/alfresco'
