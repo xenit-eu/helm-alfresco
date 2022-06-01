@@ -88,17 +88,18 @@ spec:
             {{ toYaml .Values.acs.resources.limits | nindent 14 }}
           {{- end }}
         {{- end }}
+        {{- if .Values.persistentStorage.alfresco.enabled }}
         volumeMounts:
           - name: data
             mountPath: /opt/alfresco/alf_data
             subPath: alfresco/data
-          - name: data
-            mountPath: /tmp/solr
-            subPath: solr/data
+        {{- end }}
+      {{- if .Values.persistentStorage.alfresco.enabled }}
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: alfresco-pvc
+      {{- end }}
       imagePullSecrets:
         - name: privatecred
         {{- if .Values.general.imagePullSecrets}}

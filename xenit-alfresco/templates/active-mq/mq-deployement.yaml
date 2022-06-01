@@ -87,16 +87,20 @@ spec:
             limits:
               memory: "10Mi"
           command: [ "sh", "-c", "chown -R 33031:1000 /opt/activemq/data" ]
+          {{- if .Values.persistentStorage.mq.enabled }}
           volumeMounts:
             - name: data
               mountPath: /opt/activemq/data
               subPath: mq/data
+          {{- end }}
       imagePullSecrets:
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
+      {{- if .Values.persistentStorage.mq.enabled }}
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: mq-pvc
+      {{- end }}
 {{- end }}

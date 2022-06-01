@@ -44,10 +44,12 @@ spec:
         ports:
           - containerPort: 5432
             protocol: TCP
+        {{- if .Values.persistentStorage.postgres.enabled }}
         volumeMounts:
           - name: data
             mountPath: /var/lib/postgresql/data
             subPath: postgres/data
+        {{- end }}
         {{- if or (.Values.postgresql.resources.requests) ((.Values.postgresql.resources.limits)) }}
         resources:
           {{- if .Values.postgresql.resources.requests }}
@@ -64,8 +66,10 @@ spec:
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
+      {{- if .Values.persistentStorage.postgres.enabled }}
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: postgres-pvc
+      {{- end }}
 {{- end }}

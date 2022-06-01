@@ -51,16 +51,20 @@ spec:
             {{ toYaml .Values.transformServices.sharedFileStore.resources.limits | nindent 14 }}
             {{- end }}
           {{- end }}
+          {{- if .Values.persistentStorage.sharedFileStore.enabled }}
           volumeMounts:
             - name: data
               mountPath: /tmp/Alfresco
+          {{- end }}
       imagePullSecrets:
         - name: alfrescocred
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
         {{- end }}
+      {{- if .Values.persistentStorage.sharedFileStore.enabled }}
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: shared-file-store-pvc
+      {{- end }}
 {{- end }}
