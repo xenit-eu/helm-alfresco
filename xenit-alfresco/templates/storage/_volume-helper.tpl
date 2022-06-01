@@ -19,7 +19,7 @@ spec:
   storageClassName: {{ $storageClassName }}
   {{- end }}
 ---
-{{- if eq $storageClassName "standard" -}}
+{{- if eq $storageClassName "standard" }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -44,7 +44,7 @@ spec:
     type: DirectoryOrCreate
 {{- end }}
 ---
-{{- if eq $storageClassName "efs-storage-class" -}}
+{{- if eq $storageClassName "efs-storage-class" }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -59,7 +59,6 @@ spec:
   {{- if ne $storageClassName "" }}
   storageClassName: {{ $storageClassName }}
   {{- end }}
-
   csi:
     driver: efs.csi.aws.com
     volumeHandle: {{ $efsVolumeHandle }}
