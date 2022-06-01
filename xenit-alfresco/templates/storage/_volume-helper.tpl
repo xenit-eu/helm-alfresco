@@ -11,7 +11,7 @@ metadata:
   namespace: {{ $namespace | quote }}
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: {{ $storage }}Gi
