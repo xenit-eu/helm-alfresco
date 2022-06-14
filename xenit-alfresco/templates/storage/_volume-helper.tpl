@@ -11,7 +11,7 @@ metadata:
   namespace: {{ $namespace | quote }}
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: {{ $storage }}Gi
@@ -29,7 +29,7 @@ spec:
     storage: {{ $storage }}Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   {{- if ne $storageClassName "" }}
   storageClassName: {{ $storageClassName }}
@@ -54,7 +54,7 @@ spec:
     storage: {{ $storage }}Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   {{- if ne $storageClassName "" }}
   storageClassName: {{ $storageClassName }}

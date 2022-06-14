@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+metadata:
+  name: alfresco
+build:
+  local:
+    concurrency: 0
+deploy:
+  helm:
+    releases:
+      - name: alfresco
+        chartPath: xenit-alfresco
+        valuesFiles:
+          - local-values.yaml
