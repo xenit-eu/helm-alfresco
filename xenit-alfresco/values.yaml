@@ -5,6 +5,7 @@ general:
       maxSurge: 1
       maxUnavailable: 0
   db: {}
+  cni: Cilium
 
 ingress:
   protocol: 'https'

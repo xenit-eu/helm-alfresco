@@ -11,7 +11,11 @@ metadata:
   namespace: {{ $namespace | quote }}
 spec:
   accessModes:
+    {{- if eq $storageClassName "efs-storage-class" }}
+    - ReadWriteMany
+    {{- else }}
     - ReadWriteOnce
+    {{- end }}
   resources:
     requests:
       storage: {{ $storage }}Gi
@@ -54,7 +58,7 @@ spec:
     storage: {{ $storage }}Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   {{- if ne $storageClassName "" }}
   storageClassName: {{ $storageClassName }}

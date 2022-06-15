@@ -72,7 +72,11 @@ spec:
     - metadata:
         name: data
       spec:
+        {{- if eq .storageClassName "efs-storage-class" }}
+        accessModes: [ "ReadWriteMany" ]
+        {{- else }}
         accessModes: [ "ReadWriteOnce" ]
+        {{- end }}
         {{- if ne .storageClassName "" }}
         storageClassName: {{ required "If solr is enabled you need to provide what storage class should be used for the persistency in  persistentStorage.solr.storageClassName" .storageClassName }}
         {{- end }}
