@@ -72,7 +72,7 @@ spec:
     - metadata:
         name: data
       spec:
-        accessModes: [ "ReadWriteMany" ]
+        accessModes: [ "ReadWriteOnce" ]
         {{- if ne .storageClassName "" }}
         storageClassName: {{ required "If solr is enabled you need to provide what storage class should be used for the persistency in  persistentStorage.solr.storageClassName" .storageClassName }}
         {{- end }}

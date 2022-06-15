@@ -3,12 +3,40 @@
 ## Dev Requirements
 Make sure you have the following installed:
 * Kubectl: https://kubernetes.io/docs/tasks/tools/#kubectl
+* docker: https://www.docker.com/get-started/
 * Helm: https://helm.sh/docs/intro/install/
+* kind: https://kind.sigs.k8s.io/docs/user/quick-start/
+* skaffold: https://skaffold.dev/docs/install/
 
-## Cluster Requirements
-Make sure that the cluster you are installing Alfresco on has the following
-* An ingress controller installed
+## Start Local Cluster
+* To start the cluster you have to create one using kind with the config file as a parameter that is under the directory kind: 
+  ```
+  kind create cluster --config=kind/config.yaml
+  ```
+* switch to kind-kind context :
+  ```
+  kubectl config use-context kind-kind
+  ```
+* Add An ingress controller by running this command after starting the cluster:
+  ```
+  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+  ```
 
+* set up the credentials in local_values.yaml for LDAP and alfresco
+* wait for the ingress controller to be ready you can check by running this command :
+  ```
+  kubectl wait --namespace ingress-nginx   --for=condition=ready pod   --selector=app.kubernetes.io/component=controller  --timeout=90s
+  ```
+* some the services are disabled by default to minimize the resource usage such as :
+  - solr
+  - transformServices
+  - digitalWorkspace
+  
+  to enable them modify the values inside local-values.yaml
+* finally, run skaffold (instead of helm) and wait for the ingress controller to be ready first: 
+  ```
+  skaffold dev
+  ``` 
 ## Image Requirements
 This helm chart supports a lot of features like share and desktop sync. You are however yourself responsible to provide an ACS image with the correct amps installed to support these features.
 Please note that this helm chart is build to support the xenit open source images. These are build on the official Alfresco Images but have additional K8S support.

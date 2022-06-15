@@ -1,0 +1,27 @@
+ingress:
+  host: test
+  protocol: http
+  kubernetes.io/ingress.class: {}
+imageCredentials:
+  private:
+    username: #!Important: add your LDAP user name and do not commit them 
+    password: #!Important: add your LDAP password and do not commit them 
+  alfresco:
+    username: #!Important: add your alfresco user name and do not commit them 
+    password: #!Important: add your alfresco password and do not commit them 
+acs:
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "1"
+mq:
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "1"
+solr:
+  enabled: false
+transformServices:
+  enabled: false
+digitalWorkspace:
+  enabled: false
