@@ -20,6 +20,7 @@ data:
   GLOBAL_objectstorage.stores: 'myS3ContentStore'
   GLOBAL_objectstorage.store.myS3ContentStore.type: 's3'
   GLOBAL_objectstorage.store.myS3ContentStore.value.bucketName: {{ required "You must provide the bucketName in .Values.acs.s3Datastore.bucketName if s3 is enabled" .Values.acs.s3Datastore.bucketName }}
+  GLOBAL_objectstorage.store.myS3ContentStore.value.endpoint: {{ required "You must provide the bucketEndpoint in .Values.acs.s3Datastore.bucketEndpoint if s3 is enabled" .Values.acs.s3Datastore.bucketEndpoint }}
   GLOBAL_objectstorage.store.myS3ContentStore.value.bucketLocation: {{ required "You must provide the bucketLocation in .Values.acs.s3Datastore.bucketLocation if s3 is enabled" .Values.acs.s3Datastore.bucketLocation }}
   {{- end }}
   {{- if .Values.syncService.enabled }}
