@@ -154,6 +154,36 @@ For more information take a look at
 * Default: `IfNotPresent`
 * Description: Specify when the pods should pull the image from the repositories
 
+#### `acs.livenessProbe.failureThreshold`
+
+* Required: false
+* Default: 1
+* Description: Specify the livenessProbe failure threshhold fp how many consecutive failure before it stops probing
+
+#### `acs.livenessProbe.initialDelaySeconds`
+
+* Required: false
+* Default: 130
+* Description: Specify the livenessProbe intitial delay before it starts probing
+
+#### `acs.livenessProbe.periodSeconds`
+
+* Required: false
+* Default: 20
+* Description: Specify the livenessProbe period between probes
+
+#### `acs.livenessProbe.successThreshold`
+
+* Required: false
+* Default: 1
+* Description: Specify the livenessProbe success threshhold for how many consecutive successes for the probe to be considered successful after having failed
+
+#### `acs.livenessProbe.timeoutSeconds`
+
+* Required: false
+* Default: 10
+* Description: Specify the livenessProbe timeout for probes to be considered as failure
+
 #### `acs.strategy.type`
 
 * Required: false

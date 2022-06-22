@@ -45,15 +45,15 @@ spec:
           successThreshold: 1
           timeoutSeconds: 10
         livenessProbe:
-          failureThreshold: 1
+          failureThreshold: {{ .Values.acs.livenessProbe.failureThreshold }}
           httpGet:
             path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-live-
             port: 8080
             scheme: HTTP
-          initialDelaySeconds: 130
-          periodSeconds: 20
-          successThreshold: 1
-          timeoutSeconds: 10
+          initialDelaySeconds: {{ .Values.acs.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.acs.livenessProbe.periodSeconds }}
+          successThreshold: {{ .Values.acs.livenessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.acs.livenessProbe.timeoutSeconds }}
         lifecycle:
           preStop:
             exec:

@@ -28,6 +28,12 @@ acs:
     enabled: false
   sharePort: '443'
   shareProtocol: 'https'
+  livenessProbe:
+    failureThreshold: 1
+    initialDelaySeconds: 130
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 10
 
 digitalWorkspace:
   enabled: true
