@@ -1,0 +1,15 @@
+{{- if eq .Values.general.cni "cilium" }}
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-to-hearbeat
+spec:
+  description: "Allow ACS to send to heartbeat"
+  endpointSelector:
+    matchLabels:
+      app: acs
+  egress:
+    - toFQDNs:
+        - matchName: hbrx.alfresco.com
+{{- end }}
