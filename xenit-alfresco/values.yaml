@@ -6,6 +6,8 @@ general:
       maxUnavailable: 0
   db: {}
   cni: cilium
+  networkPolicies:
+    enabled: true
 
 ingress:
   protocol: 'https'

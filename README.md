@@ -110,12 +110,18 @@ For more information take a look at
 * Description: Used in the ACS and SyncService pod to access the Database and to set the password of the rootuser of the postgres (if enabled)
 * Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random password will be used.
 
+#### `general.networkPolicies.enabled`
+
+* Required: false
+* Default: true
+* Description: A field to enabled/disable network policies.
+
 #### `general.cni`
 
 * Required: false
 * Default: cilium
 * Description: A field to tell the helm chart what cni provider your cluster is using. By default we assume cilium. If this is not the case you will need to add a network policy to allow the following
-  * Alfresco to access heartbeat
+* Alfresco to access heartbeat
 
 ### Ingress
 
