@@ -110,13 +110,13 @@ For more information take a look at
 * Description: Used in the ACS and SyncService pod to access the Database and to set the password of the rootuser of the postgres (if enabled)
 * Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random password will be used.
 
-#### `general.networkPolicy.enabled`
+#### `general.networkPolicies.enabled`
 
 * Required: false
 * Default: true
 * Description: A field to enabled/disable network policies.
 
-#### `general.networkPolicy.cni`
+#### `general.cni`
 
 * Required: false
 * Default: cilium
