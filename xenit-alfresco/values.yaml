@@ -37,6 +37,12 @@ acs:
     periodSeconds: 20
     successThreshold: 1
     timeoutSeconds: 10
+  readinessProbe:
+    failureThreshold: 6
+    initialDelaySeconds: 60
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 10
 
 digitalWorkspace:
   enabled: true
