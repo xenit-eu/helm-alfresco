@@ -113,8 +113,8 @@ For more information take a look at
 #### `general.cni`
 
 * Required: false
-* Default: Cilium
-* Description: A field to tell the helm chart what cni provider your cluster is using. By default we assume Cilium. If this is not the case you will need to add a network policy to allow the following
+* Default: cilium
+* Description: A field to tell the helm chart what cni provider your cluster is using. By default we assume cilium. If this is not the case you will need to add a network policy to allow the following
   * Alfresco to access heartbeat
 
 ### Ingress
