@@ -171,13 +171,13 @@ For more information take a look at
 
 * Required: false
 * Default: 1
-* Description: Specify the livenessProbe failure threshhold fp how many consecutive failure before it stops probing
+* Description: Specify the livenessProbe failure thresh hold fp how many consecutive failure before it stops probing
 
 #### `acs.livenessProbe.initialDelaySeconds`
 
 * Required: false
 * Default: 130
-* Description: Specify the livenessProbe intitial delay before it starts probing
+* Description: Specify the livenessProbe initial delay before it starts probing
 
 #### `acs.livenessProbe.periodSeconds`
 
@@ -189,13 +189,43 @@ For more information take a look at
 
 * Required: false
 * Default: 1
-* Description: Specify the livenessProbe success threshhold for how many consecutive successes for the probe to be considered successful after having failed
+* Description: Specify the livenessProbe success thresh hold for how many consecutive successes for the probe to be considered successful after having failed
 
 #### `acs.livenessProbe.timeoutSeconds`
 
 * Required: false
 * Default: 10
 * Description: Specify the livenessProbe timeout for probes to be considered as failure
+
+#### `acs.readinessProbe.failureThreshold`
+
+* Required: false
+* Default: 6
+* Description: Specify the readinessProbe failure thresh hold fp how many consecutive failure before it stops probing
+
+#### `acs.readinessProbe.initialDelaySeconds`
+
+* Required: false
+* Default: 60
+* Description: Specify the readinessProbe initial delay before it starts probing
+
+#### `acs.readinessProbe.periodSeconds`
+
+* Required: false
+* Default: 20
+* Description: Specify the readinessProbe period between probes
+
+#### `acs.readinessProbe.successThreshold`
+
+* Required: false
+* Default: 1
+* Description: Specify the readinessProbe success thresh hold for how many consecutive successes for the probe to be considered successful after having failed
+
+#### `acs.readinessProbe.timeoutSeconds`
+
+* Required: false
+* Default: 10
+* Description: Specify the readinessProbe timeout for probes to be considered as failure
 
 #### `acs.strategy.type`
 

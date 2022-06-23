@@ -35,15 +35,15 @@ spec:
         image: {{ required "An image for the ACS pod needs to be specified under acs.image.repository" .Values.acs.image.repository }}
         imagePullPolicy: {{ .Values.acs.image.pullPolicy | default "IfNotPresent" }}
         readinessProbe:
-          failureThreshold: 6
+          failureThreshold: {{ .Values.acs.readinessProbe.failureThreshold }}
           httpGet:
             path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-ready-
             port: 8080
             scheme: HTTP
-          initialDelaySeconds: 60
-          periodSeconds: 20
-          successThreshold: 1
-          timeoutSeconds: 10
+          initialDelaySeconds: {{ .Values.acs.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.acs.readinessProbe.periodSeconds }}
+          successThreshold: {{ .Values.acs.readinessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.acs.readinessProbe.timeoutSeconds }}
         livenessProbe:
           failureThreshold: {{ .Values.acs.livenessProbe.failureThreshold }}
           httpGet:
