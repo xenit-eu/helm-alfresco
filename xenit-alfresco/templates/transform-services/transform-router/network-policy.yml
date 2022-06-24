@@ -34,4 +34,21 @@ spec:
             matchLabels:
               app: mq
 ---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: tranform-router-from-acs
+spec:
+  podSelector:
+    matchLabels:
+      app: transform-router
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: acs
+---
 {{- end }}
