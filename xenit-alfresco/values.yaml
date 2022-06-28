@@ -148,7 +148,19 @@ syncService:
     requests:
       memory: "512Mi"
       cpu: "0.5"
-
+      
+ooi:
+  enabled: false
+  replicaCount: 1
+  image:
+    repository: 'quay.io/alfresco/alfresco-ooi-service:1.1.2'
+  strategy:
+    type: RollingUpdate
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+        
 persistentStorage:
   alfresco:
     enabled: true

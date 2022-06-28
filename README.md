@@ -1033,6 +1033,83 @@ For more information take a look at
 
 * Required: false
 * Default: None
+* Description: The maximum resources a pod may consume from a node### Sync Service
+
+### Office Online Integration(OOI)
+
+#### `ooi.enabled`
+
+* Required: false
+* Default: `false`
+* Description: Enable or disable the Office Online Integration
+
+#### `ooi.replicaCount`
+
+* Required: false
+* Default: `1`
+* Description: The number of pods that will be running
+
+#### `ooi.image.repository`
+
+* Required: false
+* Default: `quay.io/alfresco/alfresco-ooi-service:1.1.2`
+* Description: The repository of the docker image that will be used
+
+#### `ooi.image.pullPolicy`
+
+* Required: false
+* Default: `IfNotPresent`
+* Description: Specify when the pods should pull the image from the repositories
+
+#### `ooi.strategy.type`
+
+* Required: false
+* Default: `RollingUpdate`
+* Description: Can be set to `Recreate` if you want all your pods to be killed before new ones are created
+
+#### `ooi.additionalEnvironmentVariables`
+
+* Required: false
+* Default: None
+* Example:
+  ```
+  environmentVariable1Key: environmentVariable1Value
+  environmentVariable2Key: environmentVariable2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+
+#### `ooi.podAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Office Online Integration deployment
+
+#### `ooi.serviceAccount`
+
+* Required: false
+* Default: None
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+
+#### `ooi.resources.requests`
+
+* Required: false
+* Default:
+  ```
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  ```
+* Description: The resources a node should keep reserved for your pod
+*
+#### `ooi.resources.limits`
+
+* Required: false
+* Default: None
 * Description: The maximum resources a pod may consume from a node
 
 ### Persistent Storage

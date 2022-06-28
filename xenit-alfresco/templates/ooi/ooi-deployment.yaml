@@ -1,0 +1,75 @@
+{{- if .Values.ooi.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ooi
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- include "globalPodAnnotations" . | indent 4 }}
+    {{- if .Values.ooi.podAnnotations }}
+    {{ toYaml .Values.ooi.podAnnotations | nindent 4 }}
+    {{- end }}
+  labels:
+    app: ooi
+spec:
+  replicas: {{ .Values.ooi.replicaCount }}
+  selector:
+    matchLabels:
+      app: ooi
+  strategy:
+    {{- if eq .Values.ooi.strategy.type "Recreate" }}
+    type: {{ .Values.ooi.strategy.type }}
+    {{- else }}
+    {{ toYaml .Values.general.strategy | nindent 4 }}
+    {{- end }}
+  {{- if .Values.ooi.serviceAccount }}
+  serviceAccountName: {{ .Values.ooi.serviceAccount }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: ooi
+    spec:
+      containers:
+        - name: ooi-container
+          image: {{ .Values.ooi.image.repository }}
+          imagePullPolicy: {{ .Values.ooi.image.pullPolicy | default "IfNotPresent" }}
+          livenessProbe:
+            tcpSocket:
+              port: 9095
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 9095
+            failureThreshold: 1
+            initialDelaySeconds: 20
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 10
+          envFrom:
+            - configMapRef:
+                name: ooi-configmap
+          ports:
+            - containerPort: 9095
+              protocol: TCP
+          {{- if or (.Values.ooi.resources.requests) ((.Values.ooi.resources.limits)) }}
+          resources:
+            {{- if .Values.ooi.resources.requests }}
+            requests:
+            {{ toYaml .Values.ooi.resources.requests | nindent 14 }}
+            {{- end }}
+            {{- if .Values.ooi.resources.limits }}
+            limits:
+            {{ toYaml .Values.ooi.resources.limits | nindent 14 }}
+            {{- end }}
+          {{- end }}
+      imagePullSecrets:
+        - name: alfrescocred
+        {{- if .Values.general.imagePullSecrets}}
+        {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+{{- end }}

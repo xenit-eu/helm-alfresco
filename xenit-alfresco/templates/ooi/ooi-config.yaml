@@ -1,0 +1,14 @@
+{{- if .Values.ooi.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ooi-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: ooi
+data:
+  JAVA_OPTS: "-Xms256m -Xmx512m -Dalfresco.base-url={{ .Values.ingress.protocol }}://{{ .Values.ingress.host }}"
+  {{- if .Values.ooi.additionalEnvironmentVariables }}
+  {{ toYaml .Values.ooi.additionalEnvironmentVariables | nindent 2 }}
+  {{- end }}
+{{- end }}
