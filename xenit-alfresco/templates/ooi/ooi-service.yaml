@@ -1,0 +1,17 @@
+{{- if .Values.ooi.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: ooi-service
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    app: ooi
+  ports:
+    - protocol: TCP
+      port: 30500
+      targetPort: 9095
+  {{- if .Values.general.serviceType }}
+  type: {{ .Values.general.serviceType }}
+  {{- end }}
+{{- end }}
