@@ -1040,7 +1040,7 @@ For more information take a look at
 #### `ooi.enabled`
 
 * Required: false
-* Default: `true`
+* Default: `false`
 * Description: Enable or disable the Office Online Integration
 
 #### `ooi.replicaCount`
@@ -1051,7 +1051,7 @@ For more information take a look at
 
 #### `ooi.image.repository`
 
-* Required: true
+* Required: false
 * Default: `quay.io/alfresco/alfresco-ooi-service:1.1.2`
 * Description: The repository of the docker image that will be used
 
