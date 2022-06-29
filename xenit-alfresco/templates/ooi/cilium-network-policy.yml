@@ -1,0 +1,16 @@
+{{- if and (.Values.general.networkPolicies.enabled) (eq .Values.general.cni "cilium") }}
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: ooi-graph-microsoft
+spec:
+  description: "Allow ooi to access to microsoft graph"
+  endpointSelector:
+    matchLabels:
+      app: ooi
+  egress:
+    - toFQDNs:
+        - matchName: "graph.microsoft.com"
+        - matchPattern: "*.sharepoint.com"
+{{- end }}
