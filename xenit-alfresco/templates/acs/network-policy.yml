@@ -169,4 +169,22 @@ spec:
         - podSelector:
             matchLabels:
               app: shared-file-store
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-from-ooi
+spec:
+  podSelector:
+    matchLabels:
+      app: acs
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: ooi
+---
 {{- end }}
