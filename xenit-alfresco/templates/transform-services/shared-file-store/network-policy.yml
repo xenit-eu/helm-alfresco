@@ -1,0 +1,20 @@
+{{- if .Values.general.networkPolicies.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: shared-file-store-from-acs
+spec:
+  podSelector:
+    matchLabels:
+      app: shared-file-store
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: acs
+---
+{{- end }}
