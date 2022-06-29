@@ -147,6 +147,22 @@ For more information take a look at
   ```
 * Description: Annotations for ingress
 
+
+#### `ingress.additionalPaths`
+
+* Required: false
+* Default: None
+* Example:
+```
+- path: /service-path
+  pathType: Prefix
+  backend:
+    service:
+      name: service-name
+        port:
+          number: service-port
+```
+* Description: used to add more path to ingress under the same host name for new services
 ### ACS
 
 #### `acs.replicaCount`
