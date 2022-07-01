@@ -1,0 +1,23 @@
+name: 'Continuous Integration'
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'xenit-alfresco/**'
+    branches:
+      - main
+jobs:
+  continuousIntegration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Package Helm Chart
+        uses: wahyd4/kubectl-helm-action@master
+        run: |
+          helm package xenit-alfresco
+          helm repo index --url https://xenit-eu.github.io/xenit-k8s-alfresco/ .
+      - name: Commit new formatted code
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "${{ github.event.pull_request.head.ref }} : Package Helm Chart"
