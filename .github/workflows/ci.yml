@@ -14,9 +14,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Package Helm Chart
         uses: wahyd4/kubectl-helm-action@master
-        run: |
-          helm package xenit-alfresco
-          helm repo index --url https://xenit-eu.github.io/xenit-k8s-alfresco/ .
+        with:
+          args: |
+            helm package xenit-alfresco
+            helm repo index --url https://xenit-eu.github.io/xenit-k8s-alfresco/ .
       - name: Commit new formatted code
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
