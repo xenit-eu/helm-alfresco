@@ -12,12 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Install Helm
+        uses: azure/setup-helm@v1
       - name: Package Helm Chart
-        uses: wahyd4/kubectl-helm-action@master
-        with:
-          args: |
-            helm package xenit-alfresco
-            helm repo index --url https://xenit-eu.github.io/xenit-k8s-alfresco/ .
+        run: |
+          helm package xenit-alfresco
+          helm repo index --url https://xenit-eu.github.io/xenit-k8s-alfresco/ .
       - name: Commit new formatted code
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
