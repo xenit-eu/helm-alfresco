@@ -1,6 +1,6 @@
 apiVersion: v2
-name: xenit-alfresco
-description: A Helm chart for Alfresco
+name: alfresco
+description: A Helm chart for Alfresco managed by Xenit Solutions
 
 # A chart can be either an 'application' or a 'library' chart.
 #
