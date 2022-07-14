@@ -8,6 +8,15 @@ general:
   cni: cilium
   networkPolicies:
     enabled: true
+  secrets:
+    acs:
+      selfManaged: false
+    mq:
+      selfManaged: false
+    db:
+      selfManaged: false
+    imageCredentials:
+      selfManaged: false
 
 ingress:
   protocol: 'https'

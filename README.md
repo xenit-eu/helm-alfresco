@@ -123,6 +123,54 @@ For more information take a look at
 * Description: A field to tell the helm chart what cni provider your cluster is using. By default we assume cilium. If this is not the case you will need to add a network policy to allow the following
 * Alfresco to access heartbeat
 
+#### `general.secrets.acs.selfManaged`
+
+* Required: false
+* Default: false
+* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
+* Please note that when you enable this you are yourself responsible to provide a secret acs-secret in the namespace that you will install this chart in.
+* Secret data expected:
+```
+  GLOBAL_objectstorage.store.myS3ContentStore.value.accessKey
+  GLOBAL_objectstorage.store.myS3ContentStore.value.secretKey
+```
+
+#### `general.secrets.mq.selfManaged`
+
+* Required: false
+* Default: false
+* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
+* Please note that when you enable this you are yourself responsible to provide a secret mq-secret in the namespace that you will install this chart in.
+* Secret data expected:
+```
+  ACTIVEMQ_ADMIN_LOGIN
+  ACTIVEMQ_ADMIN_PASSWORD
+  GLOBAL_messaging.broker.username
+  GLOBAL_messaging.broker.password
+```
+
+#### `general.secrets.db.selfManaged`
+
+* Required: false
+* Default: false
+* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
+* Please note that when you enable this you are yourself responsible to provide a secret db-secret in the namespace that you will install this chart in.
+* Secret data expected:
+```
+  DB_USERNAME
+  DB_PASSWORD  
+  POSTGRES_USER
+  POSTGRES_PASSWORD
+```
+
+#### `general.secrets.imageCredentials.selfManaged`
+
+* Required: false
+* Default: false
+* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
+* Please note that when you enable this you are yourself responsible to provide a secret privatecred alfrescocred in the namespace that you will install this chart in.
+* Secret data expected: Both secrets should be dockerconfigjson secrets
+
 ### Ingress
 
 #### `ingress.host`
