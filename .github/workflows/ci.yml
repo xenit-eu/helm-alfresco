@@ -17,9 +17,14 @@ jobs:
       - name: Package Helm Chart
         run: |
           helm package xenit-alfresco
-          helm repo index --url https://xenit-eu.github.io/xenit-k8s-alfresco/ .
-      - name: Commit new formatted code
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: publish to cloudsmith
+        id: push
+        uses: cloudsmith-io/action@master
         with:
-          commit_message: "${{ github.event.pull_request.head.ref }} : Package Helm Chart"
-          commit_user_email: ${{github.event.pull_request.user.login}}
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+          command: 'push'
+          format: 'helm'
+          owner: 'xenit-TRG'
+          repo: 'alfresco'
+          republish: 'true'
+          file: 'alfresco.tar.gz'
