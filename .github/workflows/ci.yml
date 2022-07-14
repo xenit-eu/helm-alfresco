@@ -27,4 +27,4 @@ jobs:
           owner: 'xenit-TRG'
           repo: 'alfresco'
           republish: 'true'
-          file: 'alfresco-0.1.0.tar.gz'
+          file: '/home/runner/work/xenit-k8s-alfresco/xenit-k8s-alfresco/alfresco-0.1.0.tgz'
