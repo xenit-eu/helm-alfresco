@@ -1,14 +1,14 @@
 apiVersion: v1
 entries:
-  xenit-alfresco:
+  alfresco:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2022-06-29T08:17:05.3637368+01:00"
-    description: A Helm chart for Alfresco
-    digest: fd8adf5a58a554d58c9ba4fcb9a5023c9f66e9ef8725686771bd74aac21fbb82
-    name: xenit-alfresco
+    created: "2022-07-13T15:03:06.0721886+02:00"
+    description: A Helm chart for Alfresco managed by Xenit Solutions
+    digest: 94e2044e23d58d31753f0fe091c445747e97b66368edc58efe147082647f7d94
+    name: alfresco
     type: application
     urls:
-    - https://xenit-eu.github.io/xenit-k8s-alfresco/xenit-alfresco-0.1.0.tgz
+    - https://xenit-eu.github.io/xenit-k8s-alfresco/alfresco-0.1.0.tgz
     version: 0.1.0
-generated: "2022-06-29T08:17:05.3582539+01:00"
+generated: "2022-07-13T15:03:06.063967+02:00"

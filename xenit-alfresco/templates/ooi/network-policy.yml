@@ -1,0 +1,20 @@
+{{- if .Values.general.networkPolicies.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: ooi-to-acs
+spec:
+  podSelector:
+    matchLabels:
+      app: ooi
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: acs
+---
+{{- end }}

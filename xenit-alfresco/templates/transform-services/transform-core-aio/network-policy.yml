@@ -51,4 +51,21 @@ spec:
             matchLabels:
               app: transform-router
 ---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: transform-core-aio-to-shared-file-store
+spec:
+  podSelector:
+    matchLabels:
+      app: transform-core-aio
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: shared-file-store
+---
 {{- end }}
