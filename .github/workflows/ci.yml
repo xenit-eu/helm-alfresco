@@ -17,6 +17,7 @@ jobs:
       - name: Package Helm Chart
         run: |
           helm package xenit-alfresco
+          ls
       - name: publish to cloudsmith
         id: push
         uses: cloudsmith-io/action@master
@@ -27,4 +28,4 @@ jobs:
           owner: 'xenit-TRG'
           repo: 'alfresco'
           republish: 'true'
-          file: '/home/runner/work/xenit-k8s-alfresco/xenit-k8s-alfresco/alfresco-0.1.0.tgz'
+          file: 'alfresco-0.1.0.tgz'
