@@ -57,6 +57,11 @@ spec:
   capacity:
     storage: {{ $storage }}Gi
   volumeMode: Filesystem
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: {{ $name }}-pvc
+    namespace: {{ $namespace }}
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
