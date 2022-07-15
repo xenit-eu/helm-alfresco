@@ -16,5 +16,10 @@ spec:
         - podSelector:
             matchLabels:
               app: acs
+      ports:
+        - protocol: TCP
+          port: 30000
+        - protocol: TCP
+          port: 8443
 ---
 {{- end }}

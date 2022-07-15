@@ -16,40 +16,9 @@ spec:
         - podSelector:
             matchLabels:
               app: mq
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  namespace: {{ .Release.Namespace }}
-  name: transform-core-aio-from-acs
-spec:
-  podSelector:
-    matchLabels:
-      app: transform-core-aio
-  policyTypes:
-    - Ingress
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app: acs
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  namespace: {{ .Release.Namespace }}
-  name: transform-core-aio-from-transform-router
-spec:
-  podSelector:
-    matchLabels:
-      app: transform-core-aio
-  policyTypes:
-    - Ingress
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app: transform-router
+      ports:
+        - protocol: TCP
+          port: 61616
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -67,5 +36,47 @@ spec:
         - podSelector:
             matchLabels:
               app: shared-file-store
+      ports:
+        - protocol: TCP
+          port: 80
 ---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: transform-core-aio-from-acs
+spec:
+  podSelector:
+    matchLabels:
+      app: transform-core-aio
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: acs
+      ports:
+        - protocol: TCP
+          port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: transform-core-aio-from-transform-router
+spec:
+  podSelector:
+    matchLabels:
+      app: transform-core-aio
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: transform-router
+      ports:
+        - protocol: TCP
+          port: 80
 {{- end }}

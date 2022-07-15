@@ -16,6 +16,9 @@ spec:
         - podSelector:
             matchLabels:
               app: acs
+      ports:
+        - protocol: TCP
+          port: 80
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -33,5 +36,8 @@ spec:
         - podSelector:
             matchLabels:
               app: transform-core-aio
+      ports:
+        - protocol: TCP
+          port: 80
 ---
 {{- end }}
