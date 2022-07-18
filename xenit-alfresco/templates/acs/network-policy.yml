@@ -58,7 +58,7 @@ spec:
               app: transform-core-aio
       ports:
         - protocol: TCP
-          port: 80
+          port: 8090
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -78,7 +78,7 @@ spec:
               app: solr
       ports:
         - protocol: TCP
-          port: 30300
+          port: 8080
         - protocol: TCP
           port: 8443
 ---
@@ -100,7 +100,7 @@ spec:
               app: sync-service
       ports:
         - protocol: TCP
-          port: 30400
+          port: 9090
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -120,7 +120,7 @@ spec:
               app: transform-router
       ports:
         - protocol: TCP
-          port: 30500
+          port: 8095
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -140,7 +140,7 @@ spec:
               app: shared-file-store
       ports:
         - protocol: TCP
-          port: 80
+          port: 8099
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -160,7 +160,7 @@ spec:
               app: solr
       ports:
         - protocol: TCP
-          port: 30000
+          port: 8080
         - protocol: TCP
           port: 8443
 ---
@@ -182,7 +182,7 @@ spec:
               app: share
       ports:
         - protocol: TCP
-          port: 30000
+          port: 8080
         - protocol: TCP
           port: 8443
 ---
@@ -204,7 +204,7 @@ spec:
               app: sync-service
       ports:
         - protocol: TCP
-          port: 30000
+          port: 8080
         - protocol: TCP
           port: 8443
 ---
@@ -226,7 +226,7 @@ spec:
               app: ooi
       ports:
         - protocol: TCP
-          port: 30000
+          port: 8080
         - protocol: TCP
           port: 8443
 ---

@@ -18,7 +18,7 @@ spec:
               app: acs
       ports:
         - protocol: TCP
-          port: 30000
+          port: 8080
         - protocol: TCP
           port: 8443
 ---
@@ -80,5 +80,5 @@ spec:
               app: acs
       ports:
         - protocol: TCP
-          port: 30400
+          port: 9090
 {{- end }}

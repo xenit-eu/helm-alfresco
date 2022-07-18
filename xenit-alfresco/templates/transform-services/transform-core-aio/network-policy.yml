@@ -38,7 +38,7 @@ spec:
               app: shared-file-store
       ports:
         - protocol: TCP
-          port: 80
+          port: 8099
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -58,7 +58,7 @@ spec:
               app: acs
       ports:
         - protocol: TCP
-          port: 80
+          port: 8090
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -78,5 +78,5 @@ spec:
               app: transform-router
       ports:
         - protocol: TCP
-          port: 80
+          port: 8090
 {{- end }}
