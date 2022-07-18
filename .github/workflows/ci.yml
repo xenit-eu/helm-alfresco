@@ -16,7 +16,7 @@ jobs:
       - name: Package Helm Chart
         run: |
           helm package xenit-alfresco
-          ls
+          ls| grep -e '^alfresco.*\.tgz' |  xargs -I '{}' mv {} ./alfresco.tgz
       - name: publish to cloudsmith
         id: push
         uses: cloudsmith-io/action@master
@@ -25,6 +25,6 @@ jobs:
           command: 'push'
           format: 'helm'
           owner: 'xenit'
-          repo: 'helm'
+          repo: 'open-source'
           republish: 'true'
-          file: 'alfresco-0.1.0.tgz'
+          file: 'alfresco.tgz'
