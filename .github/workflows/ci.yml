@@ -1,0 +1,31 @@
+name: 'Continuous Integration'
+on:
+  pull_request:
+    paths:
+      - 'xenit-alfresco/**'
+    branches:
+      - master
+jobs:
+  continuousIntegration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+      - name: Package Helm Chart
+        run: |
+          helm package xenit-alfresco
+          ls| grep -e '^alfresco.*\.tgz' |  xargs -I '{}' mv {} ./alfresco.tgz
+          ls
+      - name: publish to cloudsmith
+        id: push
+        uses: cloudsmith-io/action@master
+        with:
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+          command: 'push'
+          format: 'helm'
+          owner: 'xenit'
+          repo: 'open-source'
+          republish: 'true'
+          file: 'alfresco.tgz'

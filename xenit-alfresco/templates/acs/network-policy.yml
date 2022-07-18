@@ -16,6 +16,9 @@ spec:
         - podSelector:
             matchLabels:
               app: postgresql
+      ports:
+        - protocol: TCP
+          port: 5432
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -33,6 +36,9 @@ spec:
         - podSelector:
             matchLabels:
               app: mq
+      ports:
+        - protocol: TCP
+          port: 61616
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -50,6 +56,9 @@ spec:
         - podSelector:
             matchLabels:
               app: transform-core-aio
+      ports:
+        - protocol: TCP
+          port: 8090
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -67,6 +76,11 @@ spec:
         - podSelector:
             matchLabels:
               app: solr
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 8443
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -84,57 +98,9 @@ spec:
         - podSelector:
             matchLabels:
               app: sync-service
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  namespace: {{ .Release.Namespace }}
-  name: acs-from-solr
-spec:
-  podSelector:
-    matchLabels:
-      app: acs
-  policyTypes:
-    - Ingress
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app: solr
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  namespace: {{ .Release.Namespace }}
-  name: acs-from-share
-spec:
-  podSelector:
-    matchLabels:
-      app: acs
-  policyTypes:
-    - Ingress
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app: share
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  namespace: {{ .Release.Namespace }}
-  name: acs-from-sync-service
-spec:
-  podSelector:
-    matchLabels:
-      app: acs
-  policyTypes:
-    - Ingress
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app: sync-service
+      ports:
+        - protocol: TCP
+          port: 9090
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -152,6 +118,9 @@ spec:
         - podSelector:
             matchLabels:
               app: transform-router
+      ports:
+        - protocol: TCP
+          port: 8095
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -169,6 +138,75 @@ spec:
         - podSelector:
             matchLabels:
               app: shared-file-store
+      ports:
+        - protocol: TCP
+          port: 8099
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-from-solr
+spec:
+  podSelector:
+    matchLabels:
+      app: acs
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: solr
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-from-share
+spec:
+  podSelector:
+    matchLabels:
+      app: acs
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: share
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 8443
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-from-sync-service
+spec:
+  podSelector:
+    matchLabels:
+      app: acs
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: sync-service
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 8443
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -186,5 +224,10 @@ spec:
         - podSelector:
             matchLabels:
               app: ooi
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 8443
 ---
 {{- end }}

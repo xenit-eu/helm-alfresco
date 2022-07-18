@@ -16,6 +16,11 @@ spec:
         - podSelector:
             matchLabels:
               app: acs
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 8443
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -33,6 +38,9 @@ spec:
         - podSelector:
             matchLabels:
               app: mq
+      ports:
+        - protocol: TCP
+          port: 61616
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -50,6 +58,9 @@ spec:
         - podSelector:
             matchLabels:
               app: postgresql
+      ports:
+        - protocol: TCP
+          port: 5432
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -67,4 +78,7 @@ spec:
         - podSelector:
             matchLabels:
               app: acs
+      ports:
+        - protocol: TCP
+          port: 9090
 {{- end }}
