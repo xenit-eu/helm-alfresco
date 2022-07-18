@@ -17,6 +17,7 @@ jobs:
         run: |
           helm package xenit-alfresco
           ls| grep -e '^alfresco.*\.tgz' |  xargs -I '{}' mv {} ./alfresco.tgz
+          ls
       - name: publish to cloudsmith
         id: push
         uses: cloudsmith-io/action@master
