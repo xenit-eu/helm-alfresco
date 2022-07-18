@@ -204,6 +204,6 @@ persistentStorage:
 
 imageCredentials:
   private:
-    registry:  'hub.xenit.eu'
+    registry: 'hub.xenit.eu'
   alfresco:
     registry: 'quay.io'
