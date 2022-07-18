@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install Helm
+      - name: Install  Helm
         uses: azure/setup-helm@v1
       - name: Package Helm Chart
         run: |
