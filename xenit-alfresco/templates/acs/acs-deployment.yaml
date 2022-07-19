@@ -22,14 +22,14 @@ spec:
     {{- else }}
     {{ toYaml .Values.general.strategy | nindent 4 }}
     {{- end }}
-  {{- if .Values.acs.serviceAccount }}
-  serviceAccountName: {{ .Values.acs.serviceAccount }}
-  {{- end }}
   template:
     metadata:
       labels:
         app: acs
     spec:
+      {{- if .Values.acs.serviceAccount }}
+      serviceAccountName: {{ .Values.acs.serviceAccount }}
+      {{- end }}
       containers:
       - name: acs-container
         image: {{ required "An image for the ACS pod needs to be specified under acs.image.repository" .Values.acs.image.repository }}
