@@ -36,8 +36,6 @@ acs:
       cpu: "2"
   dbUrl: 'jdbc:postgresql://postgresql-service:5432/alfresco'
   dbDriver: 'org.postgresql.Driver'
-  s3Datastore:
-    enabled: false
   sharePort: '443'
   shareProtocol: 'https'
   livenessProbe:

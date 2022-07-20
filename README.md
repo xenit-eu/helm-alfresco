@@ -309,36 +309,6 @@ For more information take a look at
 * Default: `org.postgresql.Driver`
 * Description: If you use another kind of DB then postgres you must specify the driver that needs to be used here
 
-#### `acs.s3Datastore.enabled`
-
-* Required: false
-* Default: `false`
-* Description: Set to true if working with s3
-
-#### `acs.s3Datastore.bucketName`
-
-* Required: when `acs.s3Datastore.enabled` is `true`
-* Default: None
-* Description: Set the bucketName of the bucket you want to use
-
-#### `acs.s3Datastore.bucketLocation`
-
-* Required: when `acs.s3Datastore.enabled` is `true`
-* Default: None
-* Description: Set the bucketLocation of the bucket you want to use
-
-#### `acs.s3Datastore.accessKey`
-
-* Required: when `acs.s3Datastore.enabled` is `true`
-* Default: None
-* Description: The accessKey of the S3 bucket - will be stored b64 encoded in a secret
-
-#### `acs.s3Datastore.secretKey`
-
-* Required: when `acs.s3Datastore.enabled` is `true`
-* Default: None
-* Description: Set the bucketLocation of the bucket - will be stored b64 encoded in a secret
-
 #### `acs.sharePort`
 
 * Required: false
@@ -361,6 +331,17 @@ For more information take a look at
   environmentVariable2Key: environmentVariable2Value
   ```
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+
+#### `acs.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the acs-container envFrom section. This was added to allow to integrate secrets that are not added by this helm chart.
+* Example:
+```
+- secretRef:
+    name: s3-secret
+```
 
 #### `acs.podAnnotations`
 
