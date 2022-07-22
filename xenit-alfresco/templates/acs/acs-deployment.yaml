@@ -65,11 +65,10 @@ spec:
           - configMapRef:
               name: acs-configmap
           - secretRef:
-              name: acs-secret
-          - secretRef:
               name: db-secret
           - secretRef:
               name: mq-secret
+          {{ toYaml .Values.acs.envFrom | nindent 10 }}
         ports:
           - containerPort: 8080
             protocol: TCP
