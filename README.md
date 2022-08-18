@@ -1,4 +1,29 @@
 # Xenit Alfresco Helm Chart
+This is a helm chart for installing Alfresco
+
+## Helm
+[![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com)
+
+Package repository hosting is graciously provided by  [Cloudsmith](https://cloudsmith.com).
+Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that
+enables your organization to create, store and share packages in any format, to any place, with total
+confidence.
+
+You can install this helm chart on you K8s cluster. Keep in mind that you will need to add some `--set` statements for this to work:
+```bash
+helm install alfresco \
+  --repo 'https://repo.xenit.eu/public/open-source/helm/charts/'
+```
+
+Or you can use it as a dependency in your `requirements.yaml` in your own chart.
+```yaml
+dependencies:
+  - name: alfresco
+    version: 0.1.2
+    repository: https://repo.xenit.eu/public/open-source/helm/charts/
+```
+
+
 
 ## Dev Requirements
 Make sure you have the following installed:
@@ -10,21 +35,21 @@ Make sure you have the following installed:
 
 ## Start Local Cluster
 * To start the cluster you have to create one using kind with the config file as a parameter that is under the directory kind: 
-  ```
+  ```bash
   kind create cluster --config=kind/config.yaml
   ```
 * switch to kind-kind context :
-  ```
+  ```bash
   kubectl config use-context kind-kind
   ```
 * Add An ingress controller by running this command after starting the cluster:
-  ```
+  ```bash
   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
   ```
 
 * set up the credentials in local_values.yaml for LDAP and alfresco
 * wait for the ingress controller to be ready you can check by running this command :
-  ```
+  ```bash
   kubectl wait --namespace ingress-nginx   --for=condition=ready pod   --selector=app.kubernetes.io/component=controller  --timeout=90s
   ```
 * some the services are disabled by default to minimize the resource usage such as :
@@ -34,7 +59,7 @@ Make sure you have the following installed:
   
   to enable them modify the values inside local-values.yaml
 * finally, run skaffold (instead of helm) and wait for the ingress controller to be ready first: 
-  ```
+  ```bash
   skaffold dev
   ``` 
 ## Image Requirements
@@ -60,7 +85,7 @@ For more information take a look at
 
 * Required: false
 * Default: 
-  ```
+  ```yaml
   type: RollingUpdate
   rollingUpdate:
     maxSurge: 1
@@ -73,7 +98,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example: 
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -84,7 +109,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example: 
-  ```
+  ```yaml
     - name: privateDockerRepo1Secret
     - name: privateDockerRepo2Secret
   ```
@@ -201,7 +226,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-```
+```yaml
 - path: /service-path
   pathType: Prefix
   backend:
@@ -326,7 +351,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -338,7 +363,7 @@ For more information take a look at
 * Default: None
 * Description: This allows you to add to the acs-container envFrom section. This was added to allow to integrate secrets that are not added by this helm chart.
 * Example:
-```
+```yaml
 - secretRef:
     name: s3-secret
 ```
@@ -348,7 +373,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -364,7 +389,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "2Gi"
     cpu: "2"
@@ -420,7 +445,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -431,7 +456,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -447,7 +472,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "256Mi"
     cpu: "150m"
@@ -497,7 +522,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -508,7 +533,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -524,7 +549,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "256Mi"
     cpu: "0.5"
@@ -588,7 +613,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -599,7 +624,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -615,7 +640,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "512Mi"
     cpu: "0.5"
@@ -665,7 +690,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -676,7 +701,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -692,7 +717,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "1Gi"
     cpu: "1"
@@ -742,7 +767,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -753,7 +778,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -769,7 +794,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "4Gi"
     cpu: "1"
@@ -821,7 +846,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -832,7 +857,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -848,7 +873,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "512Mi"
     cpu: "200mi"
@@ -892,7 +917,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -903,7 +928,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -919,7 +944,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "256Mi"
     cpu: "150m"
@@ -963,7 +988,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -974,7 +999,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -990,7 +1015,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "128Mi"
     cpu: "100m"
@@ -1040,7 +1065,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -1051,7 +1076,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -1067,7 +1092,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "512Mi"
     cpu: "0.5"
@@ -1117,7 +1142,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
@@ -1128,7 +1153,7 @@ For more information take a look at
 * Required: false
 * Default: None
 * Example:
-  ```
+  ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
@@ -1144,7 +1169,7 @@ For more information take a look at
 
 * Required: false
 * Default:
-  ```
+  ```yaml
   requests:
     memory: "128Mi"
     cpu: "100m"
