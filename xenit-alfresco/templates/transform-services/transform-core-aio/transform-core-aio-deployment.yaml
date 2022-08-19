@@ -29,6 +29,8 @@ spec:
     metadata:
       labels:
         app: transform-core-aio
+      annotations:
+        checksum/transform-core-aio-config: {{ include (print $.Template.BasePath "/transform-services/transform-core-aio/transform-core-aio-config.yaml") . | sha256sum }}
     spec:
       containers:
         - name: transform-core-aio-container

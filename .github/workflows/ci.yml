@@ -3,8 +3,6 @@ on:
   push:
     paths:
       - 'xenit-alfresco/**'
-    branches:
-      - master
 jobs:
   continuousIntegration:
     runs-on: ubuntu-latest

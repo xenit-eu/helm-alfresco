@@ -29,6 +29,8 @@ spec:
     metadata:
       labels:
         app: share
+      annotations:
+        checksum/share-config: {{ include (print $.Template.BasePath "/share/share-config.yaml") . | sha256sum }}
     spec:
       containers:
       - name: share-container

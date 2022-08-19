@@ -26,6 +26,8 @@ spec:
     metadata:
       labels:
         app: solr
+      annotations:
+        checksum/solr-config: {{ include (print $.Template.BasePath "/solr/solr-config.yaml") . | sha256sum }}
     spec:
       containers:
       - name: solr-container
