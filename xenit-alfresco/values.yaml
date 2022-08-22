@@ -82,7 +82,7 @@ mq:
   image:
     repository: 'alfresco/alfresco-activemq:5.16.1'
   strategy:
-    type: RollingUpdate
+    type: Recreate
   resources:
     requests:
       memory: "512Mi"
