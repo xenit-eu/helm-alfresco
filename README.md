@@ -605,8 +605,8 @@ For more information take a look at
 #### `mq.strategy.type`
 
 * Required: false
-* Default: `RollingUpdate`
-* Description: Can be set to `Recreate` if you want all your pods to be killed before new ones are created
+* Default: `Recreate`
+* Description: Can be set to `RollingUpdate` if you want to create pod before killing existing pod
 
 #### `mq.additionalEnvironmentVariables`
 

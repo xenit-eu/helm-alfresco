@@ -29,6 +29,8 @@ spec:
     metadata:
       labels:
         app: digital-workspace
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/digital-workspace/digital-workspace-config.yaml") . | sha256sum }}
     spec:
       containers:
         - name: digital-workspace-container

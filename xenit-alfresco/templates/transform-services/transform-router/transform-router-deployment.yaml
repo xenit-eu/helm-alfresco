@@ -29,6 +29,8 @@ spec:
     metadata:
       labels:
         app: transform-router
+      annotations:
+        checksum/transform-router-config: {{ include (print $.Template.BasePath "/transform-services/transform-router/transform-router-config.yaml") . | sha256sum }}
     spec:
       containers:
         - name: transform-router-container

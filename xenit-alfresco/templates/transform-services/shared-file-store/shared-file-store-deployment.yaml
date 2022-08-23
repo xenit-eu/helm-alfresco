@@ -29,6 +29,8 @@ spec:
     metadata:
       labels:
         app: shared-file-store
+      annotations:
+        checksum/shared-file-store-config: {{ include (print $.Template.BasePath "/transform-services/shared-file-store/shared-file-store-config.yaml") . | sha256sum }}
     spec:
       containers:
         - name: shared-file-store-container
