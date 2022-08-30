@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: acs
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.acs.podAnnotations }}
-    {{ toYaml .Values.acs.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: acs
 spec:

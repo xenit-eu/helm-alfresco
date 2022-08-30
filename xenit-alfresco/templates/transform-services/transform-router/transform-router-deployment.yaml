@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: transform-router
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.transformServices.transformRouter.podAnnotations }}
-    {{ toYaml .Values.transformServices.transformRouter.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: transform-router
 spec:

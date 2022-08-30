@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: mq
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.mq.podAnnotations }}
-    {{ toYaml .Values.mq.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: mq
 spec:

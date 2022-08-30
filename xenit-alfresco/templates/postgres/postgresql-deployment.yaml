@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: postgresql
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.postgresql.podAnnotations }}
-    {{ toYaml .Values.postgresql.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: postgresql
 spec:

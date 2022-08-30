@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: transform-core-aio
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.transformServices.transformCoreAio.podAnnotations }}
-    {{ toYaml .Values.transformServices.transformCoreAio.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: transform-core-aio
 spec:

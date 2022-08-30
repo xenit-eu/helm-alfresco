@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: digital-workspace
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.digitalWorkspace.podAnnotations }}
-    {{ toYaml .Values.digitalWorkspace.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: digital-workspace
 spec:

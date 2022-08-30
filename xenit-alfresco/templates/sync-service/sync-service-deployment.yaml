@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: sync-service
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.syncService.podAnnotations }}
-    {{ toYaml .Values.syncService.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: sync-service
 spec:
