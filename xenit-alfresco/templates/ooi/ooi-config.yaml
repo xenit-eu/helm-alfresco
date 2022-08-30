@@ -7,7 +7,7 @@ metadata:
   labels:
     app: ooi
 data:
-  JAVA_OPTS: "-Xms256m -Xmx512m -Dalfresco.base-url=http:///acs-service:30000"
+  JAVA_OPTS: "-Xms256m -Xmx512m -Dalfresco.base-url=http://acs-service:30000"
   {{- if .Values.ooi.additionalEnvironmentVariables }}
   {{ toYaml .Values.ooi.additionalEnvironmentVariables | nindent 2 }}
   {{- end }}
