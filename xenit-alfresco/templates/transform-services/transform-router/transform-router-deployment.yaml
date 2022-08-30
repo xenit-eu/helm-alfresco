@@ -31,6 +31,10 @@ spec:
         app: transform-router
       annotations:
         checksum/transform-router-config: {{ include (print $.Template.BasePath "/transform-services/transform-router/transform-router-config.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.transformServices.transformRouter.podAnnotations }}
+        {{ toYaml .Values.transformServices.transformRouter.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       containers:
         - name: transform-router-container

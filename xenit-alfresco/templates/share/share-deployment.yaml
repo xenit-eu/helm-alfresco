@@ -31,6 +31,10 @@ spec:
         app: share
       annotations:
         checksum/share-config: {{ include (print $.Template.BasePath "/share/share-config.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.share.podAnnotations }}
+        {{ toYaml .Values.share.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       containers:
       - name: share-container

@@ -28,6 +28,10 @@ spec:
         app: solr
       annotations:
         checksum/solr-config: {{ include (print $.Template.BasePath "/solr/solr-config.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.solr.podAnnotations }}
+        {{ toYaml .Values.solr.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       containers:
       - name: solr-container
