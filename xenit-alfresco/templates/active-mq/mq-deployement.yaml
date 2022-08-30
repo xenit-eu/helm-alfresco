@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: mq
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.mq.podAnnotations }}
-    {{ toYaml .Values.mq.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: mq
 spec:
@@ -32,6 +27,10 @@ spec:
       annotations:
         checksum/mq-config: {{ include (print $.Template.BasePath "/active-mq/mq-config.yaml") . | sha256sum }}
         checksum/mq-secret: {{ include (print $.Template.BasePath "/active-mq/mq-secret.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.mq.podAnnotations }}
+        {{ toYaml .Values.mq.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       containers:
         - name: activemq

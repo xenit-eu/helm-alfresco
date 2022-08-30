@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: acs
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.acs.podAnnotations }}
-    {{ toYaml .Values.acs.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: acs
 spec:
@@ -30,6 +25,10 @@ spec:
         checksum/acs-config: {{ include (print $.Template.BasePath "/acs/acs-config.yaml") . | sha256sum }}
         checksum/mq-secret: {{ include (print $.Template.BasePath "/active-mq/mq-secret.yaml") . | sha256sum }}
         checksum/db-secret: {{ include (print $.Template.BasePath "/db-secret.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.acs.podAnnotations }}
+        {{ toYaml .Values.acs.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       {{- if .Values.acs.serviceAccount }}
       serviceAccountName: {{ .Values.acs.serviceAccount }}

@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: digital-workspace
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.digitalWorkspace.podAnnotations }}
-    {{ toYaml .Values.digitalWorkspace.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: digital-workspace
 spec:
@@ -31,6 +26,10 @@ spec:
         app: digital-workspace
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/digital-workspace/digital-workspace-config.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.digitalWorkspace.podAnnotations }}
+        {{ toYaml .Values.digitalWorkspace.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       containers:
         - name: digital-workspace-container

@@ -4,11 +4,6 @@ kind: StatefulSet
 metadata:
   name: solr
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.solr.podAnnotations }}
-    {{ toYaml .Values.solr.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: solr
 spec:
@@ -28,6 +23,10 @@ spec:
         app: solr
       annotations:
         checksum/solr-config: {{ include (print $.Template.BasePath "/solr/solr-config.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.solr.podAnnotations }}
+        {{ toYaml .Values.solr.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       containers:
       - name: solr-container

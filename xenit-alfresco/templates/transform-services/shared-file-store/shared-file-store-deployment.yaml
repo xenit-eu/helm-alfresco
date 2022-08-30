@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: shared-file-store
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.transformServices.sharedFileStore.podAnnotations }}
-    {{ toYaml .Values.transformServices.sharedFileStore.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: shared-file-store
 spec:
@@ -31,6 +26,10 @@ spec:
         app: shared-file-store
       annotations:
         checksum/shared-file-store-config: {{ include (print $.Template.BasePath "/transform-services/shared-file-store/shared-file-store-config.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.transformServices.sharedFileStore.podAnnotations }}
+        {{ toYaml .Values.transformServices.sharedFileStore.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       containers:
         - name: shared-file-store-container

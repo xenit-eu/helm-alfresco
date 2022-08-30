@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: share
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.share.podAnnotations }}
-    {{ toYaml .Values.share.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: share
 spec:
@@ -31,6 +26,10 @@ spec:
         app: share
       annotations:
         checksum/share-config: {{ include (print $.Template.BasePath "/share/share-config.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.share.podAnnotations }}
+        {{ toYaml .Values.share.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       containers:
       - name: share-container

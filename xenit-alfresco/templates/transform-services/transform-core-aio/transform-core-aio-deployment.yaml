@@ -4,11 +4,6 @@ kind: Deployment
 metadata:
   name: transform-core-aio
   namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    {{- include "globalPodAnnotations" . | indent 4 }}
-    {{- if .Values.transformServices.transformCoreAio.podAnnotations }}
-    {{ toYaml .Values.transformServices.transformCoreAio.podAnnotations | nindent 4 }}
-    {{- end }}
   labels:
     app: transform-core-aio
 spec:
@@ -31,6 +26,10 @@ spec:
         app: transform-core-aio
       annotations:
         checksum/transform-core-aio-config: {{ include (print $.Template.BasePath "/transform-services/transform-core-aio/transform-core-aio-config.yaml") . | sha256sum }}
+        {{- include "globalPodAnnotations" . | indent 8 }}
+        {{- if .Values.transformServices.transformCoreAio.podAnnotations }}
+        {{ toYaml .Values.transformServices.transformCoreAio.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       containers:
         - name: transform-core-aio-container
