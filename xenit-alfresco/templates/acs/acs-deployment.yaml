@@ -71,7 +71,9 @@ spec:
               name: db-secret
           - secretRef:
               name: mq-secret
+          {{- if .Values.acs.envFrom }}
           {{ toYaml .Values.acs.envFrom | nindent 10 }}
+          {{- end }}
         ports:
           - containerPort: 8080
             protocol: TCP
