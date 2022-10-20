@@ -29,6 +29,8 @@ data:
   GLOBAL_transform.service.url: 'http://transform-router-service:30500'
   GLOBAL_sfs.url: 'http://shared-file-store-service:80/'
   GLOBAL_localTransform.core-aio.url: 'http://transform-core-aio-service:80/'
+  {{- else }}
+  GLOBAL_transform.service.enabled: 'false'
   {{- end }}
   GLOBAL_aos.baseUrlOverwrite: '{{ .Values.ingress.syncServiceHost }}://{{ .Values.ingress.host }}/alfresco/aos'
   {{- if .Values.acs.additionalEnvironmentVariables }}
