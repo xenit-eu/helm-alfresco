@@ -1,4 +1,5 @@
 {{- if .Values.general.networkPolicies.enabled }}
+{{- if .Values.transformServices.enabled }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -79,4 +80,5 @@ spec:
       ports:
         - protocol: TCP
           port: 8090
+{{- end }}
 {{- end }}
