@@ -27,5 +27,4 @@ jobs:
           format: 'helm'
           owner: 'xenit'
           repo: 'open-source'
-          republish: 'true'
           file: 'alfresco.tgz'
