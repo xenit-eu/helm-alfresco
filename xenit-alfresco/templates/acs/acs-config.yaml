@@ -33,9 +33,9 @@ data:
   GLOBAL_transform.service.enabled: 'false'
   {{- end }}
   GLOBAL_aos.baseUrlOverwrite: '{{ .Values.ingress.syncServiceHost }}://{{ .Values.ingress.host }}/alfresco/aos'
-  {{- if .Values.acs.additionalEnvironmentVariables }}
-  {{ toYaml .Values.acs.additionalEnvironmentVariables | nindent 2 }}
-  {{- end }}
   {{- if not .Values.solr.enabled }}
   GLOBAL_index.subsystem.name: "noindex"
+  {{- end }}
+  {{- if .Values.acs.additionalEnvironmentVariables }}
+  {{ toYaml .Values.acs.additionalEnvironmentVariables | nindent 2 }}
   {{- end }}
