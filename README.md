@@ -1,4 +1,6 @@
-# Xenit Alfresco Helm Chart
+# Xenit Alfresco Helm Chart 
+[![Latest version of 'alfresco' @ Cloudsmith](https://api-prd.cloudsmith.io/v1/badges/version/xenit/open-source/helm/alfresco/latest/x/?render=true&show_latest=true)](https://cloudsmith.io/~xenit/repos/open-source/packages/detail/helm/alfresco/latest/)
+
 This is a helm chart for installing Alfresco
 
 ## Helm
