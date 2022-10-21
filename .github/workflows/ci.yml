@@ -5,6 +5,8 @@ on:
       - 'xenit-alfresco/**'
     branches:
       - master
+    tags:
+      - v*
 jobs:
   continuousIntegration:
     runs-on: ubuntu-latest
@@ -15,7 +17,7 @@ jobs:
         uses: azure/setup-helm@v1
       - name: Package Helm Chart
         run: |
-          helm package xenit-alfresco
+          helm package xenit-alfresco --version `echo ${GITHUB_REF#refs/tags/} | cut -c 2-`
           ls| grep -e '^alfresco.*\.tgz' |  xargs -I '{}' mv {} ./alfresco.tgz
           ls
       - name: publish to cloudsmith
