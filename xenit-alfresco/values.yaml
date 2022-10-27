@@ -26,8 +26,7 @@ ingress:
 
 acs:
   replicaCount: 1
-  image:
-    repository: 'xenit/alfresco-repository-community:7.2.0'
+  image: 'xenit/alfresco-repository-community:7.2.0'
   strategy:
     type: RollingUpdate
   resources:
@@ -54,8 +53,7 @@ acs:
 digitalWorkspace:
   enabled: true
   replicaCount: 1
-  image:
-    repository: 'quay.io/alfresco/alfresco-digital-workspace:2.4.2-adw'
+  image: 'quay.io/alfresco/alfresco-digital-workspace:2.4.2-adw'
   strategy:
     type: RollingUpdate
   resources:
@@ -67,8 +65,7 @@ digitalWorkspace:
 share:
   enabled: true
   replicaCount: 1
-  image:
-    repository: 'xenit/alfresco-share-community:7.0'
+  image: 'xenit/alfresco-share-community:7.0'
   strategy:
     type: RollingUpdate
   resources:
@@ -79,8 +76,7 @@ share:
 mq:
   enabled: true
   replicaCount: 1
-  image:
-    repository: 'alfresco/alfresco-activemq:5.16.1'
+  image: 'alfresco/alfresco-activemq:5.16.1'
   strategy:
     type: Recreate
   resources:
@@ -90,8 +86,7 @@ mq:
 
 postgresql:
   enabled: true
-  image:
-    repository: 'docker.io/xenit/postgres'
+  image: 'docker.io/xenit/postgres'
   strategy:
     type: RollingUpdate
   resources:
@@ -102,8 +97,7 @@ postgresql:
 solr:
   enabled: true
   replicaCount: 2
-  image:
-    repository: 'hub.xenit.eu/alfresco-enterprise/alfresco-solr6:2.0.2'
+  image: 'hub.xenit.eu/alfresco-enterprise/alfresco-solr6:2.0.2'
   strategy:
     type: RollingUpdate
   resources:
@@ -115,8 +109,7 @@ transformServices:
   enabled: true
   sharedFileStore:
     replicaCount: 1
-    image:
-      repository: 'quay.io/alfresco/alfresco-shared-file-store:0.16.0'
+    image: 'quay.io/alfresco/alfresco-shared-file-store:0.16.0'
     strategy:
       type: RollingUpdate
     resources:
@@ -125,8 +118,7 @@ transformServices:
         cpu: "200m"
   transformCoreAio:
     replicaCount: 1
-    image:
-      repository: 'alfresco/alfresco-transform-core-aio'
+    image: 'alfresco/alfresco-transform-core-aio'
     strategy:
       type: RollingUpdate
     resources:
@@ -135,8 +127,7 @@ transformServices:
         cpu: "150m"
   transformRouter:
     replicaCount: 1
-    image:
-      repository: 'quay.io/alfresco/alfresco-transform-router:1.5.2'
+    image: 'quay.io/alfresco/alfresco-transform-router:1.5.2'
     strategy:
       type: RollingUpdate
     resources:
@@ -147,8 +138,7 @@ transformServices:
 syncService:
   enabled: false
   replicaCount: 1
-  image:
-    repository: 'quay.io/alfresco/service-sync:3.4.0'
+  image: 'quay.io/alfresco/service-sync:3.4.0'
   strategy:
     type: RollingUpdate
   resources:
@@ -159,8 +149,7 @@ syncService:
 ooi:
   enabled: false
   replicaCount: 1
-  image:
-    repository: 'quay.io/alfresco/alfresco-ooi-service:1.1.2'
+  image: 'quay.io/alfresco/alfresco-ooi-service:1.1.2'
   strategy:
     type: RollingUpdate
   resources:

@@ -35,8 +35,8 @@ spec:
     spec:
       containers:
         - name: sync-service-container
-          image: {{ .Values.syncService.image.repository }}
-          imagePullPolicy: {{ .Values.syncService.image.pullPolicy | default "IfNotPresent" }}
+          image: {{ .Values.syncService.image }}
+          imagePullPolicy: {{ .Values.syncService.imagePullPolicy | default "IfNotPresent" }}
           livenessProbe:
             failureThreshold: 3
             httpGet:

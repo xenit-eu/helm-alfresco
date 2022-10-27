@@ -35,8 +35,8 @@ spec:
       {{- end }}
       containers:
       - name: acs-container
-        image: {{ required "An image for the ACS pod needs to be specified under acs.image.repository" .Values.acs.image.repository }}
-        imagePullPolicy: {{ .Values.acs.image.pullPolicy | default "IfNotPresent" }}
+        image: {{ required "An image for the ACS pod needs to be specified under acs.image" .Values.acs.image }}
+        imagePullPolicy: {{ .Values.acs.imagePullPolicy | default "IfNotPresent" }}
         readinessProbe:
           failureThreshold: {{ .Values.acs.readinessProbe.failureThreshold }}
           httpGet:

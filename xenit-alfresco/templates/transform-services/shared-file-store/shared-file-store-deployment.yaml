@@ -33,8 +33,8 @@ spec:
     spec:
       containers:
         - name: shared-file-store-container
-          image: {{ .Values.transformServices.sharedFileStore.image.repository }}
-          imagePullPolicy: {{ .Values.transformServices.sharedFileStore.image.pullPolicy | default "IfNotPresent" }}
+          image: {{ .Values.transformServices.sharedFileStore.image }}
+          imagePullPolicy: {{ .Values.transformServices.sharedFileStore.imagePullPolicy | default "IfNotPresent" }}
           envFrom:
             - configMapRef:
                 name: shared-file-store-configmap

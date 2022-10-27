@@ -34,8 +34,8 @@ spec:
     spec:
       containers:
         - name: activemq
-          image: {{ .Values.mq.image.repository }}
-          imagePullPolicy: {{ .Values.mq.image.pullPolicy | default "IfNotPresent" }}
+          image: {{ .Values.mq.image }}
+          imagePullPolicy: {{ .Values.mq.imagePullPolicy | default "IfNotPresent" }}
           envFrom:
             - configMapRef:
                 name: mq-configmap
