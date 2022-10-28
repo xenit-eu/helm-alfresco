@@ -54,13 +54,13 @@ class KindClusterProvisionerTest {
                 acs:
                   resources:
                     requests:
-                      memory: "1Gi"
-                      cpu: "1"
+                      memory: "2Gi"
+                      cpu: "0"
                 mq:
                   resources:
                     requests:
                       memory: "1Gi"
-                      cpu: "1"
+                      cpu: "0"
                 solr:
                   enabled: false
                 transformServices:
