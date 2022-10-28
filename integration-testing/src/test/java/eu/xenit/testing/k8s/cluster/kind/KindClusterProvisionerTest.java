@@ -4,12 +4,14 @@ import static org.awaitility.Awaitility.await;
 
 import eu.xenit.testing.k8s.cluster.Cluster;
 import eu.xenit.testing.k8s.helm.HelmCommander;
+import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.util.Config;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.concurrent.TimeUnit;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
 
@@ -17,8 +19,8 @@ import org.junit.jupiter.api.Test;
 class KindClusterProvisionerTest {
 
     @Test
-    void provision() throws IOException, ApiException {
-        var configuration = """
+    void provision() throws IOException {
+        var kindConfiguration = """
                 kind: Cluster
                 apiVersion: kind.x-k8s.io/v1alpha4
                 nodes:
@@ -35,15 +37,7 @@ class KindClusterProvisionerTest {
                         protocol: TCP
                         """;
 
-        var clusterProvisioner = new KindClusterProvisioner();
-        clusterProvisioner.setConfiguration(configuration);
-        
-        Cluster cluster = null;
-        
-        try {
-            cluster = clusterProvisioner.provision();
-
-            var values = """
+        var values = """
                 general:
                   networkPolicies:
                     enabled: false
@@ -76,41 +70,58 @@ class KindClusterProvisionerTest {
                   enabled: false
                 """;
 
+        var clusterProvisioner = new KindClusterProvisioner();
+        clusterProvisioner.setConfiguration(kindConfiguration);
+        
+        Cluster cluster = null;
+        
+        try {
+            cluster = clusterProvisioner.provision();
+
             var tempFile = Files.createTempFile("values", ".yaml");
             Files.writeString(tempFile, values);
 
             var helmCommander = new HelmCommander(cluster);
+            var namespace = "mynamespace";
             helmCommander.commandAndPrint("install",
                     "testinstall", "/home/thijs/IdeaProjects/helm-alfresco/xenit-alfresco",
                     "-f", tempFile.toAbsolutePath().toString(),
-                    "-n", "mynamespace", "--create-namespace");
+                    "-n", namespace, "--create-namespace");
 
-            var apiClient = Config.fromConfig(cluster.getKubeConfig().toAbsolutePath().toString());
-            CoreV1Api api = new CoreV1Api(apiClient);
-
-            await().atMost(5, TimeUnit.MINUTES).until(() -> {
-                var podList = api.listNamespacedPod("mynamespace", null, null, null, null, "app = acs", null, null, null, null, null);
-                if (podList.getItems().size() != 1) {
-                    return false;
-                }
-                for (var pod: podList.getItems()) {
-                    boolean ready = false;
-                    for (var condition: pod.getStatus().getConditions()) {
-                        if ("Ready".equals(condition.getType()) && "True".equals(condition.getStatus())) {
-                            ready = true;
-                            break;
-                        }
-                    }
-                    if (!ready) {
-                        return false;
-                    }
-                }
-                return true;
-            });
+            Cluster finalCluster = cluster;
+            await().atMost(5, TimeUnit.MINUTES).until(() -> checkPodsReady(finalCluster, namespace, "app = acs", 1));
 
         } finally {
             cluster.destroy();
         }
         
+    }
+
+    @NotNull
+    private static Boolean checkPodsReady(Cluster cluster, String namespace, String labelSelector, int amount) throws ApiException {
+        ApiClient apiClient = null;
+        try {
+            apiClient = Config.fromConfig(cluster.getKubeConfig().toAbsolutePath().toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        CoreV1Api api = new CoreV1Api(apiClient);
+        var podList = api.listNamespacedPod(namespace, null, null, null, null, labelSelector, null, null, null, null, null);
+        if (podList.getItems().size() != amount) {
+            return false;
+        }
+        for (var pod: podList.getItems()) {
+            boolean ready = false;
+            for (var condition: pod.getStatus().getConditions()) {
+                if ("Ready".equals(condition.getType()) && "True".equals(condition.getStatus())) {
+                    ready = true;
+                    break;
+                }
+            }
+            if (!ready) {
+                return false;
+            }
+        }
+        return true;
     }
 }
