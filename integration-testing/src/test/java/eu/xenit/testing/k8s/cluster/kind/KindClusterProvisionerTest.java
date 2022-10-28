@@ -84,7 +84,7 @@ class KindClusterProvisionerTest {
             var helmCommander = new HelmCommander(cluster);
             var namespace = "mynamespace";
             helmCommander.commandAndPrint("install",
-                    "testinstall", "/home/thijs/IdeaProjects/helm-alfresco/xenit-alfresco",
+                    "testinstall", "../xenit-alfresco",
                     "-f", tempFile.toAbsolutePath().toString(),
                     "-n", namespace, "--create-namespace");
 
