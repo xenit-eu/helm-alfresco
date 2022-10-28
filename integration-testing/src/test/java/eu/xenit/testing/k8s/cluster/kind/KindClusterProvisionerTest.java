@@ -88,7 +88,7 @@ class KindClusterProvisionerTest {
                     "-n", namespace, "--create-namespace");
 
             Cluster finalCluster = cluster;
-            await().atMost(5, TimeUnit.MINUTES).until(() -> checkPodsReady(finalCluster, namespace, "app = acs", 1));
+            await().atMost(10, TimeUnit.MINUTES).until(() -> checkPodsReady(finalCluster, namespace, "app = acs", 1));
 
         } finally {
             cluster.destroy();
