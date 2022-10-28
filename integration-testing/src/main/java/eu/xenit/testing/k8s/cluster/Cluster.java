@@ -1,11 +1,22 @@
 package eu.xenit.testing.k8s.cluster;
 
+import java.io.InputStream;
 import java.nio.file.Path;
 
-public interface Cluster {
+public abstract class Cluster {
 
-    String getContext();
+    public Cluster(String context) {
+        this.context = context;
+    }
 
-    void destroy();
+    private String context;
+
+    public String getContext() {
+        return context;
+    }
+
+    public abstract void destroy();
+
+    public abstract Path getKubeConfig();
 
 }
