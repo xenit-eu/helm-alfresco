@@ -111,6 +111,9 @@ class KindClusterProvisionerTest {
         }
         for (var pod: podList.getItems()) {
             boolean ready = false;
+            if (pod.getStatus().getConditions() == null) {
+                return false;
+            }
             for (var condition: pod.getStatus().getConditions()) {
                 if ("Ready".equals(condition.getType()) && "True".equals(condition.getStatus())) {
                     ready = true;
