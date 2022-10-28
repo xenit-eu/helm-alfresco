@@ -1,0 +1,23 @@
+name: 'Integration testing'
+on:
+  push:
+
+jobs:
+  integration-testing:
+    runs-on: ubuntu-latest-4-cores
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+      - name: Install kind
+        uses: helm/kind-action@v1.4.0
+        with:
+          install_only: true
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+      - name: Check
+        working-directory: integration-testing
+        run: ./gradlew check -i

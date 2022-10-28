@@ -39,8 +39,7 @@ class KindClusterProvisionerTest {
 
         var values = """
                 general:
-                  networkPolicies:
-                    enabled: false
+                  cni: kindnetd
                 ingress:
                   host: test
                   protocol: http
