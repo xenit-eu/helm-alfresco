@@ -240,7 +240,7 @@ For more information take a look at
 * Description: used to add more path to ingress under the same host name for new services
 ### ACS
 
-#### `acs.replicaCount`
+#### `acs.replicas`
 
 * Required: false
 * Default: `2`
@@ -412,7 +412,7 @@ For more information take a look at
 * Default: `true`
 * Description: Enable or disable the digital workspace
 
-#### `digitalWorkspace.replicaCount`
+#### `digitalWorkspace.replicas`
 
 * Required: false
 * Default: `1`
@@ -495,7 +495,7 @@ For more information take a look at
 * Default: `true`
 * Description: Enable or disable the share
 
-#### `share.replicaCount`
+#### `share.replicas`
 
 * Required: false
 * Default: `1`
@@ -586,7 +586,7 @@ For more information take a look at
 * Default: `true`
 * Description: Enable or disable the Active MQ
 
-#### `mq.replicaCount`
+#### `mq.replicas`
 
 * Required: false
 * Default: `1`
@@ -663,7 +663,7 @@ For more information take a look at
 * Default: `true`
 * Description: Enable or disable the PostgresQl
 
-#### `postgresql.replicaCount`
+#### `postgresql.replicas`
 
 * Required: false
 * Default: `1`
@@ -740,7 +740,7 @@ For more information take a look at
 * Default: `true`
 * Description: Enable or disable the Solr
 
-#### `solr.replicaCount`
+#### `solr.replicas`
 
 * Required: false
 * Default: `2`
@@ -819,7 +819,7 @@ For more information take a look at
 
 ### Shared File Store
 
-#### `transformServices.sharedFileStore.replicaCount`
+#### `transformServices.sharedFileStore.replicas`
 
 * Required: false
 * Default: `1`
@@ -890,7 +890,7 @@ For more information take a look at
 
 ### Transform Core All In One
 
-#### `transformServices.transformCoreAio.replicaCount`
+#### `transformServices.transformCoreAio.replicas`
 
 * Required: false
 * Default: `1`
@@ -961,7 +961,7 @@ For more information take a look at
 
 ### Transform Router
 
-#### `transformServices.transformRouter.replicaCount`
+#### `transformServices.transformRouter.replicas`
 
 * Required: false
 * Default: `1`
@@ -1038,7 +1038,7 @@ For more information take a look at
 * Default: `true`
 * Description: Enable or disable the Sync Service
 
-#### `syncService.replicaCount`
+#### `syncService.replicas`
 
 * Required: false
 * Default: `1`
@@ -1115,7 +1115,7 @@ For more information take a look at
 * Default: `false`
 * Description: Enable or disable the Office Online Integration
 
-#### `ooi.replicaCount`
+#### `ooi.replicas`
 
 * Required: false
 * Default: `1`

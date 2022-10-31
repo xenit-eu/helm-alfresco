@@ -7,7 +7,7 @@ metadata:
   labels:
     app: share
 spec:
-  replicas: {{ .Values.share.replicaCount }}
+  replicas: {{ .Values.share.replicas }}
   selector:
     matchLabels:
       app: share
