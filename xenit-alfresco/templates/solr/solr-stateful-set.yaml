@@ -30,8 +30,8 @@ spec:
     spec:
       containers:
       - name: solr-container
-        image: {{ .Values.solr.image.repository }}
-        imagePullPolicy: {{ .Values.solr.image.pullPolicy | default "IfNotPresent" }}
+        image: {{ .Values.solr.image }}
+        imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
         lifecycle:
           postStart:
             exec:

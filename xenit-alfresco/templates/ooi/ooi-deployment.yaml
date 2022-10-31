@@ -32,8 +32,8 @@ spec:
     spec:
       containers:
         - name: ooi-container
-          image: {{ .Values.ooi.image.repository }}
-          imagePullPolicy: {{ .Values.ooi.image.pullPolicy | default "IfNotPresent" }}
+          image: {{ .Values.ooi.image }}
+          imagePullPolicy: {{ .Values.ooi.imagePullPolicy | default "IfNotPresent" }}
           livenessProbe:
             tcpSocket:
               port: 9095
