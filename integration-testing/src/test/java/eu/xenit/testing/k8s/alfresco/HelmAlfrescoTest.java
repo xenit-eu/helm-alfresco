@@ -25,7 +25,7 @@ class HelmAlfrescoTest {
                             node-labels: "ingress-ready=true"
                     extraPortMappings:
                       - containerPort: 80
-                        hostPort: 80
+                        hostPort: 8099
                         protocol: TCP
                         """;
 
