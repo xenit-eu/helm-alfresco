@@ -1,4 +1,4 @@
-package eu.xenit.testing.k8s.cluster.kind;
+package eu.xenit.testing.k8s.alfresco;
 
 import eu.xenit.testing.k8s.cluster.Cluster;
 import eu.xenit.testing.k8s.cluster.ClusterProvisioner;

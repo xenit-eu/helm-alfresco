@@ -1,25 +1,36 @@
 package eu.xenit.testing.k8s.command;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.zeroturnaround.exec.ProcessExecutor;
+import org.zeroturnaround.exec.stream.slf4j.Slf4jStream;
 
 public class CommandHelper {
 
-    public static void executeAndPrintCommand(String... command) {
-        ProcessBuilder builder = new ProcessBuilder();
-        builder.redirectError();
-        builder.command(command);
+        public static void executeAndPrintCommand(Logger logger, String... command) {
+            executeAndPrintCommand(logger, false, command);
+        }
+
+        public static void executeAndPrintCommand(Logger logger, boolean stdErrAsInfo, String... command) {
         try {
-            Process process = builder.inheritIO().start();
-            assert process.waitFor() == 0;
+            var executor = new ProcessExecutor().command(command)
+                    .redirectOutput(Slf4jStream.of(logger).asInfo());
+            if(!stdErrAsInfo) {
+                executor = executor.redirectError(Slf4jStream.of(logger).asError());
+            }
+            assert executor.execute().getExitValue() == 0;
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
+        } catch (TimeoutException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public static String executeCommandAndRedirectToInputStream(String... command) {
+    public static String executeCommandAndReturnOutput(String... command) {
         ProcessBuilder builder = new ProcessBuilder();
         builder.redirectError();
         builder.command(command);
@@ -37,7 +48,7 @@ public class CommandHelper {
 
     @NotNull
     public static String[] prependArg(String first, String[] args) {
-        var newArgs = new String[args.length+1];
+        var newArgs = new String[args.length + 1];
         newArgs[0] = first;
         System.arraycopy(args, 0, newArgs, 1, args.length);
         return newArgs;

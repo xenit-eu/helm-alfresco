@@ -1,9 +1,13 @@
-package eu.xenit.testing.k8s.cluster.kind;
+package eu.xenit.testing.k8s.alfresco;
 
 import eu.xenit.testing.k8s.command.CommandHelper;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class KindCommander {
+
+    private static Logger logger = LoggerFactory.getLogger(KindCommander.class);
 
     private String binaryPath;
 
@@ -16,11 +20,11 @@ public class KindCommander {
     }
 
     public void commandAndPrint(String... args) {
-        CommandHelper.executeAndPrintCommand(prependKind(args));
+        CommandHelper.executeAndPrintCommand(logger, true, prependKind(args));
     }
 
     public String commandReturn(String... args) {
-        return CommandHelper.executeCommandAndRedirectToInputStream(prependKind(args));
+        return CommandHelper.executeCommandAndReturnOutput(prependKind(args));
     }
 
     @NotNull
