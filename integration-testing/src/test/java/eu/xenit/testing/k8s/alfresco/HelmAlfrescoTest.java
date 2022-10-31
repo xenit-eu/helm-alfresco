@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class HelmAlfrescoTest {
 
     @Test
-    void provision() throws IOException {
+    void smallSetup() throws IOException {
         var kindConfiguration = """
                 kind: Cluster
                 apiVersion: kind.x-k8s.io/v1alpha4
