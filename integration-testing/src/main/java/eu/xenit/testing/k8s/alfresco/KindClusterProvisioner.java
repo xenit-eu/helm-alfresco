@@ -2,8 +2,11 @@ package eu.xenit.testing.k8s.alfresco;
 
 import eu.xenit.testing.k8s.cluster.Cluster;
 import eu.xenit.testing.k8s.cluster.ClusterProvisioner;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -30,12 +33,19 @@ public class KindClusterProvisioner implements ClusterProvisioner {
     private Random random = new Random();
     @Override
     public Cluster provision() {
+        Path kindConfig = null;
+        try {
+            kindConfig = Files.createTempFile("kindconfig-", ".yaml");
+            Files.writeString(kindConfig, configuration);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String name = random.ints(97, 123)
                 .limit(10)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
 
-        kindCommander.commandAndPrint("create", "cluster", "--name", name);
+        kindCommander.commandAndPrint("create", "cluster", "--name", name, "--config=%s".formatted(kindConfig.toAbsolutePath().toString()));
         return new KindCluster(name, kindCommander);
     }
 
