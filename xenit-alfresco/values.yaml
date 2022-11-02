@@ -26,7 +26,7 @@ ingress:
 
 acs:
   replicas: 1
-  image: 'xenit/alfresco-repository-community:7.2.0'
+  image: 'xenit/alfresco-repository-community:7.2'
   strategy:
     type: RollingUpdate
   resources:
@@ -65,7 +65,7 @@ digitalWorkspace:
 share:
   enabled: true
   replicas: 1
-  image: 'xenit/alfresco-share-community:7.0'
+  image: 'xenit/alfresco-share-community:7.2'
   strategy:
     type: RollingUpdate
   resources:

@@ -249,7 +249,7 @@ For more information take a look at
 #### `acs.image`
 
 * Required: true
-* Default: xenit/alfresco-repository-community:7.2.0
+* Default: xenit/alfresco-repository-community:7.2
 * Description: The repository of the docker image that will be used
 
 #### `acs.imagePullPolicy`
@@ -504,7 +504,7 @@ For more information take a look at
 #### `share.image`
 
 * Required: true
-* Default: `xenit/alfresco-share-community:7.0`
+* Default: `xenit/alfresco-share-community:7.2`
 * Description: The repository of the docker image that will be used
 
 #### `share.imagePullPolicy`
