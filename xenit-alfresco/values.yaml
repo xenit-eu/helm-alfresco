@@ -25,7 +25,7 @@ ingress:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
 
 acs:
-  replicaCount: 1
+  replicas: 1
   image: 'xenit/alfresco-repository-community:7.2.0'
   strategy:
     type: RollingUpdate
@@ -52,7 +52,7 @@ acs:
 
 digitalWorkspace:
   enabled: true
-  replicaCount: 1
+  replicas: 1
   image: 'quay.io/alfresco/alfresco-digital-workspace:2.4.2-adw'
   strategy:
     type: RollingUpdate
@@ -64,7 +64,7 @@ digitalWorkspace:
 
 share:
   enabled: true
-  replicaCount: 1
+  replicas: 1
   image: 'xenit/alfresco-share-community:7.0'
   strategy:
     type: RollingUpdate
@@ -75,7 +75,7 @@ share:
 
 mq:
   enabled: true
-  replicaCount: 1
+  replicas: 1
   image: 'alfresco/alfresco-activemq:5.16.1'
   strategy:
     type: Recreate
@@ -96,7 +96,7 @@ postgresql:
 
 solr:
   enabled: true
-  replicaCount: 2
+  replicas: 2
   image: 'hub.xenit.eu/alfresco-enterprise/alfresco-solr6:2.0.2'
   strategy:
     type: RollingUpdate
@@ -108,7 +108,7 @@ solr:
 transformServices:
   enabled: true
   sharedFileStore:
-    replicaCount: 1
+    replicas: 1
     image: 'quay.io/alfresco/alfresco-shared-file-store:0.16.0'
     strategy:
       type: RollingUpdate
@@ -117,7 +117,7 @@ transformServices:
         memory: "512Mi"
         cpu: "200m"
   transformCoreAio:
-    replicaCount: 1
+    replicas: 1
     image: 'alfresco/alfresco-transform-core-aio'
     strategy:
       type: RollingUpdate
@@ -126,7 +126,7 @@ transformServices:
         memory: "256Mi"
         cpu: "150m"
   transformRouter:
-    replicaCount: 1
+    replicas: 1
     image: 'quay.io/alfresco/alfresco-transform-router:1.5.2'
     strategy:
       type: RollingUpdate
@@ -137,7 +137,7 @@ transformServices:
 
 syncService:
   enabled: false
-  replicaCount: 1
+  replicas: 1
   image: 'quay.io/alfresco/service-sync:3.4.0'
   strategy:
     type: RollingUpdate
@@ -148,7 +148,7 @@ syncService:
       
 ooi:
   enabled: false
-  replicaCount: 1
+  replicas: 1
   image: 'quay.io/alfresco/alfresco-ooi-service:1.1.2'
   strategy:
     type: RollingUpdate

@@ -7,7 +7,7 @@ metadata:
   labels:
     app: sync-service
 spec:
-  replicas: {{ .Values.syncService.replicaCount }}
+  replicas: {{ .Values.syncService.replicas }}
   selector:
     matchLabels:
       app: sync-service

@@ -12,3 +12,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 [XM2C-54]
 * Rename all `image.repository` properties to `image`
 * Rename all `image.pullPolicy` properties to `imagePullPolicy`
+
+[XM2C-55]
+* Rename all `replicaCount` properties to `replicas`

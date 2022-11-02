@@ -7,7 +7,7 @@ metadata:
   labels:
     app: transform-router
 spec:
-  replicas: {{ .Values.transformServices.transformRouter.replicaCount }}
+  replicas: {{ .Values.transformServices.transformRouter.replicas }}
   selector:
     matchLabels:
       app: transform-router

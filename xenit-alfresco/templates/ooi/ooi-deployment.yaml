@@ -12,7 +12,7 @@ metadata:
   labels:
     app: ooi
 spec:
-  replicas: {{ .Values.ooi.replicaCount }}
+  replicas: {{ .Values.ooi.replicas }}
   selector:
     matchLabels:
       app: ooi
