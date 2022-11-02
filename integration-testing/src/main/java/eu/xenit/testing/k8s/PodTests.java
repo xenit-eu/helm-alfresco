@@ -46,10 +46,6 @@ public class PodTests {
         }
     }
 
-    private static void printLastPodsEvents(Cluster cluster, String namespace, String labelSelector) {
-
-    }
-
     @NotNull
     private static Boolean checkPodsReadyInternal(
             Cluster cluster, String namespace, String labelSelector, int amount) throws ApiException {

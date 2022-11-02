@@ -1,4 +1,4 @@
-package eu.xenit.testing.k8s.alfresco;
+package eu.xenit.testing.k8s.kind;
 
 import eu.xenit.testing.k8s.PodTests;
 import eu.xenit.testing.k8s.cluster.Cluster;
@@ -82,7 +82,9 @@ class HelmAlfrescoTest {
 
             PodTests.checkPodsReady(cluster, namespace, "app = acs", 1, 300);
         } finally {
-            cluster.destroy();
+            if (cluster != null) {
+                cluster.destroy();
+            }
         }
 
     }

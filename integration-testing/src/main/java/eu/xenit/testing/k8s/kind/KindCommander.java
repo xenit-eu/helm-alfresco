@@ -1,4 +1,4 @@
-package eu.xenit.testing.k8s.alfresco;
+package eu.xenit.testing.k8s.kind;
 
 import eu.xenit.testing.k8s.command.CommandHelper;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +16,7 @@ public class KindCommander {
     }
 
     public KindCommander() {
-        this.binaryPath = "kind";
+        this("kind");
     }
 
     public void commandAndPrint(String... args) {

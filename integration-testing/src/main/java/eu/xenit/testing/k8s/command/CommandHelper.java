@@ -21,11 +21,7 @@ public class CommandHelper {
                 executor = executor.redirectError(Slf4jStream.of(logger).asError());
             }
             assert executor.execute().getExitValue() == 0;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (TimeoutException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -39,9 +35,7 @@ public class CommandHelper {
             String result = new String(process.getInputStream().readAllBytes());
             assert process.waitFor() == 0;
             return result;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
