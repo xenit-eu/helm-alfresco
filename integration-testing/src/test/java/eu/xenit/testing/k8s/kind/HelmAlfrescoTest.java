@@ -44,7 +44,7 @@ class HelmAlfrescoTest {
                     username: hello
                     password: world
                 acs:
-                  replicaCount: 1
+                  replicas: 1
                   resources:
                     requests:
                       memory: "2Gi"
