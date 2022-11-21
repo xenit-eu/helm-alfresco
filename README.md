@@ -1,23 +1,27 @@
-# Xenit Alfresco Helm Chart 
+# Xenit Alfresco Helm Chart
+
 [![Latest version of 'alfresco' @ Cloudsmith](https://api-prd.cloudsmith.io/v1/badges/version/xenit/open-source/helm/alfresco/latest/x/?render=true&show_latest=true)](https://cloudsmith.io/~xenit/repos/open-source/packages/detail/helm/alfresco/latest/)
 
 This is a helm chart for installing Alfresco
 
 ## Helm
+
 [![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com)
 
-Package repository hosting is graciously provided by  [Cloudsmith](https://cloudsmith.com).
-Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that
-enables your organization to create, store and share packages in any format, to any place, with total
-confidence.
+Package repository hosting is graciously provided by  [Cloudsmith](https://cloudsmith.com). Cloudsmith is the only fully
+hosted, cloud-native, universal package management solution, that enables your organization to create, store and share
+packages in any format, to any place, with total confidence.
 
-You can install this helm chart on you K8s cluster. Keep in mind that you will need to add some `--set` statements for this to work:
+You can install this helm chart on you K8s cluster. Keep in mind that you will need to add some `--set` statements for
+this to work:
+
 ```bash
 helm install alfresco \
   --repo 'https://repo.xenit.eu/public/open-source/helm/charts/'
 ```
 
 Or you can use it as a dependency in your `requirements.yaml` in your own chart.
+
 ```yaml
 dependencies:
   - name: alfresco
@@ -25,10 +29,10 @@ dependencies:
     repository: https://repo.xenit.eu/public/open-source/helm/charts/
 ```
 
-
-
 ## Dev Requirements
+
 Make sure you have the following installed:
+
 * Kubectl: https://kubernetes.io/docs/tasks/tools/#kubectl
 * docker: https://www.docker.com/get-started/
 * Helm: https://helm.sh/docs/intro/install/
@@ -36,7 +40,9 @@ Make sure you have the following installed:
 * skaffold: https://skaffold.dev/docs/install/
 
 ## Start Local Cluster
-* To start the cluster you have to create one using kind with the config file as a parameter that is under the directory kind: 
+
+* To start the cluster you have to create one using kind with the config file as a parameter that is under the directory
+  kind:
   ```bash
   kind create cluster --config=kind/config.yaml
   ```
@@ -50,7 +56,8 @@ Make sure you have the following installed:
   ```
 
 * set up the image pull secrets like in the example and add them to the ```general.imagePullSecrets```
-Example :
+  Example :
+
 ```
 apiVersion: v1
 kind: Secret
@@ -61,34 +68,38 @@ type: kubernetes.io/dockerconfigjson
 data:
   .dockerconfigjson: {{- printf "{\"auths\":{\"%s\":{\"username\":\"%s\",\"password\":\"%s\",\"email\":\"%s\",\"auth\":\"%s\"}}}" <<registry>> <<username>> <<password>> (printf "%s:%s" .username .password | b64enc) | b64enc }}
 ```
+
 * wait for the ingress controller to be ready you can check by running this command :
   ```bash
   kubectl wait --namespace ingress-nginx   --for=condition=ready pod   --selector=app.kubernetes.io/component=controller  --timeout=90s
   ```
 * some the services are disabled by default to minimize the resource usage such as :
-  - solr
-  - transformServices
-  - digitalWorkspace
-  
+    - solr
+    - transformServices
+    - digitalWorkspace
+
   to enable them modify the values inside local-values.yaml
-* finally, run skaffold (instead of helm) and wait for the ingress controller to be ready first: 
+* finally, run skaffold (instead of helm) and wait for the ingress controller to be ready first:
   ```bash
   skaffold dev
   ``` 
+
 ## Image Requirements
-This helm chart supports a lot of features like share and desktop sync. You are however yourself responsible to provide an ACS image with the correct amps installed to support these features.
-Please note that this helm chart is build to support the xenit open source images. These are build on the official Alfresco Images but have additional K8S support.
+
+This helm chart supports a lot of features like share and desktop sync. You are however yourself responsible to provide
+an ACS image with the correct amps installed to support these features. Please note that this helm chart is build to
+support the xenit open source images. These are build on the official Alfresco Images but have additional K8S support.
 The deployments that rely on Xenit Images are the following:
+
 * acs
 * share
 * postgresql
 * solr
 
-For more information take a look at 
+For more information take a look at
 
 * https://hub.docker.com/u/xenit
 * https://github.com/xenit-eu
-
 
 ## Configuration
 
@@ -97,20 +108,21 @@ For more information take a look at
 #### `general.strategy`
 
 * Required: false
-* Default: 
+* Default:
   ```yaml
   type: RollingUpdate
   rollingUpdate:
     maxSurge: 1
     maxUnavailable: 0
   ```
-* Description: You can overwrite here the rollout strategy of deployments. This will be effective on ALL deployments in the helm chart that have strategy type RollingUpdate (default)
+* Description: You can overwrite here the rollout strategy of deployments. This will be effective on ALL deployments in
+  the helm chart that have strategy type RollingUpdate (default)
 
 #### `general.podAnnotations`
 
 * Required: false
 * Default: None
-* Example: 
+* Example:
   ```yaml
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
@@ -121,7 +133,7 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Example: 
+* Example:
   ```yaml
     - name: privateDockerRepo1Secret
     - name: privateDockerRepo2Secret
@@ -133,21 +145,26 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: will set a serviceType on the services that are exposed via an ingress. This might be useful for example when you are working on AWS infra with an AWS ALB which requires NodePort services
+* Description: will set a serviceType on the services that are exposed via an ingress. This might be useful for example
+  when you are working on AWS infra with an AWS ALB which requires NodePort services
 
 #### `general.db.username`
 
 * Required: false
 * Default: None
-* Description: Used in the ACS and SyncService pod to access the Database and to set the username of the rootuser of the postgres (if enabled)
-* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random user will be used.
+* Description: Used in the ACS and SyncService pod to access the Database and to set the username of the rootuser of the
+  postgres (if enabled)
+* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there
+  a random user will be used.
 
 #### `general.db.password`
 
 * Required: false
 * Default: None
-* Description: Used in the ACS and SyncService pod to access the Database and to set the password of the rootuser of the postgres (if enabled)
-* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random password will be used.
+* Description: Used in the ACS and SyncService pod to access the Database and to set the password of the rootuser of the
+  postgres (if enabled)
+* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there
+  a random password will be used.
 
 #### `general.networkPolicies.enabled`
 
@@ -159,16 +176,20 @@ For more information take a look at
 
 * Required: false
 * Default: cilium
-* Description: A field to tell the helm chart what cni provider your cluster is using. By default we assume cilium. If this is not the case you will need to add a network policy to allow the following
+* Description: A field to tell the helm chart what cni provider your cluster is using. By default we assume cilium. If
+  this is not the case you will need to add a network policy to allow the following
 * Alfresco to access heartbeat
 
 #### `general.secrets.acs.selfManaged`
 
 * Required: false
 * Default: false
-* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
-* Please note that when you enable this you are yourself responsible to provide a secret acs-secret in the namespace that you will install this chart in.
+* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a
+  prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
+* Please note that when you enable this you are yourself responsible to provide a secret acs-secret in the namespace
+  that you will install this chart in.
 * Secret data expected:
+
 ```
   GLOBAL_objectstorage.store.myS3ContentStore.value.accessKey
   GLOBAL_objectstorage.store.myS3ContentStore.value.secretKey
@@ -178,9 +199,12 @@ For more information take a look at
 
 * Required: false
 * Default: false
-* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
-* Please note that when you enable this you are yourself responsible to provide a secret mq-secret in the namespace that you will install this chart in.
+* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a
+  prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
+* Please note that when you enable this you are yourself responsible to provide a secret mq-secret in the namespace that
+  you will install this chart in.
 * Secret data expected:
+
 ```
   ACTIVEMQ_ADMIN_LOGIN
   ACTIVEMQ_ADMIN_PASSWORD
@@ -192,16 +216,18 @@ For more information take a look at
 
 * Required: false
 * Default: false
-* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
-* Please note that when you enable this you are yourself responsible to provide a secret db-secret in the namespace that you will install this chart in.
+* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a
+  prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
+* Please note that when you enable this you are yourself responsible to provide a secret db-secret in the namespace that
+  you will install this chart in.
 * Secret data expected:
+
 ```
   DB_USERNAME
   DB_PASSWORD  
   POSTGRES_USER
   POSTGRES_PASSWORD
 ```
-
 
 ### Ingress
 
@@ -227,12 +253,12 @@ For more information take a look at
   ```
 * Description: Annotations for ingress
 
-
 #### `ingress.additionalPaths`
 
 * Required: false
 * Default: None
 * Example:
+
 ```yaml
 - path: /service-path
   pathType: Prefix
@@ -242,7 +268,9 @@ For more information take a look at
         port:
           number: service-port
 ```
+
 * Description: used to add more path to ingress under the same host name for new services
+
 ### ACS
 
 #### `acs.replicas`
@@ -285,7 +313,8 @@ For more information take a look at
 
 * Required: false
 * Default: 1
-* Description: Specify the livenessProbe success thresh hold for how many consecutive successes for the probe to be considered successful after having failed
+* Description: Specify the livenessProbe success thresh hold for how many consecutive successes for the probe to be
+  considered successful after having failed
 
 #### `acs.livenessProbe.timeoutSeconds`
 
@@ -315,7 +344,8 @@ For more information take a look at
 
 * Required: false
 * Default: 1
-* Description: Specify the readinessProbe success thresh hold for how many consecutive successes for the probe to be considered successful after having failed
+* Description: Specify the readinessProbe success thresh hold for how many consecutive successes for the probe to be
+  considered successful after having failed
 
 #### `acs.readinessProbe.timeoutSeconds`
 
@@ -362,14 +392,17 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `acs.envFrom`
 
 * Required: false
 * Default: None
-* Description: This allows you to add to the acs-container envFrom section. This was added to allow to integrate secrets that are not added by this helm chart.
+* Description: This allows you to add to the acs-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
 * Example:
+
 ```yaml
 - secretRef:
     name: s3-secret
@@ -390,7 +423,8 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `acs.resources.requests`
 
@@ -468,7 +502,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `digitalWorkspace.podAnnotations`
 
@@ -485,7 +520,8 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `digitalWorkspace.resources.requests`
 
@@ -557,7 +593,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `share.podAnnotations`
 
@@ -574,7 +611,8 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `share.resources.requests`
 
@@ -587,6 +625,7 @@ For more information take a look at
   ```
 * Description: The resources a node should keep reserved for your pod
 *
+
 #### `share.resources.limits`
 
 * Required: false
@@ -612,14 +651,16 @@ For more information take a look at
 * Required: false
 * Default: None
 * Description: Sets the username of the admin user of the MQ
-* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random login will be used.
+* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there
+  a random login will be used.
 
 #### `mq.adminPassword`
 
 * Required: false
 * Default: None
 * Description: Sets the password of the admin user of the MQ
-* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there a random password will be used.
+* Note: If not specified the helm chart will try to reuse the value used in previous deployments. If these are not there
+  a random password will be used.
 
 #### `mq.enabled`
 
@@ -660,7 +701,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `mq.podAnnotations`
 
@@ -677,7 +719,8 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `mq.resources.requests`
 
@@ -690,6 +733,7 @@ For more information take a look at
   ```
 * Description: The resources a node should keep reserved for your pod
 *
+
 #### `mq.resources.limits`
 
 * Required: false
@@ -749,7 +793,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `postgresql.podAnnotations`
 
@@ -766,7 +811,8 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `postgresql.resources.requests`
 
@@ -838,7 +884,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `solr.podAnnotations`
 
@@ -855,7 +902,8 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `solr.resources.requests`
 
@@ -868,6 +916,7 @@ For more information take a look at
   ```
 * Description: The resources a node should keep reserved for your pod
 *
+
 #### `solr.resources.limits`
 
 * Required: false
@@ -941,7 +990,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `transformServices.sharedFileStore.podAnnotations`
 
@@ -958,7 +1008,8 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `transformServices.sharedFileStore.resources.requests`
 
@@ -1024,7 +1075,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `transformServices.transformCoreAio.podAnnotations`
 
@@ -1035,13 +1087,15 @@ For more information take a look at
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple annotations to the Transform Core All In One deployment
+* Description: With this list of parameters you can add 1 or multiple annotations to the Transform Core All In One
+  deployment
 
 #### `transformServices.transformCoreAio.serviceAccount`
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `transformServices.transformCoreAio.resources.requests`
 
@@ -1054,6 +1108,7 @@ For more information take a look at
   ```
 * Description: The resources a node should keep reserved for your pod
 *
+
 #### `transformServices.transformCoreAio.resources.limits`
 
 * Required: false
@@ -1107,7 +1162,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `transformServices.transformRouter.podAnnotations`
 
@@ -1124,7 +1180,8 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `transformServices.transformRouter.resources.requests`
 
@@ -1137,6 +1194,7 @@ For more information take a look at
   ```
 * Description: The resources a node should keep reserved for your pod
 *
+
 #### `transformServices.transformRouter.resources.limits`
 
 * Required: false
@@ -1196,7 +1254,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `syncService.podAnnotations`
 
@@ -1213,7 +1272,8 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `syncService.resources.requests`
 
@@ -1226,6 +1286,7 @@ For more information take a look at
   ```
 * Description: The resources a node should keep reserved for your pod
 *
+
 #### `syncService.resources.limits`
 
 * Required: false
@@ -1285,7 +1346,8 @@ For more information take a look at
   environmentVariable1Key: environmentVariable1Value
   environmentVariable2Key: environmentVariable2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the docker container. These will be stored in a config and are hence not safe for sensitive information
+* Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
+  docker container. These will be stored in a config and are hence not safe for sensitive information
 
 #### `ooi.podAnnotations`
 
@@ -1296,13 +1358,15 @@ For more information take a look at
   annotation1Key: annotation1Value
   annotation2Key: annotation2Value
   ```
-* Description: With this list of parameters you can add 1 or multiple annotations to the Office Online Integration deployment
+* Description: With this list of parameters you can add 1 or multiple annotations to the Office Online Integration
+  deployment
 
 #### `ooi.serviceAccount`
 
 * Required: false
 * Default: None
-* Description: If your pods need to run with a service account you can specify that here. Please note that you are yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
+* Description: If your pods need to run with a service account you can specify that here. Please note that you are
+  yourself responsible to create the serviceAccount referenced in the namespace of this helm chart
 
 #### `ooi.resources.requests`
 
@@ -1315,6 +1379,7 @@ For more information take a look at
   ```
 * Description: The resources a node should keep reserved for your pod
 *
+
 #### `ooi.resources.limits`
 
 * Required: false
@@ -1347,7 +1412,8 @@ For more information take a look at
 
 * Required: false
 * Default: `scw-bssd`
-* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard` or `efs-storage-class` you will need to make sure that that storage class is created
+* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard`
+  or `efs-storage-class` you will need to make sure that that storage class is created
 
 #### `persistentStorage.alfresco.storage`
 
@@ -1373,7 +1439,8 @@ For more information take a look at
 
 * Required: false
 * Default: `scw-bssd`
-* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard` or `efs-storage-class` you will need to make sure that that storage class is created
+* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard`
+  or `efs-storage-class` you will need to make sure that that storage class is created
 
 #### `persistentStorage.postgres.storage`
 
@@ -1399,7 +1466,8 @@ For more information take a look at
 
 * Required: false
 * Default: `scw-bssd`
-* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard` or `efs-storage-class` you will need to make sure that that storage class is created
+* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard`
+  or `efs-storage-class` you will need to make sure that that storage class is created
 
 #### `persistentStorage.solr.storage`
 
@@ -1425,7 +1493,8 @@ For more information take a look at
 
 * Required: false
 * Default: `scw-bssd`
-* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard` or `efs-storage-class` you will need to make sure that that storage class is created
+* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard`
+  or `efs-storage-class` you will need to make sure that that storage class is created
 
 #### `persistentStorage.sharedFileStore.storage`
 
@@ -1451,7 +1520,8 @@ For more information take a look at
 
 * Required: false
 * Default: `scw-bssd`
-* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard` or `efs-storage-class` you will need to make sure that that storage class is created
+* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard`
+  or `efs-storage-class` you will need to make sure that that storage class is created
 
 #### `persistentStorage.mq.storage`
 
