@@ -188,9 +188,3 @@ persistentStorage:
     storage: 1
     efs:
       volumeHandle: ""
-
-imageCredentials:
-  private:
-    registry: 'hub.xenit.eu'
-  alfresco:
-    registry: 'quay.io'

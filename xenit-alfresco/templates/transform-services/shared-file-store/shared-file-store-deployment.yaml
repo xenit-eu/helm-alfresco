@@ -58,9 +58,14 @@ spec:
               mountPath: /tmp/Alfresco
           {{- end }}
       imagePullSecrets:
-        - name: alfrescocred
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+        {{- if .Values.transformServices.imagePullSecrets}}
+        {{ toYaml .Values.transformServices.imagePullSecrets | nindent 8 }}
+        {{- end }}
+        {{- if .Values.transformServices.sharedFileStore.imagePullSecrets}}
+        {{ toYaml .Values.transformServices.sharedFileStore.imagePullSecrets | nindent 8 }}
         {{- end }}
       {{- if .Values.persistentStorage.sharedFileStore.enabled }}
       volumes:

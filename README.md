@@ -49,7 +49,18 @@ Make sure you have the following installed:
   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
   ```
 
-* set up the credentials in local_values.yaml for LDAP and alfresco
+* set up the image pull secrets like in the example and add them to the ```general.imagePullSecrets```
+Example :
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secretName
+  namespace: {{ .Release.Namespace | quote }}
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: {{- printf "{\"auths\":{\"%s\":{\"username\":\"%s\",\"password\":\"%s\",\"email\":\"%s\",\"auth\":\"%s\"}}}" <<registry>> <<username>> <<password>> (printf "%s:%s" .username .password | b64enc) | b64enc }}
+```
 * wait for the ingress controller to be ready you can check by running this command :
   ```bash
   kubectl wait --namespace ingress-nginx   --for=condition=ready pod   --selector=app.kubernetes.io/component=controller  --timeout=90s
@@ -115,7 +126,8 @@ For more information take a look at
     - name: privateDockerRepo1Secret
     - name: privateDockerRepo2Secret
   ```
-* Description: If you use an image that is hosted on a private repo besides the xenit repo or the quay alfresco repo you can create secrets on your cluster and reference them here. The secrets will be referenced in all Deployments and StatefullSets.
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here. The secrets will be referenced in all Deployments and StatefullSets.
 
 #### `general.serviceType`
 
@@ -190,13 +202,6 @@ For more information take a look at
   POSTGRES_PASSWORD
 ```
 
-#### `general.secrets.imageCredentials.selfManaged`
-
-* Required: false
-* Default: false
-* Description: Whether or not you want to provide secrets for the helm chart yourself. This is useful when working on a prod environment and you want a secure secret solution (for example Bitnami' Sealed secrets)
-* Please note that when you enable this you are yourself responsible to provide a secret privatecred alfrescocred in the namespace that you will install this chart in.
-* Secret data expected: Both secrets should be dockerconfigjson secrets
 
 ### Ingress
 
@@ -397,12 +402,24 @@ For more information take a look at
     cpu: "2"
   ```
 * Description: The resources a node should keep reserved for your pod
-* 
+
 #### `acs.resources.limits`
 
 * Required: false
 * Default: None
 * Description: The maximum resources a pod may consume from a node
+
+#### `acs.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
 
 ### Digital Workspace
 
@@ -480,12 +497,24 @@ For more information take a look at
     cpu: "150m"
   ```
 * Description: The resources a node should keep reserved for your pod
-*
+
 #### `digitalWorkspace.resources.limits`
 
 * Required: false
 * Default: None
 * Description: The maximum resources a pod may consume from a node
+
+#### `digitalWorkspace.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
 
 ### Share
 
@@ -563,6 +592,18 @@ For more information take a look at
 * Required: false
 * Default: None
 * Description: The maximum resources a pod may consume from a node
+
+#### `share.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
 
 ### Active MQ
 
@@ -655,6 +696,18 @@ For more information take a look at
 * Default: None
 * Description: The maximum resources a pod may consume from a node
 
+#### `mq.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
+
 ### PostgresQl
 
 #### `postgresql.enabled`
@@ -731,6 +784,18 @@ For more information take a look at
 * Required: false
 * Default: None
 * Description: The maximum resources a pod may consume from a node
+
+#### `postgresql.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
 
 ### SOLR
 
@@ -809,6 +874,18 @@ For more information take a look at
 * Default: None
 * Description: The maximum resources a pod may consume from a node
 
+#### `solr.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
+
 ### Transform Services
 
 #### `transformServices.enabled`
@@ -816,6 +893,18 @@ For more information take a look at
 * Required: false
 * Default: `true`
 * Description: Enable or disable the Transform Services
+
+#### `transformServices.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here. they will be referenced in all transform services Deployments.
 
 ### Shared File Store
 
@@ -888,6 +977,18 @@ For more information take a look at
 * Default: None
 * Description: The maximum resources a pod may consume from a node
 
+#### `transformServices.sharedFileStore.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
+
 ### Transform Core All In One
 
 #### `transformServices.transformCoreAio.replicas`
@@ -959,6 +1060,18 @@ For more information take a look at
 * Default: None
 * Description: The maximum resources a pod may consume from a node
 
+#### `transformServices.transformCoreAio.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
+
 ### Transform Router
 
 #### `transformServices.transformRouter.replicas`
@@ -1029,6 +1142,18 @@ For more information take a look at
 * Required: false
 * Default: None
 * Description: The maximum resources a pod may consume from a node
+
+#### `transformServices.transformRouter.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
 
 ### Sync Service
 
@@ -1107,6 +1232,18 @@ For more information take a look at
 * Default: None
 * Description: The maximum resources a pod may consume from a node### Sync Service
 
+#### `syncService.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
+
 ### Office Online Integration(OOI)
 
 #### `ooi.enabled`
@@ -1183,6 +1320,18 @@ For more information take a look at
 * Required: false
 * Default: None
 * Description: The maximum resources a pod may consume from a node
+
+#### `ooi.imagePullSecrets`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+    - name: privateDockerRepo1Secret
+    - name: privateDockerRepo2Secret
+  ```
+* Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
+  reference them here.
 
 ### Persistent Storage
 
@@ -1315,47 +1464,3 @@ For more information take a look at
 * Required: when `persistentStorage.mq.storageClassName` is `scw-bssd`
 * Default: None
 * Description: The volume handle pointing to the AWS EFS location
-
-### Image Credentials
-
-### Private
-
-#### `imageCredentials.private.registry`
-
-* Required: false
-* Default: `hub.xenit.eu`
-* Description: The registry where the private images are hosted
-
-#### `imageCredentials.private.username`
-
-* Required: true
-* Default: None
-* Description: The username with which you will pull images from the private repo
-
-#### `imageCredentials.private.password`
-
-* Required: true
-* Default: None
-* Description: The password for the username with which you will pull images from the private repo
-
-### Alfresco (Quay)
-
-#### `imageCredentials.alfresco.registry`
-
-* Required: false
-* Default: `quay.io`
-* Description: The registry where alfresco private images are hosted
-
-#### `imageCredentials.alfresco.username`
-
-* Required: true
-* Default: None
-* Description: The username with which you will pull alfresco images from the alfresco repo
-
-#### `imageCredentials.alfresco.password`
-
-* Required: true
-* Default: None
-* Description: The password for the username with which you will pull alfresco images from the alfresco repo
-
-

@@ -64,9 +64,11 @@ spec:
             mountPath: /opt/alfresco-search-services/data
             subPath: solr/data
       imagePullSecrets:
-        - name: privatecred
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+        {{- if .Values.solr.imagePullSecrets}}
+        {{ toYaml .Values.solr.imagePullSecrets | nindent 8 }}
         {{- end }}
   {{- with .Values.persistentStorage.solr }}
   volumeClaimTemplates:
