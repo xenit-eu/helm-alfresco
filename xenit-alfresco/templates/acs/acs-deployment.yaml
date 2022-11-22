@@ -105,7 +105,9 @@ spec:
             claimName: alfresco-pvc
       {{- end }}
       imagePullSecrets:
-        - name: privatecred
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+        {{- if .Values.acs.imagePullSecrets}}
+        {{ toYaml .Values.acs.imagePullSecrets | nindent 8 }}
         {{- end }}

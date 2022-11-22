@@ -36,13 +36,6 @@ class HelmAlfrescoTest {
                   host: test
                   protocol: http
                   kubernetes.io/ingress.class: {}
-                imageCredentials:
-                  private:
-                    username: hello
-                    password: world
-                  alfresco:
-                    username: hello
-                    password: world
                 acs:
                   replicas: 1
                   resources:

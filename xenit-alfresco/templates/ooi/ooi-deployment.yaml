@@ -68,8 +68,10 @@ spec:
             {{- end }}
           {{- end }}
       imagePullSecrets:
-        - name: alfrescocred
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+        {{- if .Values.ooi.imagePullSecrets}}
+        {{ toYaml .Values.ooi.imagePullSecrets | nindent 8 }}
         {{- end }}
 {{- end }}

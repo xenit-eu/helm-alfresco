@@ -65,9 +65,11 @@ spec:
           {{- end }}
         {{- end }}
       imagePullSecrets:
-        - name: privatecred
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
+        {{- end }}
+        {{- if .Values.postgresql.imagePullSecrets}}
+        {{ toYaml .Values.postgresql.imagePullSecrets | nindent 8 }}
         {{- end }}
       {{- if .Values.persistentStorage.postgres.enabled }}
       volumes:
