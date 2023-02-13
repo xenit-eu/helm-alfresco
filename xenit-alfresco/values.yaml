@@ -97,7 +97,7 @@ postgresql:
 solr:
   enabled: true
   replicas: 2
-  image: 'hub.xenit.eu/alfresco-enterprise/alfresco-solr6:2.0.2'
+  image: 'xenit/alfresco-solr6-xenit:2.0.6'
   strategy:
     type: RollingUpdate
   resources:
