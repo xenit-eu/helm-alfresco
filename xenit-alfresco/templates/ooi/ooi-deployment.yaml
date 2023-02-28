@@ -32,7 +32,11 @@ spec:
     spec:
       containers:
         - name: ooi-container
+          {{- if and .Values.ooi.registry .Values.ooi.repository .Values.ooi.tag }}
+          image: {{ .Values.ooi.registry }}/{{ .Values.ooi.repository }}:{{ .Values.ooi.tag }}
+          {{- else }}
           image: {{ .Values.ooi.image }}
+          {{- end }}
           imagePullPolicy: {{ .Values.ooi.imagePullPolicy | default "IfNotPresent" }}
           livenessProbe:
             tcpSocket:

@@ -279,11 +279,29 @@ For more information take a look at
 * Default: `2`
 * Description: The number of pods that will be running
 
+#### `acs.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `acs.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `acs.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
+
 #### `acs.image`
 
-* Required: true
+* Required: true if no acs.registry, acs.repository or acs.tag is provided
 * Default: xenit/alfresco-repository-community:7.2.0
-* Description: The repository of the docker image that will be used
+* Description: The repository of the docker image that will be used if you want to provide this with 1 parameter
 
 #### `acs.imagePullPolicy`
 
@@ -469,6 +487,24 @@ For more information take a look at
 * Default: `1`
 * Description: The number of pods that will be running
 
+#### `digitalWorkspace.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `digitalWorkspace.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `digitalWorkspace.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
+
 #### `digitalWorkspace.image`
 
 * Required: true
@@ -565,6 +601,24 @@ For more information take a look at
 * Required: false
 * Default: `1`
 * Description: The number of pods that will be running
+
+#### `share.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `share.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `share.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
 
 #### `share.image`
 
@@ -674,6 +728,24 @@ For more information take a look at
 * Default: `1`
 * Description: The number of pods that will be running
 
+#### `mq.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `mq.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `mq.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
+
 #### `mq.image`
 
 * Required: true
@@ -766,6 +838,24 @@ For more information take a look at
 * Default: `1`
 * Description: The number of pods that will be running
 
+#### `postgresql.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `postgresql.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `postgresql.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
+
 #### `postgresql.image`
 
 * Required: true
@@ -856,6 +946,24 @@ For more information take a look at
 * Required: false
 * Default: `2`
 * Description: The number of pods that will be running
+
+#### `solr.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `solr.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `solr.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
 
 #### `solr.image`
 
@@ -963,6 +1071,24 @@ For more information take a look at
 * Default: `1`
 * Description: The number of pods that will be running
 
+#### `transformServices.sharedFileStore.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `transformServices.sharedFileStore.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `transformServices.sharedFileStore.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
+
 #### `transformServices.sharedFileStore.image`
 
 * Required: true
@@ -1047,6 +1173,24 @@ For more information take a look at
 * Required: false
 * Default: `1`
 * Description: The number of pods that will be running
+
+#### `transformServices.transformCoreAio.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `transformServices.transformCoreAio.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `transformServices.transformCoreAio.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
 
 #### `transformServices.transformCoreAio.image`
 
@@ -1134,6 +1278,24 @@ For more information take a look at
 * Required: false
 * Default: `1`
 * Description: The number of pods that will be running
+
+#### `transformServices.transformRouter.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `transformServices.transformRouter.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `transformServices.transformRouter.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
 
 #### `transformServices.transformRouter.image`
 
@@ -1227,6 +1389,24 @@ For more information take a look at
 * Default: `1`
 * Description: The number of pods that will be running
 
+#### `syncService.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `syncService.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `syncService.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
+
 #### `syncService.image`
 
 * Required: true
@@ -1318,6 +1498,24 @@ For more information take a look at
 * Required: false
 * Default: `1`
 * Description: The number of pods that will be running
+
+#### `ooi.registry`
+
+* Required: false
+* Default: None
+* Description: The registry where the docker container can be found in
+
+#### `ooi.repository`
+
+* Required: false
+* Default: None
+* Description: The repository of the docker image that will be used
+
+#### `ooi.tag`
+
+* Required: false
+* Default: None
+* Description: The tag of the docker image that will be used
 
 #### `ooi.image`
 
@@ -1426,6 +1624,21 @@ For more information take a look at
 * Required: when `persistentStorage.alfresco.storageClassName` is `scw-bssd`
 * Default: None
 * Description: The volume handle pointing to the AWS EFS location
+
+#### `persistentStorage.alfresco.additionalClaims`
+
+* Required: false
+* Default: None
+* Description: A list of aditional volume claims that can be added to the alfresco pods. Layout should be as follows:
+```yaml
+      - name: name1
+        mountPath: /apps/example
+        subPath: subPath/example
+        storageClassName: "standard"
+        storage: 2
+        efs:
+          volumeHandle: "efs-identifier"
+```
 
 ### Postgres
 

@@ -33,7 +33,11 @@ spec:
     spec:
       containers:
         - name: digital-workspace-container
+          {{- if and .Values.digitalWorkspace.registry .Values.digitalWorkspace.repository .Values.digitalWorkspace.tag }}
+          image: {{ .Values.digitalWorkspace.registry }}/{{ .Values.digitalWorkspace.repository }}:{{ .Values.digitalWorkspace.tag }}
+          {{- else }}
           image: {{ .Values.digitalWorkspace.image }}
+          {{- end }}
           imagePullPolicy: {{ .Values.digitalWorkspace.imagePullPolicy | default "IfNotPresent" }}
           livenessProbe:
             failureThreshold: 4
