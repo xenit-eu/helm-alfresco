@@ -30,10 +30,10 @@ spec:
     spec:
       containers:
       - name: solr-container
-        {{- if and .Values.solr.registry .Values.solr.repository .Values.solr.tag }}
-        image: {{ .Values.solr.registry }}/{{ .Values.solr.repository }}:{{ .Values.solr.tag }}
-        {{- else }}
+        {{- if .Values.solr.image }}
         image: {{ .Values.solr.image }}
+        {{- else }}
+        image: {{ .Values.solr.registry }}/{{ .Values.solr.repository }}:{{ .Values.solr.tag }}
         {{- end }}
         imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
         lifecycle:

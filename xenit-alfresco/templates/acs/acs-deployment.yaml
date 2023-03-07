@@ -35,10 +35,10 @@ spec:
       {{- end }}
       containers:
       - name: acs-container
-        {{- if and .Values.acs.registry .Values.acs.repository .Values.acs.tag }}
-        image: {{ .Values.acs.registry }}/{{ .Values.acs.repository }}:{{ .Values.acs.tag }}
+        {{- if .Values.acs.image }}
+        image: {{ .Values.acs.image }}
         {{- else }}
-        image: {{ required "An image for the ACS pod needs to be specified under acs.image" .Values.acs.image }}
+        image: {{ .Values.acs.registry }}/{{ .Values.acs.repository }}:{{ .Values.acs.tag }}
         {{- end }}
         imagePullPolicy: {{ .Values.acs.imagePullPolicy | default "IfNotPresent" }}
         readinessProbe:

@@ -35,10 +35,10 @@ spec:
     spec:
       containers:
         - name: sync-service-container
-          {{- if and .Values.syncService.registry .Values.syncService.repository .Values.syncService.tag }}
-          image: {{ .Values.syncService.registry }}/{{ .Values.syncService.repository }}:{{ .Values.syncService.tag }}
-          {{- else }}
+          {{- if .Values.syncService.image }}
           image: {{ .Values.syncService.image }}
+          {{- else }}
+          image: {{ .Values.syncService.registry }}/{{ .Values.syncService.repository }}:{{ .Values.syncService.tag }}
           {{- end }}
           imagePullPolicy: {{ .Values.syncService.imagePullPolicy | default "IfNotPresent" }}
           livenessProbe:

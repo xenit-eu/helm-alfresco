@@ -35,10 +35,10 @@ spec:
     spec:
       containers:
       - name: postgresql-container
-        {{- if and .Values.postgresql.registry .Values.postgresql.repository .Values.postgresql.tag }}
-        image: {{ .Values.postgresql.registry }}/{{ .Values.postgresql.repository }}:{{ .Values.postgresql.tag }}
-        {{- else }}
+        {{- if .Values.postgresql.image }}
         image: {{ .Values.postgresql.image }}
+        {{- else }}
+        image: {{ .Values.postgresql.registry }}/{{ .Values.postgresql.repository }}:{{ .Values.postgresql.tag }}
         {{- end }}
         imagePullPolicy: {{ .Values.postgresql.imagePullPolicy | default "IfNotPresent" }}
         envFrom:

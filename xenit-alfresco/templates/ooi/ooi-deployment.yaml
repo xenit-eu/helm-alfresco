@@ -32,10 +32,10 @@ spec:
     spec:
       containers:
         - name: ooi-container
-          {{- if and .Values.ooi.registry .Values.ooi.repository .Values.ooi.tag }}
-          image: {{ .Values.ooi.registry }}/{{ .Values.ooi.repository }}:{{ .Values.ooi.tag }}
-          {{- else }}
+          {{- if .Values.ooi.image }}
           image: {{ .Values.ooi.image }}
+          {{- else }}
+          image: {{ .Values.ooi.registry }}/{{ .Values.ooi.repository }}:{{ .Values.ooi.tag }}
           {{- end }}
           imagePullPolicy: {{ .Values.ooi.imagePullPolicy | default "IfNotPresent" }}
           livenessProbe:

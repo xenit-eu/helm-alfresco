@@ -34,10 +34,10 @@ spec:
     spec:
       containers:
         - name: activemq
-          {{- if and .Values.mq.registry .Values.mq.repository .Values.mq.tag }}
-          image: {{ .Values.mq.registry }}/{{ .Values.mq.repository }}:{{ .Values.mq.tag }}
-          {{- else }}
+          {{- if .Values.mq.image }}
           image: {{ .Values.mq.image }}
+          {{- else }}
+          image: {{ .Values.mq.registry }}/{{ .Values.mq.repository }}:{{ .Values.mq.tag }}
           {{- end }}
           imagePullPolicy: {{ .Values.mq.imagePullPolicy | default "IfNotPresent" }}
           envFrom:

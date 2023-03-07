@@ -33,10 +33,10 @@ spec:
     spec:
       containers:
         - name: transform-router-container
-          {{- if and .Values.transformServices.transformRouter.registry .Values.transformServices.transformRouter.repository .Values.transformServices.transformRouter.tag }}
-          image: {{ .Values.transformServices.transformRouter.registry }}/{{ .Values.transformServices.transformRouter.repository }}:{{ .Values.transformServices.transformRouter.tag }}
-          {{- else }}
+          {{- if .Values.transformServices.transformRouter.image }}
           image: {{ .Values.transformServices.transformRouter.image }}
+          {{- else }}
+          image: {{ .Values.transformServices.transformRouter.registry }}/{{ .Values.transformServices.transformRouter.repository }}:{{ .Values.transformServices.transformRouter.tag }}
           {{- end }}
           imagePullPolicy: {{ .Values.transformServices.transformRouter.imagePullPolicy | default "IfNotPresent" }}
           livenessProbe:
