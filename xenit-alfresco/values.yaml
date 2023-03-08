@@ -94,7 +94,7 @@ mq:
 
 postgresql:
   enabled: true
-  registry: 'docker.io/xenit'
+  registry: 'xenit'
   repository: 'postgres'
   tag: 'latest'
   strategy:
@@ -121,9 +121,9 @@ transformServices:
   enabled: true
   sharedFileStore:
     replicas: 1
-    registry: 'quay.io/alfresco'
+    registry: 'alfresco'
     repository: 'alfresco-shared-file-store'
-    tag: '0.16.0'
+    tag: '0.16.1'
     strategy:
       type: RollingUpdate
     resources:
