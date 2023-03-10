@@ -54,15 +54,6 @@ spec:
             port:
               number: 30200
       {{- end }}
-      {{- if .Values.solr.enabled }}
-      - path: /solr
-        pathType: Prefix
-        backend:
-          service:
-            name: solr-service
-            port:
-              number: 30300
-      {{- end }}
       {{- if .Values.ooi.enabled }}
       - path: /ooi-service
         pathType: Prefix
