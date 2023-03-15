@@ -4,7 +4,7 @@ general:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
-  db: {}
+  db: { }
   cni: cilium
   networkPolicies:
     enabled: true
@@ -104,6 +104,10 @@ solr:
     requests:
       memory: "4Gi"
       cpu: "1"
+  autoBackup:
+    enabled: false
+    cron: "0 * * * *"
+    backupUrl: "http://solr-service:30300/solr/alfresco/replication?command=backup&repository=s3&location=s3:///&numberToKeep=3"
 
 transformServices:
   enabled: true
@@ -145,7 +149,7 @@ syncService:
     requests:
       memory: "512Mi"
       cpu: "0.5"
-      
+
 ooi:
   enabled: false
   replicas: 1
@@ -156,7 +160,7 @@ ooi:
     requests:
       memory: "128Mi"
       cpu: "100m"
-        
+
 persistentStorage:
   alfresco:
     enabled: true

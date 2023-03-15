@@ -9,6 +9,9 @@ metadata:
 data:
   DB_URL: {{ quote .Values.acs.dbUrl }}
   DB_DRIVER: {{ quote .Values.acs.dbDriver }}
+  {{- if .Values.solr.enabled }}
+  GLOBAL_solr.port: '30300'
+  {{- end }}
   {{- if .Values.share.enabled }}
   SHARE_HOST: {{ quote .Values.ingress.host }}
   SHARE_PORT: {{ quote .Values.acs.sharePort }}

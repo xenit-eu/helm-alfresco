@@ -43,6 +43,9 @@ spec:
         envFrom:
           - configMapRef:
               name: solr-configmap
+          {{- if .Values.solr.envFrom }}
+          {{ toYaml .Values.solr.envFrom | nindent 10 }}
+          {{- end }}
         ports:
           - containerPort: 8080
             protocol: TCP
