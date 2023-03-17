@@ -37,7 +37,18 @@ acs:
   dbDriver: 'org.postgresql.Driver'
   sharePort: '443'
   shareProtocol: 'https'
-
+  livenessProbe:
+    failureThreshold: 1
+    initialDelaySeconds: 130
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 10
+  readinessProbe:
+    failureThreshold: 6
+    initialDelaySeconds: 60
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 10
 digitalWorkspace:
   enabled: true
   replicas: 1
@@ -95,8 +106,13 @@ solr:
   autoBackup:
     enabled: false
     cron: "0 * * * *"
-    backupUrl: "http://solr-service:30300/solr/alfresco/replication?command=backup&repository=s3&location=s3:///&numberToKeep=3"
-
+    backupUrl: "http://solr-service:30300/solr/alfresco/replication?command=backup&repository=s3&location=s3:///&numberToKeep=3&wt=json"
+  readinessProbe:
+    failureThreshold: 10
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
 transformServices:
   enabled: true
   sharedFileStore:
