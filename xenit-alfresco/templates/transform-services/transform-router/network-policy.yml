@@ -61,5 +61,24 @@ spec:
         - protocol: TCP
           port: 8095
 ---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: tranform-router-to-shared-file-store
+spec:
+  podSelector:
+    matchLabels:
+      app: transform-router
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: shared-file-store
+      ports:
+        - protocol: TCP
+          port: 8099
 {{- end }}
 {{- end }}

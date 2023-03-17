@@ -21,3 +21,10 @@ jobs:
       - name: Check
         working-directory: integration-testing
         run: ./gradlew check -i
+      - name: Upload Artifact
+        if: success() || failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-result
+          path: /home/runner/work/**/build/reports
+          retention-days: 2

@@ -32,6 +32,16 @@ spec:
       - name: solr-container
         image: {{ .Values.solr.image }}
         imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
+        readinessProbe:
+          failureThreshold: {{ .Values.solr.readinessProbe.failureThreshold | default 6 }}
+          httpGet:
+            path: /solr/alfresco/xenit/actuators/readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.solr.readinessProbe.initialDelaySeconds | default 30 }}
+          periodSeconds: {{ .Values.solr.readinessProbe.periodSeconds | default 10}}
+          successThreshold: {{ .Values.solr.readinessProbe.successThreshold | default 1}}
+          timeoutSeconds: {{ .Values.solr.readinessProbe.timeoutSeconds | default 10 }}
         lifecycle:
           postStart:
             exec:
