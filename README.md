@@ -282,13 +282,13 @@ For more information take a look at
 #### `acs.registry`
 
 * Required: true if acs.image not set
-* Default: `xenit`
+* Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
 #### `acs.repository`
 
 * Required: true if acs.image not set
-* Default: `alfresco-repository-community`
+* Default: `xenit/alfresco-repository-community`
 * Description: The repository of the docker image that will be used
 
 #### `acs.tag`
@@ -731,13 +731,13 @@ For more information take a look at
 #### `mq.registry`
 
 * Required: true if mq.image not set
-* Default: `alfresco`
+* Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
 #### `mq.repository`
 
 * Required: true if mq.image not set
-* Default: `alfresco-activemq`
+* Default: `alfresco/alfresco-activemq`
 * Description: The repository of the docker image that will be used
 
 #### `mq.tag`
@@ -841,13 +841,13 @@ For more information take a look at
 #### `postgresql.registry`
 
 * Required: true if postgresql.enabled and postgresql.image not set
-* Default: `xenit`
+* Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
 #### `postgresql.repository`
 
 * Required: true if postgresql.enabled and postgresql.image not set
-* Default: `postgres`
+* Default: `xenit/postgres`
 * Description: The repository of the docker image that will be used
 
 #### `postgresql.tag`
@@ -950,13 +950,13 @@ For more information take a look at
 #### `solr.registry`
 
 * Required: true if solr.enabled and solr.image not set
-* Default: `xenit`
+* Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
 #### `solr.repository`
 
 * Required: true if solr.enabled and solr.image not set
-* Default: `alfresco-solr6-xenit`
+* Default: `xenit/alfresco-solr6-xenit`
 * Description: The repository of the docker image that will be used
 
 #### `solr.tag`
@@ -1074,13 +1074,13 @@ For more information take a look at
 #### `transformServices.sharedFileStore.registry`
 
 * Required: true if transformServices.enabled and transformServices.sharedFileStore.image not set
-* Default: `alfresco`
+* Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
 #### `transformServices.sharedFileStore.repository`
 
 * Required: true if transformServices.enabled and transformServices.sharedFileStore.image not set
-* Default: `alfresco-shared-file-store`
+* Default: `alfresco/alfresco-shared-file-store`
 * Description: The repository of the docker image that will be used
 
 #### `transformServices.sharedFileStore.tag`
@@ -1177,13 +1177,13 @@ For more information take a look at
 #### `transformServices.transformCoreAio.registry`
 
 * Required: true if transformServices.enabled and transformServices.transformCoreAio.image not set
-* Default: `alfresco`
+* Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
 #### `transformServices.transformCoreAio.repository`
 
 * Required: true if transformServices.enabled and transformServices.transformCoreAio.image not set
-* Default: `alfresco-transform-core-aio`
+* Default: `alfresco/alfresco-transform-core-aio`
 * Description: The repository of the docker image that will be used
 
 #### `transformServices.transformCoreAio.tag`
@@ -1282,13 +1282,13 @@ For more information take a look at
 #### `transformServices.transformRouter.registry`
 
 * Required: true if transformServices.enabled and transformServices.transformRouter.image not set
-* Default: `quay.io/alfresco`
+* Default: `quay.io`
 * Description: The registry where the docker container can be found in
 
 #### `transformServices.transformRouter.repository`
 
 * Required: true if transformServices.enabled and transformServices.transformRouter.image not set
-* Default: `alfresco-transform-router`
+* Default: `alfresco/alfresco-transform-router`
 * Description: The repository of the docker image that will be used
 
 #### `transformServices.transformRouter.tag`
@@ -1392,13 +1392,13 @@ For more information take a look at
 #### `syncService.registry`
 
 * Required: true if syncService.enabled and syncService.image not set
-* Default: `quay.io/alfresco`
+* Default: `quay.io`
 * Description: The registry where the docker container can be found in
 
 #### `syncService.repository`
 
 * Required: true if syncService.enabled and syncService.image not set
-* Default: `service-sync`
+* Default: `alfresco/service-sync`
 * Description: The repository of the docker image that will be used
 
 #### `syncService.tag`
@@ -1502,13 +1502,13 @@ For more information take a look at
 #### `ooi.registry`
 
 * Required: true if ooi.enabled and ooi.image not set
-* Default: `quay.io/alfresco`
+* Default: `quay.io`
 * Description: The registry where the docker container can be found in
 
 #### `ooi.repository`
 
 * Required: true if ooi.enabled and ooi.image not set
-* Default: `alfresco-ooi-service`
+* Default: `alfresco/alfresco-ooi-service`
 * Description: The repository of the docker image that will be used
 
 #### `ooi.tag`

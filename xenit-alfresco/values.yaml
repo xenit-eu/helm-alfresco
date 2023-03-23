@@ -26,8 +26,8 @@ ingress:
 
 acs:
   replicas: 1
-  registry: 'xenit'
-  repository: 'alfresco-repository-community'
+  registry: 'docker.io'
+  repository: 'xenit/alfresco-repository-community'
   tag: '7.2.0'
   strategy:
     type: RollingUpdate
@@ -55,8 +55,8 @@ acs:
 digitalWorkspace:
   enabled: true
   replicas: 1
-  registry: 'quay.io/alfresco'
-  repository: 'alfresco-digital-workspace'
+  registry: 'quay.io'
+  repository: 'alfresco/alfresco-digital-workspace'
   tag: '2.4.2-adw'
   strategy:
     type: RollingUpdate
@@ -69,8 +69,8 @@ digitalWorkspace:
 share:
   enabled: true
   replicas: 1
-  registry: 'xenit'
-  repository: 'alfresco-share-community'
+  registry: 'docker.io'
+  repository: 'xenit/alfresco-share-community'
   tag: '7.0'
   strategy:
     type: RollingUpdate
@@ -82,8 +82,8 @@ share:
 mq:
   enabled: true
   replicas: 1
-  registry: 'alfresco'
-  repository: 'alfresco-activemq'
+  registry: 'docker.io'
+  repository: 'alfresco/alfresco-activemq'
   tag: '5.16.1'
   strategy:
     type: Recreate
@@ -94,8 +94,8 @@ mq:
 
 postgresql:
   enabled: true
-  registry: 'xenit'
-  repository: 'postgres'
+  registry: 'docker.io'
+  repository: 'xenit/postgres'
   tag: 'latest'
   strategy:
     type: RollingUpdate
@@ -107,8 +107,8 @@ postgresql:
 solr:
   enabled: true
   replicas: 2
-  registry: 'xenit'
-  repository: 'alfresco-solr6-xenit'
+  registry: 'docker.io'
+  repository: 'xenit/alfresco-solr6-xenit'
   tag: '2.0.6'
   strategy:
     type: RollingUpdate
@@ -121,8 +121,8 @@ transformServices:
   enabled: true
   sharedFileStore:
     replicas: 1
-    registry: 'alfresco'
-    repository: 'alfresco-shared-file-store'
+    registry: 'docker.io'
+    repository: 'alfresco/alfresco-shared-file-store'
     tag: '0.16.1'
     strategy:
       type: RollingUpdate
@@ -132,8 +132,8 @@ transformServices:
         cpu: "200m"
   transformCoreAio:
     replicas: 1
-    registry: 'alfresco'
-    repository: 'alfresco-transform-core-aio'
+    registry: 'docker.io'
+    repository: 'alfresco/alfresco-transform-core-aio'
     tag: 'latest'
     strategy:
       type: RollingUpdate
@@ -143,8 +143,8 @@ transformServices:
         cpu: "150m"
   transformRouter:
     replicas: 1
-    registry: 'quay.io/alfresco'
-    repository: 'alfresco-transform-router'
+    registry: 'quay.io'
+    repository: 'alfresco/alfresco-transform-router'
     tag: '1.5.2'
     strategy:
       type: RollingUpdate
@@ -156,8 +156,8 @@ transformServices:
 syncService:
   enabled: false
   replicas: 1
-  registry: 'quay.io/alfresco'
-  repository: 'service-sync'
+  registry: 'quay.io'
+  repository: 'alfresco/service-sync'
   tag: '3.4.0'
   strategy:
     type: RollingUpdate
@@ -169,8 +169,8 @@ syncService:
 ooi:
   enabled: false
   replicas: 1
-  registry: 'quay.io/alfresco'
-  repository: 'alfresco-ooi-service'
+  registry: 'quay.io'
+  repository: 'alfresco/alfresco-ooi-service'
   tag: '1.1.2'
   strategy:
     type: RollingUpdate
