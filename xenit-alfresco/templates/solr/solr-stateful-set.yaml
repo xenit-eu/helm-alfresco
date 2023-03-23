@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: solr-container
-        image: {{ .Values.solr.image }}
+        image: "{{ .Values.solr.image.registry }}/{{ .Values.solr.image.repository }}:{{ .Values.solr.image.tag }}"
         imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
         lifecycle:
           postStart:

@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: transform-core-aio-container
-          image: {{ .Values.transformServices.transformCoreAio.image }}
+          image: "{{ .Values.transformServices.transformCoreAio.image.registry }}/{{ .Values.transformServices.transformCoreAio.image.repository }}:{{ .Values.transformServices.transformCoreAio.image.tag }}"
           imagePullPolicy: {{ .Values.transformServices.transformCoreAio.imagePullPolicy | default "IfNotPresent" }}
           envFrom:
             - configMapRef:

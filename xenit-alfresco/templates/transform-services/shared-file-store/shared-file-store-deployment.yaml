@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: shared-file-store-container
-          image: {{ .Values.transformServices.sharedFileStore.image }}
+          image: "{{ .Values.transformServices.sharedFileStore.image.registry }}/{{ .Values.transformServices.sharedFileStore.image.repository }}:{{ .Values.transformServices.sharedFileStore.image.tag }}"
           imagePullPolicy: {{ .Values.transformServices.sharedFileStore.imagePullPolicy | default "IfNotPresent" }}
           envFrom:
             - configMapRef:
@@ -73,22 +73,22 @@ spec:
           persistentVolumeClaim:
             claimName: shared-file-store-pvc
       initContainers:
-      - command:
-        - sh
-        - -c
-        - chown -R 33030:1000 /tmp/Alfresco
-        image: busybox:1.35.0
-        imagePullPolicy: IfNotPresent
-        name: init-fs
-        resources:
-          limits:
-            memory: 10Mi
-          requests:
-            memory: 5Mi
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /tmp/Alfresco
-          name: data
+        - command:
+            - sh
+            - -c
+            - chown -R 33030:1000 /tmp/Alfresco
+          image: busybox:1.35.0
+          imagePullPolicy: IfNotPresent
+          name: init-fs
+          resources:
+            limits:
+              memory: 10Mi
+            requests:
+              memory: 5Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /tmp/Alfresco
+              name: data
       {{- end }}
 {{- end }}

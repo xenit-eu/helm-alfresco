@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: transform-router-container
-          image: {{ .Values.transformServices.transformRouter.image }}
+          image: "{{ .Values.transformServices.transformRouter.image.registry }}/{{ .Values.transformServices.transformRouter.image.repository }}:{{ .Values.transformServices.transformRouter.image.tag }}"
           imagePullPolicy: {{ .Values.transformServices.transformRouter.imagePullPolicy | default "IfNotPresent" }}
           livenessProbe:
             failureThreshold: 1
