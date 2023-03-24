@@ -7,7 +7,7 @@ general:
   db: {}
   cni: cilium
   networkPolicies:
-    enabled: false
+    enabled: true
   secrets:
     acs:
       selfManaged: false
