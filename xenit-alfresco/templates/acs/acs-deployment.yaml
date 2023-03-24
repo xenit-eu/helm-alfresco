@@ -35,7 +35,11 @@ spec:
       {{- end }}
       containers:
       - name: acs-container
-        image: {{ required "An image for the ACS pod needs to be specified under acs.image" .Values.acs.image }}
+        {{- if .Values.acs.image }}
+        image: {{ .Values.acs.image }}
+        {{- else }}
+        image: {{ .Values.acs.registry }}/{{ .Values.acs.repository }}:{{ .Values.acs.tag }}
+        {{- end }}
         imagePullPolicy: {{ .Values.acs.imagePullPolicy | default "IfNotPresent" }}
         readinessProbe:
           failureThreshold: {{ .Values.acs.readinessProbe.failureThreshold }}
@@ -97,12 +101,26 @@ spec:
           - name: data
             mountPath: /opt/alfresco/alf_data
             subPath: alfresco/data
+        {{- if .Values.persistentStorage.alfresco.additionalClaims }}
+        {{- range .Values.persistentStorage.alfresco.additionalClaims }}
+          - name: {{ .name }}
+            mountPath: {{ .mountPath }}
+            subPath: {{ .subPath }}
+        {{- end }}
+        {{- end }}
         {{- end }}
       {{- if .Values.persistentStorage.alfresco.enabled }}
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: alfresco-pvc
+      {{- if .Values.persistentStorage.alfresco.additionalClaims }}
+      {{- range .Values.persistentStorage.alfresco.additionalClaims }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ .name }}
+      {{- end }}
+      {{- end }}
       {{- end }}
       imagePullSecrets:
         {{- if .Values.general.imagePullSecrets}}

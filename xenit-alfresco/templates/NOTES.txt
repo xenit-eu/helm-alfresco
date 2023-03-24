@@ -1,0 +1,33 @@
+{{- if .Values.acs.image }}
+WARNING: The use of .image for acs is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.mq.image }}
+WARNING: The use of .image for the mq is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.digitalWorkspace.image }}
+WARNING: The use of .image for digital workspace is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.postgresql.image }}
+WARNING: The use of .image for postgresql is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.share.image }}
+WARNING: The use of .image for share is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.solr.image }}
+WARNING: The use of .image for solr is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.syncService.image }}
+WARNING: The use of .image for sync service is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.ooi.image }}
+WARNING: The use of .image for the ooi is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.transformServices.sharedFileStore.image }}
+WARNING: The use of .image for the shared file store is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.transformServices.transformCoreAio.image }}
+WARNING: The use of .image for the transform core AIO is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
+{{- if .Values.transformServices.transformRouter.image }}
+WARNING: The use of .image for the transform router is deprecated. We advise you to use a 3-fold approach with .registry .repository and .tag instead
+{{- end }}
