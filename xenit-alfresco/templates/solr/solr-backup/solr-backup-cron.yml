@@ -1,0 +1,33 @@
+{{- if and (.Values.solr.enabled) (.Values.solr.autoBackup.enabled) -}}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: solr-backup-cron
+spec:
+  successfulJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  schedule: {{ .Values.solr.autoBackup.cron }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: solr-backup-cron-job
+          namespace: {{ .Release.Namespace }}
+          labels:
+            app: solr-backup-cron-job
+        spec:
+          containers:
+            - name: curlimage
+              image: curlimages/curl
+              imagePullPolicy: IfNotPresent
+              command:
+                - sh
+                - -c
+              args:
+                - curl $BACKUP_URL
+              env:
+                - name: BACKUP_URL
+                  value: {{ .Values.solr.autoBackup.backupUrl }}
+          restartPolicy: OnFailure
+{{- end }}

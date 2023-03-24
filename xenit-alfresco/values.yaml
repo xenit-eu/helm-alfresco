@@ -4,7 +4,7 @@ general:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
-  db: {}
+  db: { }
   cni: cilium
   networkPolicies:
     enabled: true
@@ -51,7 +51,6 @@ acs:
     periodSeconds: 20
     successThreshold: 1
     timeoutSeconds: 10
-
 digitalWorkspace:
   enabled: true
   replicas: 1
@@ -116,7 +115,16 @@ solr:
     requests:
       memory: "4Gi"
       cpu: "1"
-
+  autoBackup:
+    enabled: false
+    cron: "0 * * * *"
+    backupUrl: "http://solr-service:30300/solr/alfresco/replication?command=backup&repository=s3&location=s3:///&numberToKeep=3&wt=json"
+  readinessProbe:
+    failureThreshold: 10
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
 transformServices:
   enabled: true
   sharedFileStore:
@@ -165,7 +173,7 @@ syncService:
     requests:
       memory: "512Mi"
       cpu: "0.5"
-      
+
 ooi:
   enabled: false
   replicas: 1
@@ -178,7 +186,7 @@ ooi:
     requests:
       memory: "128Mi"
       cpu: "100m"
-        
+
 persistentStorage:
   alfresco:
     enabled: true

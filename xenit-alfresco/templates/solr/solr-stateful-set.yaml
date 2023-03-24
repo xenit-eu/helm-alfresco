@@ -36,6 +36,16 @@ spec:
         image: {{ .Values.solr.registry }}/{{ .Values.solr.repository }}:{{ .Values.solr.tag }}
         {{- end }}
         imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
+        readinessProbe:
+          failureThreshold: {{ .Values.solr.readinessProbe.failureThreshold }}
+          httpGet:
+            path: /solr/alfresco/xenit/actuators/readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.solr.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.solr.readinessProbe.periodSeconds }}
+          successThreshold: {{ .Values.solr.readinessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.solr.readinessProbe.timeoutSeconds }}
         lifecycle:
           postStart:
             exec:
@@ -47,6 +57,9 @@ spec:
         envFrom:
           - configMapRef:
               name: solr-configmap
+          {{- if .Values.solr.envFrom }}
+          {{ toYaml .Values.solr.envFrom | nindent 10 }}
+          {{- end }}
         ports:
           - containerPort: 8080
             protocol: TCP
