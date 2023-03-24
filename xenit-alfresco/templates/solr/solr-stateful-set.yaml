@@ -36,6 +36,7 @@ spec:
         image: {{ .Values.solr.registry }}/{{ .Values.solr.repository }}:{{ .Values.solr.tag }}
         {{- end }}
         imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
+        {{- if .Values.solr.readinessProbe.enabled -}}
         readinessProbe:
           failureThreshold: {{ .Values.solr.readinessProbe.failureThreshold }}
           httpGet:
@@ -46,6 +47,7 @@ spec:
           periodSeconds: {{ .Values.solr.readinessProbe.periodSeconds }}
           successThreshold: {{ .Values.solr.readinessProbe.successThreshold }}
           timeoutSeconds: {{ .Values.solr.readinessProbe.timeoutSeconds }}
+        {{- end }}
         lifecycle:
           postStart:
             exec:

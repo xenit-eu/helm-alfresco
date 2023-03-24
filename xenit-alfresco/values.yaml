@@ -120,6 +120,7 @@ solr:
     cron: "0 * * * *"
     backupUrl: "http://solr-service:30300/solr/alfresco/replication?command=backup&repository=s3&location=s3:///&numberToKeep=3&wt=json"
   readinessProbe:
+    enabled: false
     failureThreshold: 10
     initialDelaySeconds: 30
     periodSeconds: 10

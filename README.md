@@ -1048,9 +1048,9 @@ For more information take a look at
 * Required: false
 * Default: false
 * Description:
-  - Enable or disable the Solr auto backup job , it will create a cron job that calls solr 
-    to start a backup snapshot.
-  - backup repository environment variables needs to be set if enabled:
+    - Enable or disable the Solr auto backup job , it will create a cron job that calls solr
+      to start a backup snapshot.
+    - backup repository environment variables needs to be set if enabled:
    ```yaml
     - JAVA_OPTS_S3_ENDPOINT=-DS3_ENDPOINT=<endpoint_s3_protocol>
     - JAVA_OPTS_S3_REGION=-DS3_REGION=<bucket_s3_region>
@@ -1061,15 +1061,53 @@ For more information take a look at
 
 #### `solr.autoBackup.cron`
 
-* Required: false 
+* Required: false
 * Default: 0 * * * *
-* Description: if `solr.autoBackup.enabled` is true then a cron job will be created with this value as its cron 
+* Description: if `solr.autoBackup.enabled` is true then a cron job will be created with this value as its cron
 
 #### `solr.autoBackup.backupUrl`
 
 * Required: false
-* Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repository=s3&location=s3:///&numberToKeep=3
+*
+Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repository=s3&location=s3:///&numberToKeep=3
 * Description: if `solr.autoBackup.enabled` is true then a cron job will be created that will curl this url
+
+#### `solr.readinessProbe.enabled`
+
+* Required: false
+* Default: false
+* Description: Enable or disable the job readiness probe 
+
+#### `solr.readinessProbe.failureThreshold`
+
+* Required: false
+* Default: 6
+* Description: Specify the readinessProbe failure thresh hold fp how many consecutive failure before it stops probing
+
+#### `solr.readinessProbe.initialDelaySeconds`
+
+* Required: false
+* Default: 60
+* Description: Specify the readinessProbe initial delay before it starts probing
+
+#### `solr.readinessProbe.periodSeconds`
+
+* Required: false
+* Default: 20
+* Description: Specify the readinessProbe period between probes
+
+#### `solr.readinessProbe.successThreshold`
+
+* Required: false
+* Default: 1
+* Description: Specify the readinessProbe success thresh hold for how many consecutive successes for the probe to be
+  considered successful after having failed
+
+#### `solr.readinessProbe.timeoutSeconds`
+
+* Required: false
+* Default: 10
+* Description: Specify the readinessProbe timeout for probes to be considered as failure
 
 ### Transform Services
 
