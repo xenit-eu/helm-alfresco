@@ -30,11 +30,7 @@ spec:
     spec:
       containers:
       - name: solr-container
-        {{- if .Values.solr.image }}
-        image: {{ .Values.solr.image }}
-        {{- else }}
-        image: {{ .Values.solr.registry }}/{{ .Values.solr.repository }}:{{ .Values.solr.tag }}
-        {{- end }}
+        image: {{ .Values.solr.image.registry }}/{{ .Values.solr.image.repository }}:{{ .Values.solr.image.tag }}
         imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
         {{- if .Values.solr.readinessProbe.enabled -}}
         readinessProbe:

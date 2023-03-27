@@ -33,11 +33,7 @@ spec:
     spec:
       containers:
         - name: shared-file-store-container
-          {{- if .Values.transformServices.sharedFileStore.image }}
-          image: {{ .Values.transformServices.sharedFileStore.image }}
-          {{- else }}
-          image: {{ .Values.transformServices.sharedFileStore.registry }}/{{ .Values.transformServices.sharedFileStore.repository }}:{{ .Values.transformServices.sharedFileStore.tag }}
-          {{- end }}
+          image: {{ .Values.transformServices.sharedFileStore.image.registry }}/{{ .Values.transformServices.sharedFileStore.image.repository }}:{{ .Values.transformServices.sharedFileStore.image.tag }}
           imagePullPolicy: {{ .Values.transformServices.sharedFileStore.imagePullPolicy | default "IfNotPresent" }}
           envFrom:
             - configMapRef:

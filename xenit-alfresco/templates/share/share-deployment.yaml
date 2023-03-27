@@ -33,11 +33,7 @@ spec:
     spec:
       containers:
       - name: share-container
-        {{- if .Values.share.image }}
-        image: {{ .Values.share.image }}
-        {{- else }}
-        image: {{ .Values.share.registry }}/{{ .Values.share.repository }}:{{ .Values.share.tag }}
-        {{- end }}
+        image: {{ .Values.share.image.registry }}/{{ .Values.share.image.repository }}:{{ .Values.share.image.tag }}
         imagePullPolicy: {{ .Values.share.imagePullPolicy | default "IfNotPresent" }}
         lifecycle:
           preStop:
