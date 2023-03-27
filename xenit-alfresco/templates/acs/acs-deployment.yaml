@@ -35,11 +35,7 @@ spec:
       {{- end }}
       containers:
       - name: acs-container
-        {{- if .Values.acs.image }}
-        image: {{ .Values.acs.image }}
-        {{- else }}
-        image: {{ .Values.acs.registry }}/{{ .Values.acs.repository }}:{{ .Values.acs.tag }}
-        {{- end }}
+        image: {{ .Values.acs.image.registry }}/{{ .Values.acs.image.repository }}:{{ .Values.acs.image.tag }}
         imagePullPolicy: {{ .Values.acs.imagePullPolicy | default "IfNotPresent" }}
         readinessProbe:
           failureThreshold: {{ .Values.acs.readinessProbe.failureThreshold }}

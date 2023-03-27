@@ -35,11 +35,7 @@ spec:
     spec:
       containers:
       - name: postgresql-container
-        {{- if .Values.postgresql.image }}
-        image: {{ .Values.postgresql.image }}
-        {{- else }}
-        image: {{ .Values.postgresql.registry }}/{{ .Values.postgresql.repository }}:{{ .Values.postgresql.tag }}
-        {{- end }}
+        image: {{ .Values.postgresql.image.registry }}/{{ .Values.postgresql.image.repository }}:{{ .Values.postgresql.image.tag }}
         imagePullPolicy: {{ .Values.postgresql.imagePullPolicy | default "IfNotPresent" }}
         envFrom:
           - configMapRef:

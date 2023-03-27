@@ -279,29 +279,23 @@ For more information take a look at
 * Default: `2`
 * Description: The number of pods that will be running
 
-#### `acs.registry`
+#### `acs.image.registry`
 
 * Required: false
 * Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
-#### `acs.repository`
+#### `acs.image.repository`
 
 * Required: false
 * Default: `xenit/alfresco-repository-community`
 * Description: The repository of the docker image that will be used
 
-#### `acs.tag`
+#### `acs.image.tag`
 
 * Required: false
 * Default: `7.2.0`
 * Description: The tag of the docker image that will be used
-
-#### `acs.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used if you want to provide this with 1 parameter
 
 #### `acs.imagePullPolicy`
 
@@ -487,29 +481,23 @@ For more information take a look at
 * Default: `1`
 * Description: The number of pods that will be running
 
-#### `digitalWorkspace.registry`
+#### `digitalWorkspace.image.registry`
 
 * Required: false
 * Default: `quay.io`
 * Description: The registry where the docker container can be found in
 
-#### `digitalWorkspace.repository`
+#### `digitalWorkspace.image.repository`
 
 * Required: false
 * Default: `alfresco/alfresco-digital-workspace`
 * Description: The repository of the docker image that will be used
 
-#### `digitalWorkspace.tag`
+#### `digitalWorkspace.image.tag`
 
 * Required: false
 * Default: `2.4.2-adw`
 * Description: The tag of the docker image that will be used
-
-#### `digitalWorkspace.image`
-
-* Required: false
-* Default: none
-* Description: The repository of the docker image that will be used
 
 #### `digitalWorkspace.imagePullPolicy`
 
@@ -602,29 +590,23 @@ For more information take a look at
 * Default: `1`
 * Description: The number of pods that will be running
 
-#### `share.registry`
+#### `share.image.registry`
 
 * Required: false
 * Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
-#### `share.repository`
+#### `share.image.repository`
 
 * Required: false
 * Default: `alfresco-share-community`
 * Description: The repository of the docker image that will be used
 
-#### `share.tag`
+#### `share.image.tag`
 
 * Required: false
 * Default: `7.2.0`
 * Description: The tag of the docker image that will be used
-
-#### `share.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used
 
 #### `share.imagePullPolicy`
 
@@ -728,29 +710,23 @@ For more information take a look at
 * Default: `1`
 * Description: The number of pods that will be running
 
-#### `mq.registry`
+#### `mq.image.registry`
 
 * Required: false
 * Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
-#### `mq.repository`
+#### `mq.image.repository`
 
 * Required: false
 * Default: `alfresco/alfresco-activemq`
 * Description: The repository of the docker image that will be used
 
-#### `mq.tag`
+#### `mq.image.tag`
 
 * Required: false
 * Default: `5.16.1`
 * Description: The tag of the docker image that will be used
-
-#### `mq.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used
 
 #### `mq.imagePullPolicy`
 
@@ -838,29 +814,23 @@ For more information take a look at
 * Default: `1`
 * Description: The number of pods that will be running
 
-#### `postgresql.registry`
+#### `postgresql.image.registry`
 
 * Required: false
 * Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
-#### `postgresql.repository`
+#### `postgresql.image.repository`
 
 * Required: false
 * Default: `xenit/postgres`
 * Description: The repository of the docker image that will be used
 
-#### `postgresql.tag`
+#### `postgresql.image.tag`
 
 * Required: false
 * Default: `latest`
 * Description: The tag of the docker image that will be used
-
-#### `postgresql.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used
 
 #### `postgresql.imagePullPolicy`
 
@@ -947,29 +917,23 @@ For more information take a look at
 * Default: `2`
 * Description: The number of pods that will be running
 
-#### `solr.registry`
+#### `solr.image.registry`
 
 * Required: false
 * Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
-#### `solr.repository`
+#### `solr.image.repository`
 
 * Required: false
 * Default: `xenit/alfresco-solr6-xenit`
 * Description: The repository of the docker image that will be used
 
-#### `solr.tag`
+#### `solr.image.tag`
 
 * Required: false
 * Default: `2.0.6`
 * Description: The tag of the docker image that will be used
-
-#### `solr.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used
 
 #### `solr.imagePullPolicy`
 
@@ -1069,14 +1033,16 @@ For more information take a look at
 
 * Required: false
 *
+
 Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repository=s3&location=s3:///&numberToKeep=3
+
 * Description: if `solr.autoBackup.enabled` is true then a cron job will be created that will curl this url
 
 #### `solr.readinessProbe.enabled`
 
 * Required: false
 * Default: false
-* Description: Enable or disable the job readiness probe 
+* Description: Enable or disable the job readiness probe
 
 #### `solr.readinessProbe.failureThreshold`
 
@@ -1137,29 +1103,23 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: `1`
 * Description: The number of pods that will be running
 
-#### `transformServices.sharedFileStore.registry`
+#### `transformServices.sharedFileStore.image.registry`
 
 * Required: false
 * Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
-#### `transformServices.sharedFileStore.repository`
+#### `transformServices.sharedFileStore.image.repository`
 
 * Required: false
 * Default: `alfresco/alfresco-shared-file-store`
 * Description: The repository of the docker image that will be used
 
-#### `transformServices.sharedFileStore.tag`
+#### `transformServices.sharedFileStore.image.tag`
 
 * Required: false
 * Default: `0.16.1`
 * Description: The tag of the docker image that will be used
-
-#### `transformServices.sharedFileStore.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used
 
 #### `transformServices.sharedFileStore.imagePullPolicy`
 
@@ -1240,29 +1200,23 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: `1`
 * Description: The number of pods that will be running
 
-#### `transformServices.transformCoreAio.registry`
+#### `transformServices.transformCoreAio.image.registry`
 
 * Required: false
 * Default: `docker.io`
 * Description: The registry where the docker container can be found in
 
-#### `transformServices.transformCoreAio.repository`
+#### `transformServices.transformCoreAio.image.repository`
 
 * Required: false
 * Default: `alfresco/alfresco-transform-core-aio`
 * Description: The repository of the docker image that will be used
 
-#### `transformServices.transformCoreAio.tag`
+#### `transformServices.transformCoreAio.image.tag`
 
 * Required: false
 * Default: `latest`
 * Description: The tag of the docker image that will be used
-
-#### `transformServices.transformCoreAio.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used
 
 #### `transformServices.transformCoreAio.imagePullPolicy`
 
@@ -1345,29 +1299,23 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: `1`
 * Description: The number of pods that will be running
 
-#### `transformServices.transformRouter.registry`
+#### `transformServices.transformRouter.image.registry`
 
 * Required: false
 * Default: `quay.io`
 * Description: The registry where the docker container can be found in
 
-#### `transformServices.transformRouter.repository`
+#### `transformServices.transformRouter.image.repository`
 
 * Required: false
 * Default: `alfresco/alfresco-transform-router`
 * Description: The repository of the docker image that will be used
 
-#### `transformServices.transformRouter.tag`
+#### `transformServices.transformRouter.image.tag`
 
 * Required: false
 * Default: `1.5.2`
 * Description: The tag of the docker image that will be used
-
-#### `transformServices.transformRouter.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used
 
 #### `transformServices.transformRouter.imagePullPolicy`
 
@@ -1455,29 +1403,23 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: `1`
 * Description: The number of pods that will be running
 
-#### `syncService.registry`
+#### `syncService.image.registry`
 
 * Required: false
 * Default: `quay.io`
 * Description: The registry where the docker container can be found in
 
-#### `syncService.repository`
+#### `syncService.image.repository`
 
 * Required: false
 * Default: `alfresco/service-sync`
 * Description: The repository of the docker image that will be used
 
-#### `syncService.tag`
+#### `syncService.image.tag`
 
 * Required: false
 * Default: `3.4.0`
 * Description: The tag of the docker image that will be used
-
-#### `syncService.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used
 
 #### `syncService.imagePullPolicy`
 
@@ -1565,29 +1507,23 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: `1`
 * Description: The number of pods that will be running
 
-#### `ooi.registry`
+#### `ooi.image.registry`
 
 * Required: false
 * Default: `quay.io`
 * Description: The registry where the docker container can be found in
 
-#### `ooi.repository`
+#### `ooi.image.repository`
 
 * Required: false
 * Default: `alfresco/alfresco-ooi-service`
 * Description: The repository of the docker image that will be used
 
-#### `ooi.tag`
+#### `ooi.image.tag`
 
 * Required: false
 * Default: `1.1.2`
 * Description: The tag of the docker image that will be used
-
-#### `ooi.image`
-
-* Required: false
-* Default: None
-* Description: The repository of the docker image that will be used
 
 #### `ooi.imagePullPolicy`
 
@@ -1696,6 +1632,7 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Required: false
 * Default: None
 * Description: A list of aditional volume claims that can be added to the alfresco pods. Layout should be as follows:
+
 ```yaml
       - name: name1
         mountPath: /apps/example

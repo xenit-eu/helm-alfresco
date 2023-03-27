@@ -34,11 +34,7 @@ spec:
     spec:
       containers:
         - name: activemq
-          {{- if .Values.mq.image }}
-          image: {{ .Values.mq.image }}
-          {{- else }}
-          image: {{ .Values.mq.registry }}/{{ .Values.mq.repository }}:{{ .Values.mq.tag }}
-          {{- end }}
+          image: {{ .Values.mq.image.registry }}/{{ .Values.mq.image.repository }}:{{ .Values.mq.image.tag }}
           imagePullPolicy: {{ .Values.mq.imagePullPolicy | default "IfNotPresent" }}
           envFrom:
             - configMapRef:

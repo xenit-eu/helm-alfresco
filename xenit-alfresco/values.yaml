@@ -26,9 +26,10 @@ ingress:
 
 acs:
   replicas: 1
-  registry: 'docker.io'
-  repository: 'xenit/alfresco-repository-community'
-  tag: '7.2.0'
+  image:
+    registry: 'docker.io'
+    repository: 'xenit/alfresco-repository-community'
+    tag: '7.2.0'
   strategy:
     type: RollingUpdate
   resources:
@@ -54,9 +55,10 @@ acs:
 digitalWorkspace:
   enabled: true
   replicas: 1
-  registry: 'quay.io'
-  repository: 'alfresco/alfresco-digital-workspace'
-  tag: '2.4.2-adw'
+  image:
+    registry: 'quay.io'
+    repository: 'alfresco/alfresco-digital-workspace'
+    tag: '2.4.2-adw'
   strategy:
     type: RollingUpdate
   resources:
@@ -68,9 +70,10 @@ digitalWorkspace:
 share:
   enabled: true
   replicas: 1
-  registry: 'docker.io'
-  repository: 'xenit/alfresco-share-community'
-  tag: '7.0'
+  image:
+    registry: 'docker.io'
+    repository: 'xenit/alfresco-share-community'
+    tag: '7.0'
   strategy:
     type: RollingUpdate
   resources:
@@ -81,9 +84,10 @@ share:
 mq:
   enabled: true
   replicas: 1
-  registry: 'docker.io'
-  repository: 'alfresco/alfresco-activemq'
-  tag: '5.16.1'
+  image:
+    registry: 'docker.io'
+    repository: 'alfresco/alfresco-activemq'
+    tag: '5.16.1'
   strategy:
     type: Recreate
   resources:
@@ -93,9 +97,10 @@ mq:
 
 postgresql:
   enabled: true
-  registry: 'docker.io'
-  repository: 'xenit/postgres'
-  tag: 'latest'
+  image:
+    registry: 'docker.io'
+    repository: 'xenit/postgres'
+    tag: 'latest'
   strategy:
     type: RollingUpdate
   resources:
@@ -106,9 +111,10 @@ postgresql:
 solr:
   enabled: true
   replicas: 2
-  registry: 'docker.io'
-  repository: 'xenit/alfresco-solr6-xenit'
-  tag: '2.0.6'
+  image:
+    registry: 'docker.io'
+    repository: 'xenit/alfresco-solr6-xenit'
+    tag: '2.0.6'
   strategy:
     type: RollingUpdate
   resources:
@@ -130,9 +136,10 @@ transformServices:
   enabled: true
   sharedFileStore:
     replicas: 1
-    registry: 'docker.io'
-    repository: 'alfresco/alfresco-shared-file-store'
-    tag: '0.16.1'
+    image:
+      registry: 'docker.io'
+      repository: 'alfresco/alfresco-shared-file-store'
+      tag: '0.16.1'
     strategy:
       type: RollingUpdate
     resources:
@@ -141,9 +148,10 @@ transformServices:
         cpu: "200m"
   transformCoreAio:
     replicas: 1
-    registry: 'docker.io'
-    repository: 'alfresco/alfresco-transform-core-aio'
-    tag: 'latest'
+    image:
+      registry: 'docker.io'
+      repository: 'alfresco/alfresco-transform-core-aio'
+      tag: 'latest'
     strategy:
       type: RollingUpdate
     resources:
@@ -152,9 +160,10 @@ transformServices:
         cpu: "150m"
   transformRouter:
     replicas: 1
-    registry: 'quay.io'
-    repository: 'alfresco/alfresco-transform-router'
-    tag: '1.5.2'
+    image:
+      registry: 'quay.io'
+      repository: 'alfresco/alfresco-transform-router'
+      tag: '1.5.2'
     strategy:
       type: RollingUpdate
     resources:
@@ -165,9 +174,10 @@ transformServices:
 syncService:
   enabled: false
   replicas: 1
-  registry: 'quay.io'
-  repository: 'alfresco/service-sync'
-  tag: '3.4.0'
+  image:
+    registry: 'quay.io'
+    repository: 'alfresco/service-sync'
+    tag: '3.4.0'
   strategy:
     type: RollingUpdate
   resources:
@@ -178,9 +188,10 @@ syncService:
 ooi:
   enabled: false
   replicas: 1
-  registry: 'quay.io'
-  repository: 'alfresco/alfresco-ooi-service'
-  tag: '1.1.2'
+  image:
+    registry: 'quay.io'
+    repository: 'alfresco/alfresco-ooi-service'
+    tag: '1.1.2'
   strategy:
     type: RollingUpdate
   resources:
