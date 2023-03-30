@@ -7,6 +7,7 @@ metadata:
   labels:
     app: solr
 data:
+  SOLR_BACKUP_DIR: '/opt/alfresco-search-services/backup'
   ALFRESCO_HOST: 'acs-service'
   ALFRESCO_PORT: '30000'
   {{- if gt .Values.solr.replicas 1.0 }}
