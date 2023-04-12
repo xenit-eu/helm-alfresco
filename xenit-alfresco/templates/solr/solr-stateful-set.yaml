@@ -56,7 +56,7 @@ spec:
             - configMapRef:
                 name: solr-configmap
           {{- if .Values.solr.envFrom }}
-          {{ toYaml .Values.solr.envFrom | nindent 10 }}
+          {{ toYaml .Values.solr.envFrom | nindent 12 }}
           {{- end }}
           ports:
             - containerPort: 8080
@@ -67,11 +67,11 @@ spec:
           resources:
           {{- if .Values.solr.resources.requests }}
             requests:
-          {{ toYaml .Values.solr.resources.requests | nindent 12 }}
+          {{ toYaml .Values.solr.resources.requests | nindent 14 }}
           {{- end }}
           {{- if .Values.solr.resources.limits }}
             limits:
-          {{ toYaml .Values.solr.resources.limits | nindent 12 }}
+          {{ toYaml .Values.solr.resources.limits | nindent 14 }}
           {{- end }}
         {{- end }}
           volumeMounts:
