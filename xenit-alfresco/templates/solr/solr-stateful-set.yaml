@@ -29,55 +29,58 @@ spec:
         {{- end }}
     spec:
       containers:
-      - name: solr-container
-        image: {{ .Values.solr.image.registry }}/{{ .Values.solr.image.repository }}:{{ .Values.solr.image.tag }}
-        imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
+        - name: solr-container
+          image: {{ .Values.solr.image.registry }}/{{ .Values.solr.image.repository }}:{{ .Values.solr.image.tag }}
+          imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
         {{- if .Values.solr.readinessProbe.enabled -}}
-        readinessProbe:
-          failureThreshold: {{ .Values.solr.readinessProbe.failureThreshold }}
-          httpGet:
-            path: /solr/alfresco/xenit/actuators/readiness
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: {{ .Values.solr.readinessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.solr.readinessProbe.periodSeconds }}
-          successThreshold: {{ .Values.solr.readinessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.solr.readinessProbe.timeoutSeconds }}
+          readinessProbe:
+            failureThreshold: {{ .Values.solr.readinessProbe.failureThreshold }}
+            httpGet:
+              path: /solr/alfresco/xenit/actuators/readiness
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: {{ .Values.solr.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.solr.readinessProbe.periodSeconds }}
+            successThreshold: {{ .Values.solr.readinessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.solr.readinessProbe.timeoutSeconds }}
         {{- end }}
-        lifecycle:
-          postStart:
-            exec:
-              command:
-                - /bin/bash
-                - -c
-                - rm -f /opt/alfresco-search-services/data/index/archive/index/write.lock
-                - rm -f /opt/alfresco-search-services/data/index/alfresco/index/write.lock
-        envFrom:
-          - configMapRef:
-              name: solr-configmap
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/bash
+                  - -c
+                  - rm -f /opt/alfresco-search-services/data/index/archive/index/write.lock
+                  - rm -f /opt/alfresco-search-services/data/index/alfresco/index/write.lock
+          envFrom:
+            - configMapRef:
+                name: solr-configmap
           {{- if .Values.solr.envFrom }}
           {{ toYaml .Values.solr.envFrom | nindent 10 }}
           {{- end }}
-        ports:
-          - containerPort: 8080
-            protocol: TCP
-          - containerPort: 8443
-            protocol: TCP
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
         {{- if or (.Values.solr.resources.requests) ((.Values.solr.resources.limits)) }}
-        resources:
+          resources:
           {{- if .Values.solr.resources.requests }}
-          requests:
+            requests:
           {{ toYaml .Values.solr.resources.requests | nindent 12 }}
           {{- end }}
           {{- if .Values.solr.resources.limits }}
-          limits:
+            limits:
           {{ toYaml .Values.solr.resources.limits | nindent 12 }}
           {{- end }}
         {{- end }}
-        volumeMounts:
-          - name: data
-            mountPath: /opt/alfresco-search-services/data
-            subPath: solr/data
+          volumeMounts:
+            - name: data
+              mountPath: /opt/alfresco-search-services/data
+              subPath: solr/data
+            - name: backup
+              mountPath: /opt/alfresco-search-services/backup
+              subPath: solr/backup
       imagePullSecrets:
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
@@ -85,8 +88,10 @@ spec:
         {{- if .Values.solr.imagePullSecrets}}
         {{ toYaml .Values.solr.imagePullSecrets | nindent 8 }}
         {{- end }}
-  {{- with .Values.persistentStorage.solr }}
+  {{- if or (.Values.persistentStorage.solr.enabled) (.Values.persistentStorage.solrBackup.enabled)}}
   volumeClaimTemplates:
+    {{- with .Values.persistentStorage.solr }}
+    {{- if .enabled}}
     - metadata:
         name: data
       spec:
@@ -101,5 +106,25 @@ spec:
         resources:
           requests:
             storage: {{ .storage }}Gi
+    {{- end }}
+    {{- end }}
+    {{- with .Values.persistentStorage.solrBackup }}
+    {{- if .enabled}}
+    - metadata:
+        name: backup
+      spec:
+        {{- if eq .storageClassName "efs-storage-class" }}
+        accessModes: [ "ReadWriteMany" ]
+        {{- else }}
+        accessModes: [ "ReadWriteOnce" ]
+        {{- end }}
+        {{- if ne .storageClassName "" }}
+        storageClassName: {{ required "If solr is enabled you need to provide what storage class should be used for the persistency in  persistentStorage.solr.storageClassName" .storageClassName }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .storage }}Gi
+    {{- end }}
+    {{- end }}
   {{- end }}
 {{- end }}

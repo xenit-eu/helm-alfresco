@@ -1697,6 +1697,33 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: None
 * Description: The volume handle pointing to the AWS EFS location
 
+### SOLR BACKUP
+
+#### `persistentStorage.solrBackup.enabled`
+
+* Required: false
+* Default: `true`
+* Description: Enable or disable the creation of a PV and PVC for the SOLR BACKUP for SOLR pods
+
+#### `persistentStorage.solrBackup.storageClassName`
+
+* Required: false
+* Default: `scw-bssd`
+* Description: Provide what storageClass should be used. For values other then `scw-bssd` `standard`
+  or `efs-storage-class` you will need to make sure that that storage class is created
+
+#### `persistentStorage.solrBackup.storage`
+
+* Required: false
+* Default: `3`
+* Description: The size in GB of the volume that should be reserved
+
+#### `persistentStorage.solrBackup.efs.volumeHandle`
+
+* Required: when `persistentStorage.solrBackup.storageClassName` is `scw-bssd`
+* Default: None
+* Description: The volume handle pointing to the AWS EFS location
+
 ### Shared File Store
 
 #### `persistentStorage.sharedFileStore.enabled`

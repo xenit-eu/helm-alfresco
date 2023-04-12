@@ -58,7 +58,7 @@ digitalWorkspace:
   image:
     registry: 'quay.io'
     repository: 'alfresco/alfresco-digital-workspace'
-    tag: '2.4.2-adw'
+    tag: '3.0.0'
   strategy:
     type: RollingUpdate
   resources:
@@ -213,6 +213,12 @@ persistentStorage:
     efs:
       volumeHandle: ""
   solr:
+    enabled: true
+    storageClassName: ""
+    storage: 3
+    efs:
+      volumeHandle: ""
+  solrBackup:
     enabled: true
     storageClassName: ""
     storage: 3
