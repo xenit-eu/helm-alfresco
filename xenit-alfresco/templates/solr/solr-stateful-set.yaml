@@ -32,7 +32,7 @@ spec:
         - name: solr-container
           image: {{ .Values.solr.image.registry }}/{{ .Values.solr.image.repository }}:{{ .Values.solr.image.tag }}
           imagePullPolicy: {{ .Values.solr.imagePullPolicy | default "IfNotPresent" }}
-        {{- if .Values.solr.readinessProbe.enabled -}}
+        {{- if .Values.solr.readinessProbe.enabled }}
           readinessProbe:
             failureThreshold: {{ .Values.solr.readinessProbe.failureThreshold }}
             httpGet:
