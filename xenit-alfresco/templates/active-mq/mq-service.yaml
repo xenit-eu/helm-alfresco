@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: mq-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.acs.serviceAnnotations }}
+    {{ toYaml .Values.acs.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: mq

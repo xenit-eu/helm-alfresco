@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: postgresql-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.postgresql.serviceAnnotations }}
+    {{ toYaml .Values.postgresql.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: postgresql

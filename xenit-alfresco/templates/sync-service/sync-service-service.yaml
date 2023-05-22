@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: sync-service-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.syncService.serviceAnnotations }}
+    {{ toYaml .Values.syncService.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: sync-service

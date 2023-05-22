@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: transform-router-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.transformServices.transformRouter.serviceAnnotations }}
+    {{ toYaml .Values.transformServices.transformRouter.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: transform-router

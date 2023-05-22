@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: transform-core-aio-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.transformServices.transformCoreAio.serviceAnnotations }}
+    {{ toYaml .Values.transformServices.transformCoreAio.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: transform-core-aio

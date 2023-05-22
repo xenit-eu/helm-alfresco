@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: solr-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.solr.serviceAnnotations }}
+    {{ toYaml .Values.solr.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: solr
