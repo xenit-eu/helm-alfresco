@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: share-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.share.serviceAnnotations }}
+    {{ toYaml .Values.share.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: share

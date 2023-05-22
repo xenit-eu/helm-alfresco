@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: ooi-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.ooi.serviceAnnotations }}
+    {{ toYaml .Values.ooi.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: ooi

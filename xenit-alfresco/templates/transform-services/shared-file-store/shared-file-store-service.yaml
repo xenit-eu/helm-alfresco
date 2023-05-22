@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: shared-file-store-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.transformServices.sharedFileStore.serviceAnnotations }}
+    {{ toYaml .Values.transformServices.sharedFileStore.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: shared-file-store

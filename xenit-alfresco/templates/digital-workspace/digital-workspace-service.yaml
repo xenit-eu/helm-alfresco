@@ -4,6 +4,10 @@ kind: Service
 metadata:
   name: digital-workspace-service
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.digitalWorkspace.serviceAnnotations }}
+    {{ toYaml .Values.digitalWorkspace.serviceAnnotations | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     app: digital-workspace

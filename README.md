@@ -431,6 +431,17 @@ For more information take a look at
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the acs deployment
 
+#### `acs.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the acs service
+
 #### `acs.serviceAccount`
 
 * Required: false
@@ -540,6 +551,17 @@ For more information take a look at
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Digital Workspace deployment
 
+#### `digitalWorkspace.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Digital Workspace service
+
 #### `digitalWorkspace.serviceAccount`
 
 * Required: false
@@ -642,6 +664,17 @@ For more information take a look at
   annotation2Key: annotation2Value
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Share deployment
+
+#### `share.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Share service
 
 #### `share.serviceAccount`
 
@@ -763,6 +796,17 @@ For more information take a look at
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Active MQ deployment
 
+#### `mq.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Active MQ service
+
 #### `mq.serviceAccount`
 
 * Required: false
@@ -867,6 +911,17 @@ For more information take a look at
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the PostgresQl deployment
 
+#### `postgresql.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the PostgresQl service
+
 #### `postgresql.serviceAccount`
 
 * Required: false
@@ -969,6 +1024,17 @@ For more information take a look at
   annotation2Key: annotation2Value
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Solr deployment
+
+#### `solr.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Solr service
 
 #### `solr.serviceAccount`
 
@@ -1156,6 +1222,17 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Transform Services deployment
 
+#### `transformServices.sharedFileStore.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Transform Services service
+
 #### `transformServices.sharedFileStore.serviceAccount`
 
 * Required: false
@@ -1252,7 +1329,18 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
   annotation2Key: annotation2Value
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Transform Core All In One
-  deployment
+
+#### `transformServices.transformCoreAio.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Transform Core All In One
+  service
 
 #### `transformServices.transformCoreAio.serviceAccount`
 
@@ -1351,6 +1439,17 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
   annotation2Key: annotation2Value
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Transform Router deployment
+
+#### `transformServices.transformRouter.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Transform Router service
 
 #### `transformServices.transformRouter.serviceAccount`
 
@@ -1456,6 +1555,17 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Sync Service deployment
 
+#### `syncService.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Sync Service service
+
 #### `syncService.serviceAccount`
 
 * Required: false
@@ -1560,6 +1670,18 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Office Online Integration
   deployment
+
+#### `ooi.serviceAnnotations`
+
+* Required: false
+* Default: None
+* Example:
+  ```yaml
+  annotation1Key: annotation1Value
+  annotation2Key: annotation2Value
+  ```
+* Description: With this list of parameters you can add 1 or multiple annotations to the Office Online Integration
+  service
 
 #### `ooi.serviceAccount`
 
