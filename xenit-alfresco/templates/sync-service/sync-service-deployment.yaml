@@ -70,6 +70,9 @@ spec:
                 name: mq-secret
             - secretRef:
                 name: db-secret
+            {{- if .Values.syncService.envFrom }}
+            {{ toYaml .Values.syncService.envFrom | nindent 10 }}
+            {{- end }}
           ports:
             - containerPort: 9090
               protocol: TCP

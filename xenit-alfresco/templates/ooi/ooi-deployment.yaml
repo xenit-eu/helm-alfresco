@@ -53,6 +53,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: ooi-configmap
+          {{- if .Values.ooi.envFrom }}
+          {{ toYaml .Values.ooi.envFrom | nindent 10 }}
+          {{- end }}
           ports:
             - containerPort: 9095
               protocol: TCP

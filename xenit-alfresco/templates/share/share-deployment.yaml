@@ -45,6 +45,9 @@ spec:
         envFrom:
           - configMapRef:
               name: share-configmap
+          {{- if .Values.share.envFrom }}
+          {{ toYaml .Values.share.envFrom | nindent 10 }}
+          {{- end }}
         ports:
           - containerPort: 8080
             protocol: TCP

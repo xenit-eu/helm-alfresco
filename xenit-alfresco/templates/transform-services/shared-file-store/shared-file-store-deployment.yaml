@@ -38,6 +38,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: shared-file-store-configmap
+          {{- if .Values.transformServices.sharedFileStore.envFrom }}
+          {{ toYaml .Values.transformServices.sharedFileStore.envFrom | nindent 10 }}
+          {{- end }}
           ports:
             - containerPort: 8099
               protocol: TCP
