@@ -414,7 +414,6 @@ For more information take a look at
 * Description: This allows you to add to the acs-container envFrom section. This was added to allow to integrate secrets
   that are not added by this helm chart.
 * Example:
-
 ```yaml
 - secretRef:
     name: s3-secret
@@ -540,6 +539,18 @@ For more information take a look at
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
 
+#### `digitalWorkspace.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the digitalWorkspace-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
+* Example:
+```yaml
+  - secretRef:
+    name: s3-secret
+```
+
 #### `digitalWorkspace.podAnnotations`
 
 * Required: false
@@ -653,6 +664,18 @@ For more information take a look at
   ```
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
+
+#### `share.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the share-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
+* Example:
+```yaml
+  - secretRef:
+    name: s3-secret
+```
 
 #### `share.podAnnotations`
 
@@ -785,6 +808,18 @@ For more information take a look at
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
 
+#### `mq.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the mq-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
+* Example:
+```yaml
+  - secretRef:
+    name: s3-secret
+```
+
 #### `mq.podAnnotations`
 
 * Required: false
@@ -899,6 +934,18 @@ For more information take a look at
   ```
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
+
+#### `postgresql.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the postgresql-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
+* Example:
+```yaml
+  - secretRef:
+    name: s3-secret
+```
 
 #### `postgresql.podAnnotations`
 
@@ -1211,6 +1258,18 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
 
+#### `transformServices.sharedFileStore.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the sharedFileStore-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
+* Example:
+```yaml
+  - secretRef:
+    name: s3-secret
+```
+
 #### `transformServices.sharedFileStore.podAnnotations`
 
 * Required: false
@@ -1318,6 +1377,18 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
   ```
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
+
+#### `transformServices.transformCoreAio.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the transformCoreAio-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
+* Example:
+```yaml
+  - secretRef:
+    name: s3-secret
+```
 
 #### `transformServices.transformCoreAio.podAnnotations`
 
@@ -1428,6 +1499,18 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
   ```
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
+
+#### `transformServices.transformRouter.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the transformRouter-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
+* Example:
+```yaml
+  - secretRef:
+    name: s3-secret
+```
 
 #### `transformServices.transformRouter.podAnnotations`
 
@@ -1544,6 +1627,18 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
 
+#### `syncService.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the syncService-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
+* Example:
+```yaml
+  - secretRef:
+    name: s3-secret
+```
+
 #### `syncService.podAnnotations`
 
 * Required: false
@@ -1658,6 +1753,18 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
   ```
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
+
+#### `ooi.envFrom`
+
+* Required: false
+* Default: None
+* Description: This allows you to add to the ooi-container envFrom section. This was added to allow to integrate secrets
+  that are not added by this helm chart.
+* Example:
+```yaml
+  - secretRef:
+    name: s3-secret
+```
 
 #### `ooi.podAnnotations`
 

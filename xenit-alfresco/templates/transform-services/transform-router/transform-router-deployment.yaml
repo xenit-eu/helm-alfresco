@@ -58,6 +58,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: transform-router-configmap
+          {{- if .Values.transformServices.transformRouter.envFrom }}
+          {{ toYaml .Values.transformServices.transformRouter.envFrom | nindent 10 }}
+          {{- end }}
           ports:
             - containerPort: 8095
               protocol: TCP

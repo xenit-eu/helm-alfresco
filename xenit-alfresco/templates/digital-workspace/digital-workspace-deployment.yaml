@@ -58,6 +58,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: digital-workspace-configmap
+            {{- if .Values.digitalWorkspace.envFrom }}
+            {{ toYaml .Values.digitalWorkspace.envFrom | nindent 12 }}
+            {{- end }}
           ports:
             - containerPort: 8080
               protocol: TCP

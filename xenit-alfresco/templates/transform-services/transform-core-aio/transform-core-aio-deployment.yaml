@@ -38,6 +38,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: transform-core-aio-configmap
+          {{- if .Values.transformServices.transformCoreAio.envFrom }}
+          {{ toYaml .Values.transformServices.transformCoreAio.envFrom | nindent 10 }}
+          {{- end }}
           ports:
             - containerPort: 8090
               protocol: TCP

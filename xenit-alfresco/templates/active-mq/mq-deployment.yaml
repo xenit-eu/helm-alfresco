@@ -41,6 +41,9 @@ spec:
                 name: mq-configmap
             - secretRef:
                 name: mq-secret
+            {{- if .Values.mq.envFrom }}
+            {{ toYaml .Values.mq.envFrom | nindent 12 }}
+            {{- end }}
           ports:
             - name: stomp
               containerPort: 61613

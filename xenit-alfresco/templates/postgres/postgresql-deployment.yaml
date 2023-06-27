@@ -44,6 +44,9 @@ spec:
               name: mq-secret
           - secretRef:
               name: db-secret
+          {{- if .Values.postgresql.envFrom }}
+          {{ toYaml .Values.postgresql.envFrom | nindent 10 }}
+          {{- end }}
         ports:
           - containerPort: 5432
             protocol: TCP
