@@ -1154,25 +1154,25 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 #### `solr.readinessProbe.enabled`
 
 * Required: false
-* Default: false
+* Default: true
 * Description: Enable or disable the job readiness probe
 
 #### `solr.readinessProbe.failureThreshold`
 
 * Required: false
-* Default: 6
+* Default: 3
 * Description: Specify the readinessProbe failure thresh hold fp how many consecutive failure before it stops probing
 
 #### `solr.readinessProbe.initialDelaySeconds`
 
 * Required: false
-* Default: 60
+* Default: 30
 * Description: Specify the readinessProbe initial delay before it starts probing
 
 #### `solr.readinessProbe.periodSeconds`
 
 * Required: false
-* Default: 20
+* Default: 10
 * Description: Specify the readinessProbe period between probes
 
 #### `solr.readinessProbe.successThreshold`
