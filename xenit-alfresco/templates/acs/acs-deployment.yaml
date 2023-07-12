@@ -105,17 +105,17 @@ spec:
             subPath: {{ .subPath }}
         {{- end }}
         {{- end }}
-      {{- if .Values.persistentStorage.alfresco.enabled }}
       volumes:
+      {{- if .Values.persistentStorage.alfresco.enabled }}
         - name: data
           persistentVolumeClaim:
             claimName: alfresco-pvc
+      {{- end }}
       {{- if .Values.persistentStorage.alfresco.additionalClaims }}
       {{- range .Values.persistentStorage.alfresco.additionalClaims }}
         - name: {{ .name }}
           persistentVolumeClaim:
             claimName: {{ .name }}
-      {{- end }}
       {{- end }}
       {{- end }}
       imagePullSecrets:
