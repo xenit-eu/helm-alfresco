@@ -1,4 +1,4 @@
-name: 'Continuous Integration'
+name: 'Publication'
 on:
   push:
     paths:
@@ -9,15 +9,16 @@ jobs:
   continuousIntegration:
     runs-on: ubuntu-latest
     steps:
+      - name: Parse version
+        run: |
+          echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_ENV"
       - name: Checkout code
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3
       - name: Install Helm
         uses: azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3
       - name: Package Helm Chart
         run: |
-          helm package xenit-alfresco --version `echo ${GITHUB_REF#refs/tags/} | cut -c 2-`
-          ls| grep -e '^alfresco.*\.tgz' |  xargs -I '{}' mv {} ./alfresco.tgz
-          ls
+          helm package xenit-alfresco --version "${{ env.version }}"
       - name: publish to cloudsmith
         id: push
         uses: cloudsmith-io/action@master
@@ -27,4 +28,4 @@ jobs:
           format: 'helm'
           owner: 'xenit'
           repo: 'open-source'
-          file: 'alfresco.tgz'
+          file: 'alfresco-${{ env.version }}.tgz'
