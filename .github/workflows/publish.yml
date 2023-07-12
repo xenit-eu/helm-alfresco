@@ -18,7 +18,7 @@ jobs:
         uses: azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78 # v3
       - name: Package Helm Chart
         run: |
-          helm package xenit-alfresco --version "${{ env.version }}""
+          helm package xenit-alfresco --version "${{ env.version }}"
       - name: publish to cloudsmith
         id: push
         uses: cloudsmith-io/action@master
