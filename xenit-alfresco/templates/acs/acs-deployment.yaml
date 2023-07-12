@@ -92,17 +92,17 @@ spec:
             {{ toYaml .Values.acs.resources.limits | nindent 14 }}
           {{- end }}
         {{- end }}
-        {{- if .Values.persistentStorage.alfresco.enabled }}
         volumeMounts:
+        {{- if .Values.persistentStorage.alfresco.enabled }}
           - name: data
             mountPath: /opt/alfresco/alf_data
             subPath: alfresco/data
+        {{- end }}
         {{- if .Values.persistentStorage.alfresco.additionalClaims }}
         {{- range .Values.persistentStorage.alfresco.additionalClaims }}
           - name: {{ .name }}
             mountPath: {{ .mountPath }}
             subPath: {{ .subPath }}
-        {{- end }}
         {{- end }}
         {{- end }}
       {{- if .Values.persistentStorage.alfresco.enabled }}
