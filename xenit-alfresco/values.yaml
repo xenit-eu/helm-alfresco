@@ -36,6 +36,12 @@ acs:
     requests:
       memory: "2Gi"
       cpu: "2"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 10
+    cpuUtilization: 70
+    memoryUtilization: 70
   dbUrl: 'jdbc:postgresql://postgresql-service:5432/alfresco'
   dbDriver: 'org.postgresql.Driver'
   sharePort: '443'

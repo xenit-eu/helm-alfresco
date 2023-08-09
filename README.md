@@ -465,6 +465,36 @@ For more information take a look at
 * Default: None
 * Description: The maximum resources a pod may consume from a node
 
+#### `acs.hpa.enabled`
+
+* Required: false
+* Default: false
+* Description: Whether the ACS deployment should autoscale
+
+#### `acs.hpa.minReplicas`
+
+* Required: false
+* Default: 1
+* Description: The min ammount of replicas will run when autoscaling
+
+#### `acs.hpa.maxReplicas`
+
+* Required: false
+* Default: 10
+* Description: The max ammount of replicas will run when autoscaling
+
+#### `acs.hpa.cpuUtilization`
+
+* Required: false
+* Default: 70
+* Description: The CPU cutover percentage
+
+#### `acs.hpa.memoryUtilization`
+
+* Required: false
+* Default: 70
+* Description: The Memory cutover percentage
+
 #### `acs.imagePullSecrets`
 
 * Required: false
