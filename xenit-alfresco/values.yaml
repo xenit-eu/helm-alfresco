@@ -23,7 +23,9 @@ ingress:
   ingressAnnotations:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-production"
-
+  defaultBackend:
+    service: acs-service
+    port: 30000
 acs:
   replicas: 1
   image:
