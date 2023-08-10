@@ -265,12 +265,23 @@ For more information take a look at
   backend:
     service:
       name: service-name
-        port:
-          number: service-port
+      port:
+        number: service-port
 ```
 
 * Description: used to add more path to ingress under the same host name for new services
 
+#### `ingress.defaultBackend.service`
+
+* Required: true
+* Default: acs-service
+* Description: the default service name that ingress will point to 
+
+#### `ingress.defaultBackend.port`
+
+* Required: true
+* Default: 30000
+* Description: the default service port that ingress will point to
 ### ACS
 
 #### `acs.replicas`
