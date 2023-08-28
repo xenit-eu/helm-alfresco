@@ -1,4 +1,4 @@
-{{- if .Values.share.enabled -}}
+{{- if and (.Values.share.enabled) ( not .Values.share.mergeAcsShare) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:

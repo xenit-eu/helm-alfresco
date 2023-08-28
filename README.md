@@ -658,6 +658,13 @@ For more information take a look at
 * Default: `true`
 * Description: Enable or disable the share
 
+#### `share.mergeAcsShare`
+
+* Required: false
+* Default: false
+* Description: If set to `true` the Share container will be installed inside the ACS pod.
+
+
 #### `share.replicas`
 
 * Required: false

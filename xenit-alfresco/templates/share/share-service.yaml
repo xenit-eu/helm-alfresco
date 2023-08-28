@@ -10,11 +10,20 @@ metadata:
     {{- end }}
 spec:
   selector:
+    {{- if .Values.share.mergeAcsShare }}
+    app: acs
+    {{- else }}
     app: share
+    {{- end }}
   ports:
       - protocol: TCP
         port: 30100
+        {{- if .Values.share.mergeAcsShare }}
+        targetPort: 8082
+        {{- else }}
         targetPort: 8080
+        {{- end }}
+
   {{- if .Values.general.serviceType }}
   type: {{ .Values.general.serviceType }}
   {{- end }}

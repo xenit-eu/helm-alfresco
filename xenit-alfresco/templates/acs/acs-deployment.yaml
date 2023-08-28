@@ -25,6 +25,12 @@ spec:
         checksum/acs-config: {{ include (print $.Template.BasePath "/acs/acs-config.yaml") . | sha256sum }}
         checksum/mq-secret: {{ include (print $.Template.BasePath "/active-mq/mq-secret.yaml") . | sha256sum }}
         checksum/db-secret: {{ include (print $.Template.BasePath "/db-secret.yaml") . | sha256sum }}
+        {{- if .Values.share.mergeAcsShare }}
+        checksum/share-config: {{ include (print $.Template.BasePath "/share/share-config.yaml") . | sha256sum }}
+        {{- if .Values.share.podAnnotations }}
+        {{ toYaml .Values.share.podAnnotations | nindent 8 }}
+        {{- end }}
+        {{- end }}
         {{- include "globalPodAnnotations" . | indent 8 }}
         {{- if .Values.acs.podAnnotations }}
         {{ toYaml .Values.acs.podAnnotations | nindent 8 }}
@@ -105,6 +111,39 @@ spec:
             subPath: {{ .subPath }}
         {{- end }}
         {{- end }}
+      {{- if .Values.share.mergeAcsShare}}
+      - name: share-container
+        image: {{ .Values.share.image.registry }}/{{ .Values.share.image.repository }}:{{ .Values.share.image.tag }}
+        imagePullPolicy: {{ .Values.share.imagePullPolicy | default "IfNotPresent" }}
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - sleep 20
+        envFrom:
+          - configMapRef:
+              name: share-configmap
+          {{- if .Values.share.envFrom }}
+          {{ toYaml .Values.share.envFrom | nindent 10 }}
+          {{- end }}
+        ports:
+          - containerPort: 8082
+            # when running together with acs we fix containerport for share to 8082, see also TOMCAT-PORT
+            protocol: TCP
+        {{- if or (.Values.share.resources.requests) ((.Values.share.resources.limits)) }}
+        resources:
+          {{- if .Values.share.resources.requests }}
+          requests:
+          {{ toYaml .Values.share.resources.requests | nindent 12 }}
+          {{- end }}
+          {{- if .Values.share.resources.limits }}
+          limits:
+          {{ toYaml .Values.share.resources.limits | nindent 12 }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
       volumes:
       {{- if .Values.persistentStorage.alfresco.enabled }}
         - name: data
@@ -124,4 +163,9 @@ spec:
         {{- end }}
         {{- if .Values.acs.imagePullSecrets}}
         {{ toYaml .Values.acs.imagePullSecrets | nindent 8 }}
+        {{- end }}
+        {{- if .Values.share.mergeAcsShare}}
+        {{- if .Values.share.imagePullSecrets }}
+        {{ toYaml .Values.share.imagePullSecrets | nindent 8 }}
+        {{- end }}
         {{- end }}

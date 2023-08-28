@@ -7,11 +7,20 @@ metadata:
   labels:
     app: share
 data:
+  {{- if .Values.share.mergeAcsShare }}
+  ALFRESCO_INTERNAL_HOST: 'localhost'
+  ALFRESCO_INTERNAL_PORT: '8080'
+  {{- else }}
   ALFRESCO_INTERNAL_HOST: 'acs-service'
   ALFRESCO_INTERNAL_PORT: '30000'
+  {{- end }}
   ALFRESCO_HOST: {{ .Values.ingress.host }}
   ALFRESCO_PORT: '443'
   ALFRESCO_PROTOCOL: 'https'
+  {{- if .Values.share.mergeAcsShare }}
+  TOMCAT_PORT: '8082'
+  TOMCAT_SERVER_PORT: '8099'
+  {{- end }}
   {{- if .Values.share.additionalEnvironmentVariables }}
   {{ toYaml .Values.share.additionalEnvironmentVariables | nindent 2 }}
   {{- end }}
