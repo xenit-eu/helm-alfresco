@@ -77,6 +77,7 @@ digitalWorkspace:
 
 share:
   enabled: true
+  mergeAcsShare: false
   replicas: 1
   image:
     registry: 'docker.io'
