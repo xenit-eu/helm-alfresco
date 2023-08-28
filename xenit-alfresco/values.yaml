@@ -42,8 +42,12 @@ acs:
     enabled: false
     minReplicas: 1
     maxReplicas: 10
-    cpuUtilization: 70
-    memoryUtilization: 70
+    cpu:
+      enabled: false
+      utilization: 70
+    memory:
+      enabled: true
+      utilization: 70
   dbUrl: 'jdbc:postgresql://postgresql-service:5432/alfresco'
   dbDriver: 'org.postgresql.Driver'
   sharePort: '443'

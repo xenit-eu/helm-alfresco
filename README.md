@@ -494,13 +494,26 @@ For more information take a look at
 * Default: 10
 * Description: The max ammount of replicas will run when autoscaling
 
-#### `acs.hpa.cpuUtilization`
+#### `acs.hpa.cpu.enabled`
+
+* Required: false
+* Default: false
+* Description: whether horizontal scaling should trigger on cpu load
+
+#### `acs.hpa.cpu.utilization`
 
 * Required: false
 * Default: 70
 * Description: The CPU cutover percentage
 
-#### `acs.hpa.memoryUtilization`
+#### `acs.hpa.memory.enabled`
+
+* Required: false
+* Default: true
+* Description: whether horizontal scaling should trigger on memory load
+
+
+#### `acs.hpa.memory.utilization`
 
 * Required: false
 * Default: 70
