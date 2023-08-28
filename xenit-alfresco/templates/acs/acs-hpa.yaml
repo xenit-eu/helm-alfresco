@@ -9,18 +9,22 @@ spec:
   minReplicas: {{ .minReplicas }}
   maxReplicas: {{ .maxReplicas }}
   metrics:
+    {{- with .cpu.enabled }}
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: {{ .cpuUtilization }}
+          averageUtilization: {{ .cpu.utilization }}
+    {{- end }}
+    {{- with .memory.enabled }}
     - type: Resource
       resource:
         name: memory
         target:
           type: Utilization
-          averageUtilization: {{ .memoryUtilization }}
+          averageUtilization: {{ .memory.utilization }}
+    {{- end }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
