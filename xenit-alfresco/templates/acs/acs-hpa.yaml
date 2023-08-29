@@ -9,7 +9,7 @@ spec:
   minReplicas: {{ .minReplicas }}
   maxReplicas: {{ .maxReplicas }}
   metrics:
-    {{- with .cpu.enabled }}
+    {{- if .cpu.enabled }}
     - type: Resource
       resource:
         name: cpu
@@ -17,7 +17,7 @@ spec:
           type: Utilization
           averageUtilization: {{ .cpu.utilization }}
     {{- end }}
-    {{- with .memory.enabled }}
+    {{- if .memory.enabled }}
     - type: Resource
       resource:
         name: memory
