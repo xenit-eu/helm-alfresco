@@ -152,7 +152,7 @@ transformServices:
     image:
       registry: 'docker.io'
       repository: 'alfresco/alfresco-shared-file-store'
-      tag: '0.16.1'
+      tag: '3.0.0'
     strategy:
       type: RollingUpdate
     resources:
