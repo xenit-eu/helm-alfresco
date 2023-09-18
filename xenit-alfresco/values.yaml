@@ -100,7 +100,7 @@ mq:
   image:
     registry: 'docker.io'
     repository: 'alfresco/alfresco-activemq'
-    tag: '5.17.5-jre17-rockylinux8'
+    tag: '5.18.2-jre17-rockylinux8'
   strategy:
     type: Recreate
   resources:
