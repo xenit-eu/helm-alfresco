@@ -8,6 +8,7 @@ metadata:
     app: solr
 spec:
   replicas: {{ .Values.solr.replicas }}
+  podManagementPolicy: {{ .Values.solr.podManagementPolicy }}
   selector:
     matchLabels:
       app: solr

@@ -124,6 +124,7 @@ postgresql:
 solr:
   enabled: true
   replicas: 2
+  podManagementPolicy: Parallel
   image:
     registry: 'docker.io'
     repository: 'xenit/alfresco-solr6-xenit'
