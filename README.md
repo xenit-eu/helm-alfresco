@@ -275,13 +275,14 @@ For more information take a look at
 
 * Required: true
 * Default: acs-service
-* Description: the default service name that ingress will point to 
+* Description: the default service name that ingress will point to
 
 #### `ingress.defaultBackend.port`
 
 * Required: true
 * Default: 30000
 * Description: the default service port that ingress will point to
+
 ### ACS
 
 #### `acs.replicas`
@@ -425,6 +426,7 @@ For more information take a look at
 * Description: This allows you to add to the acs-container envFrom section. This was added to allow to integrate secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
 - secretRef:
     name: s3-secret
@@ -512,7 +514,6 @@ For more information take a look at
 * Default: true
 * Description: whether horizontal scaling should trigger on memory load
 
-
 #### `acs.hpa.memory.utilization`
 
 * Required: false
@@ -597,9 +598,11 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: This allows you to add to the digitalWorkspace-container envFrom section. This was added to allow to integrate secrets
+* Description: This allows you to add to the digitalWorkspace-container envFrom section. This was added to allow to
+  integrate secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
   - secretRef:
     name: s3-secret
@@ -677,7 +680,6 @@ For more information take a look at
 * Default: false
 * Description: If set to `true` the Share container will be installed inside the ACS pod.
 
-
 #### `share.replicas`
 
 * Required: false
@@ -730,9 +732,11 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: This allows you to add to the share-container envFrom section. This was added to allow to integrate secrets
+* Description: This allows you to add to the share-container envFrom section. This was added to allow to integrate
+  secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
   - secretRef:
     name: s3-secret
@@ -876,6 +880,7 @@ For more information take a look at
 * Description: This allows you to add to the mq-container envFrom section. This was added to allow to integrate secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
   - secretRef:
     name: s3-secret
@@ -1000,9 +1005,11 @@ For more information take a look at
 
 * Required: false
 * Default: None
-* Description: This allows you to add to the postgresql-container envFrom section. This was added to allow to integrate secrets
+* Description: This allows you to add to the postgresql-container envFrom section. This was added to allow to integrate
+  secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
   - secretRef:
     name: s3-secret
@@ -1079,6 +1086,12 @@ For more information take a look at
 * Required: false
 * Default: `2`
 * Description: The number of pods that will be running
+
+* #### `solr.podManagementPolicy`
+
+* Required: false
+* Default: `Parallel`
+* Description: The way to manage multiple pod launching or termination possible values are `Parallel` or `OrderedReady`find more information in [Docs](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management)
 
 #### `solr.image.registry`
 
@@ -1323,9 +1336,11 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 
 * Required: false
 * Default: None
-* Description: This allows you to add to the sharedFileStore-container envFrom section. This was added to allow to integrate secrets
+* Description: This allows you to add to the sharedFileStore-container envFrom section. This was added to allow to
+  integrate secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
   - secretRef:
     name: s3-secret
@@ -1443,9 +1458,11 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 
 * Required: false
 * Default: None
-* Description: This allows you to add to the transformCoreAio-container envFrom section. This was added to allow to integrate secrets
+* Description: This allows you to add to the transformCoreAio-container envFrom section. This was added to allow to
+  integrate secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
   - secretRef:
     name: s3-secret
@@ -1565,9 +1582,11 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 
 * Required: false
 * Default: None
-* Description: This allows you to add to the transformRouter-container envFrom section. This was added to allow to integrate secrets
+* Description: This allows you to add to the transformRouter-container envFrom section. This was added to allow to
+  integrate secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
   - secretRef:
     name: s3-secret
@@ -1692,9 +1711,11 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 
 * Required: false
 * Default: None
-* Description: This allows you to add to the syncService-container envFrom section. This was added to allow to integrate secrets
+* Description: This allows you to add to the syncService-container envFrom section. This was added to allow to integrate
+  secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
   - secretRef:
     name: s3-secret
@@ -1822,6 +1843,7 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Description: This allows you to add to the ooi-container envFrom section. This was added to allow to integrate secrets
   that are not added by this helm chart.
 * Example:
+
 ```yaml
   - secretRef:
     name: s3-secret
