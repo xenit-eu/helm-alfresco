@@ -115,6 +115,26 @@ spec:
       - name: share-container
         image: {{ .Values.share.image.registry }}/{{ .Values.share.image.repository }}:{{ .Values.share.image.tag }}
         imagePullPolicy: {{ .Values.share.imagePullPolicy | default "IfNotPresent" }}
+        readinessProbe:
+          failureThreshold: {{ .Values.acs.readinessProbe.failureThreshold }}
+          httpGet:
+            path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-ready-
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.acs.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.acs.readinessProbe.periodSeconds }}
+          successThreshold: {{ .Values.acs.readinessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.acs.readinessProbe.timeoutSeconds }}
+        livenessProbe:
+          failureThreshold: {{ .Values.acs.livenessProbe.failureThreshold }}
+          httpGet:
+            path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-live-
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.acs.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.acs.livenessProbe.periodSeconds }}
+          successThreshold: {{ .Values.acs.livenessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.acs.livenessProbe.timeoutSeconds }}
         lifecycle:
           preStop:
             exec:
