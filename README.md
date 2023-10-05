@@ -288,7 +288,7 @@ For more information take a look at
 #### `acs.replicas`
 
 * Required: false
-* Default: `2`
+* Default: `1`
 * Description: The number of pods that will be running
 
 #### `acs.image.registry`
