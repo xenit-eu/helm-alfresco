@@ -35,6 +35,26 @@ spec:
       - name: share-container
         image: {{ .Values.share.image.registry }}/{{ .Values.share.image.repository }}:{{ .Values.share.image.tag }}
         imagePullPolicy: {{ .Values.share.imagePullPolicy | default "IfNotPresent" }}
+        readinessProbe:
+          failureThreshold: {{ .Values.share.readinessProbe.failureThreshold }}
+          httpGet:
+            path: /share
+            port: 8082
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.share.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.share.readinessProbe.periodSeconds }}
+          successThreshold: {{ .Values.share.readinessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.share.readinessProbe.timeoutSeconds }}
+        livenessProbe:
+          failureThreshold: {{ .Values.share.livenessProbe.failureThreshold }}
+          httpGet:
+            path: /share
+            port: 8082
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.share.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.share.livenessProbe.periodSeconds }}
+          successThreshold: {{ .Values.share.livenessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.share.livenessProbe.timeoutSeconds }}
         lifecycle:
           preStop:
             exec:
