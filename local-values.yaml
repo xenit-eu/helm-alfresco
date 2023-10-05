@@ -7,6 +7,8 @@ acs:
     requests:
       memory: "1Gi"
       cpu: "1"
+share:
+  mergeAcsShare: true"
 mq:
   resources:
     requests:
@@ -18,3 +20,7 @@ transformServices:
   enabled: false
 digitalWorkspace:
   enabled: false
+
+general:
+  networkPolicies:
+    enabled: false
