@@ -710,6 +710,68 @@ For more information take a look at
 * Default: `IfNotPresent`
 * Description: Specify when the pods should pull the image from the repositories
 
+#### `share.livenessProbe.failureThreshold`
+
+* Required: false
+* Default: 1
+* Description: Specify the livenessProbe failure thresh hold fp how many consecutive failure before it stops probing
+
+#### `share.livenessProbe.initialDelaySeconds`
+
+* Required: false
+* Default: 130
+* Description: Specify the livenessProbe initial delay before it starts probing
+
+#### `share.livenessProbe.periodSeconds`
+
+* Required: false
+* Default: 20
+* Description: Specify the livenessProbe period between probes
+
+#### `share.livenessProbe.successThreshold`
+
+* Required: false
+* Default: 1
+* Description: Specify the livenessProbe success thresh hold for how many consecutive successes for the probe to be
+  considered successful after having failed
+
+#### `share.livenessProbe.timeoutSeconds`
+
+* Required: false
+* Default: 10
+* Description: Specify the livenessProbe timeout for probes to be considered as failure
+
+#### `share.readinessProbe.failureThreshold`
+
+* Required: false
+* Default: 6
+* Description: Specify the readinessProbe failure thresh hold fp how many consecutive failure before it stops probing
+
+#### `share.readinessProbe.initialDelaySeconds`
+
+* Required: false
+* Default: 60
+* Description: Specify the readinessProbe initial delay before it starts probing
+
+#### `share.readinessProbe.periodSeconds`
+
+* Required: false
+* Default: 20
+* Description: Specify the readinessProbe period between probes
+
+#### `share.readinessProbe.successThreshold`
+
+* Required: false
+* Default: 1
+* Description: Specify the readinessProbe success thresh hold for how many consecutive successes for the probe to be
+  considered successful after having failed
+
+#### `share.readinessProbe.timeoutSeconds`
+
+* Required: false
+* Default: 10
+* Description: Specify the readinessProbe timeout for probes to be considered as failure
+
 #### `share.strategy.type`
 
 * Required: false
