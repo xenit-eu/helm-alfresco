@@ -1533,7 +1533,7 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 #### `transformServices.transformCoreAio.livenessProbe.enabled`
 
 * Required: false
-* Default: false
+* Default: true
 * Description: will enable liveness and readiness probes  
 additional settings can be added through additionalEnvironmentVariables.  
 ```yaml

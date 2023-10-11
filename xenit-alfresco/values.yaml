@@ -185,7 +185,7 @@ transformServices:
         memory: "1600Mi"
         cpu: "150m"
     livenessProbe:
-      enabled: false
+      enabled: true
   transformRouter:
     replicas: 1
     image:
