@@ -39,7 +39,7 @@ spec:
           failureThreshold: {{ .Values.share.readinessProbe.failureThreshold }}
           httpGet:
             path: /share
-            port: 8082
+            port: 8080
             scheme: HTTP
           initialDelaySeconds: {{ .Values.share.readinessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.share.readinessProbe.periodSeconds }}
@@ -49,7 +49,7 @@ spec:
           failureThreshold: {{ .Values.share.livenessProbe.failureThreshold }}
           httpGet:
             path: /share
-            port: 8082
+            port: 8080
             scheme: HTTP
           initialDelaySeconds: {{ .Values.share.livenessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.share.livenessProbe.periodSeconds }}
