@@ -74,6 +74,7 @@ class HelmAlfrescoTest {
                     "-n", namespace, "--create-namespace");
 
             PodTests.checkPodsReady(cluster, namespace, "app = acs", 1, 300);
+            PodTests.checkPodsReady(cluster, namespace, "app = share", 1, 300);
         } finally {
             if (cluster != null) {
                 cluster.destroy();
