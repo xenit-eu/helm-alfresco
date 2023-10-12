@@ -55,7 +55,7 @@ spec:
             {{ toYaml .Values.transformServices.transformCoreAio.resources.limits | nindent 14 }}
             {{- end }}
           {{- end }}
-          {{- if .Values.transformServices.transformCoreAio.livenessProbe.enabled -}}
+          {{- if .Values.transformServices.transformCoreAio.livenessProbe.enabled }}
           readinessProbe:
             httpGet:
               path: /ready
