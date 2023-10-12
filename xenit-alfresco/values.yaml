@@ -182,8 +182,10 @@ transformServices:
       type: RollingUpdate
     resources:
       requests:
-        memory: "256Mi"
+        memory: "1600Mi"
         cpu: "150m"
+    livenessProbe:
+      enabled: true
   transformRouter:
     replicas: 1
     image:

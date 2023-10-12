@@ -1388,8 +1388,8 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: None
 * Example:
   ```yaml
-  environmentVariable1Key: environmentVariable1Value
-  environmentVariable2Key: environmentVariable2Value
+  scheduler.cleanup.interval: "10800000"
+  scheduler.content.age.millis: "43200000"
   ```
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
@@ -1510,8 +1510,9 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: None
 * Example:
   ```yaml
-  environmentVariable1Key: environmentVariable1Value
-  environmentVariable2Key: environmentVariable2Value
+    livenessPercent: "150"
+    livenessTransformPeriodSeconds: "600"
+    maxTransforms: "100000"
   ```
 * Description: With this list of parameters you can add 1 or multiple environment variables that will be passed to the
   docker container. These will be stored in a config and are hence not safe for sensitive information
@@ -1529,6 +1530,18 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
   - secretRef:
     name: s3-secret
 ```
+#### `transformServices.transformCoreAio.livenessProbe.enabled`
+
+* Required: false
+* Default: true
+* Description: will enable liveness and readiness probes  
+additional settings can be added through additionalEnvironmentVariables.  
+```yaml
+  livenessPercent: "150"
+  livenessTransformPeriodSeconds: "600"
+  maxTransforms: "100000"
+  ```
+
 
 #### `transformServices.transformCoreAio.podAnnotations`
 
@@ -1536,8 +1549,8 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: None
 * Example:
   ```yaml
-  annotation1Key: annotation1Value
-  annotation2Key: annotation2Value
+     prometheus.io/path: actuator/prometheus
+     prometheus.io/scrape: 'true'
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Transform Core All In One
 
