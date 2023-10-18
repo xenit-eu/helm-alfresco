@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.kubernetes:client-java:18.0.1'
+    implementation 'io.kubernetes:client-java:19.0.0'
     implementation 'org.awaitility:awaitility:4.2.0'
     implementation 'org.slf4j:slf4j-api:2.0.9'
     implementation 'org.zeroturnaround:zt-exec:1.12'
