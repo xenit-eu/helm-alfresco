@@ -254,12 +254,14 @@ persistentStorage:
       volumeHandle: ""
   sharedFileStore:
     enabled: true
+    initVolumes: true
     storageClassName: ""
     storage: 2
     efs:
       volumeHandle: ""
   mq:
     enabled: true
+    initVolumes: true
     storageClassName: ""
     storage: 1
     efs:

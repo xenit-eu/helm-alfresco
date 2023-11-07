@@ -75,5 +75,25 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: shared-file-store-pvc
+      {{- if .Values.persistentStorage.sharedFileStore.initVolumes }}
+      initContainers:
+        - command:
+            - sh
+            - -c
+            - chown -R 33030:1000 /tmp/Alfresco
+          image: busybox:1.35.0
+          imagePullPolicy: IfNotPresent
+          name: init-fs
+          resources:
+            limits:
+              memory: 10Mi
+            requests:
+              memory: 5Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /tmp/Alfresco
+              name: data
+      {{- end }}
       {{- end }}
 {{- end }}

@@ -1466,6 +1466,12 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
   reference them here.
 
+#### `transformServices.sharedFileStore.initVolumes`
+
+* Required: false
+* Default: `true`
+* Description: Enable or disable the setting of /tmp/Alfresco owner to sfs user
+
 ### Transform Core All In One
 
 #### `transformServices.transformCoreAio.replicas`
@@ -2145,6 +2151,13 @@ additional settings can be added through additionalEnvironmentVariables.
 * Required: false
 * Default: `true`
 * Description: Enable or disable the creation of a PV and PVC for the Active MQ pods
+
+
+#### `persistentStorage.mq.initVolumes`
+
+* Required: false
+* Default: `true`
+* Description: Enable or disable the setting of mq data owner to amq user
 
 #### `persistentStorage.mq.storageClassName`
 
