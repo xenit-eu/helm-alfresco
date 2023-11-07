@@ -84,6 +84,24 @@ spec:
               mountPath: /opt/activemq/data
               subPath: mq/data
           {{- end }}
+      {{- if .Values.persistentStorage.mq.initVolumes }}
+      initContainers:
+        - name: init-fs
+          image: "busybox:1.35.0"
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "50Mi"
+            limits:
+              memory: "100Mi"
+          command: [ "sh", "-c", "chown -R 33031:1000 /opt/activemq/data" ]
+          {{- if .Values.persistentStorage.mq.enabled }}
+          volumeMounts:
+            - name: data
+              mountPath: /opt/activemq/data
+              subPath: mq/data
+          {{- end }}
+      {{- end }}
       imagePullSecrets:
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
