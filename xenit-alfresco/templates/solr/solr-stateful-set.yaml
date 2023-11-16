@@ -15,9 +15,6 @@ spec:
   updateStrategy:
     type: {{ .Values.solr.strategy.type }}
   serviceName: solr-service
-  {{- if .Values.solr.serviceAccount }}
-  serviceAccountName: {{ .Values.solr.serviceAccount }}
-  {{- end }}
   template:
     metadata:
       labels:
@@ -29,6 +26,9 @@ spec:
         {{ toYaml .Values.solr.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.solr.serviceAccount }}
+      serviceAccountName: {{ .Values.solr.serviceAccount }}
+      {{- end }}
       containers:
         - name: solr-container
           image: {{ .Values.solr.image.registry }}/{{ .Values.solr.image.repository }}:{{ .Values.solr.image.tag }}
@@ -75,13 +75,19 @@ spec:
           {{ toYaml .Values.solr.resources.limits | nindent 14 }}
           {{- end }}
         {{- end }}
+        {{- if or (.Values.persistentStorage.solr.enabled) (.Values.persistentStorage.solrBackup.enabled) }}
           volumeMounts:
+          {{- if .Values.persistentStorage.solr.enabled }}
             - name: data
               mountPath: /opt/alfresco-search-services/data
               subPath: solr/data
+          {{- end }}
+          {{- if .Values.persistentStorage.solrBackup.enabled }}
             - name: backup
               mountPath: /opt/alfresco-search-services/backup
               subPath: solr/backup
+          {{- end }}
+        {{- end }}
       imagePullSecrets:
         {{- if .Values.general.imagePullSecrets}}
         {{ toYaml .Values.general.imagePullSecrets | nindent 8 }}
