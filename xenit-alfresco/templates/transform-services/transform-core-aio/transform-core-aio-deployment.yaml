@@ -65,7 +65,7 @@ spec:
             timeoutSeconds: 10
           livenessProbe:
             httpGet:
-              path: /live
+              path: /ready
               port: 8090
             initialDelaySeconds: 10
             periodSeconds: 30
