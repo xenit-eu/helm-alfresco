@@ -1,4 +1,4 @@
-{{- if .Values.transformServices.enabled -}}
+{{- if and (.Values.transformServices.enabled) (.Values.transformServices.transformRouter.enabled)  -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:

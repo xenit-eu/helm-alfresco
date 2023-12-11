@@ -161,6 +161,7 @@ solr:
 transformServices:
   enabled: true
   sharedFileStore:
+    enabled: true
     replicas: 1
     image:
       registry: 'quay.io'
@@ -173,6 +174,7 @@ transformServices:
         memory: "512Mi"
         cpu: "200m"
   transformCoreAio:
+    enabled: true
     replicas: 1
     image:
       registry: 'docker.io'
@@ -187,6 +189,7 @@ transformServices:
     livenessProbe:
       enabled: true
   transformRouter:
+    enabled: true
     replicas: 1
     image:
       registry: 'quay.io'

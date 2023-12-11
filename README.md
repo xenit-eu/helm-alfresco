@@ -1346,6 +1346,12 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 
 ### Shared File Store
 
+#### `transformServices.sharedFileStore.enabled`
+
+* Required: false
+* Default: `true`
+* Description: Enable or disable the Shared File Store
+
 #### `transformServices.sharedFileStore.replicas`
 
 * Required: false
@@ -1473,6 +1479,12 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Description: Enable or disable the setting of /tmp/Alfresco owner to sfs user
 
 ### Transform Core All In One
+
+#### `transformServices.transformCoreAio.enabled`
+
+* Required: false
+* Default: `true`
+* Description: Enable or disable the Transform Core All In One
 
 #### `transformServices.transformCoreAio.replicas`
 
@@ -1610,6 +1622,12 @@ additional settings can be added through additionalEnvironmentVariables.
   reference them here.
 
 ### Transform Router
+
+#### `transformServices.transformRouter.enabled`
+
+* Required: false
+* Default: `true`
+* Description: Enable or disable the Transform Router
 
 #### `transformServices.transformRouter.replicas`
 
