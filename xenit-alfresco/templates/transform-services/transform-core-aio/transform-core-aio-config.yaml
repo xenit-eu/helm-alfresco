@@ -7,7 +7,9 @@ metadata:
   labels:
     app: transform-core-aio
 data:
+  {{- if .Values.mq.enabled}}
   ACTIVEMQ_URL: 'nio://mq-service:61616'
+  {{- end }}
   FILE_STORE_URL: 'http://shared-file-store-service:80/alfresco/api/-default-/private/sfs/versions/1/file'
   {{- if .Values.transformServices.transformCoreAio.additionalEnvironmentVariables }}
   {{ toYaml .Values.transformServices.transformCoreAio.additionalEnvironmentVariables | nindent 2 }}

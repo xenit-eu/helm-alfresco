@@ -7,7 +7,9 @@ metadata:
   labels:
     app: transform-router
 data:
-  ACTIVEMQ_URL: "nio://mq-service:61616"
+  {{- if .Values.mq.enabled }}
+  ACTIVEMQ_URL: 'nio://mq-service:61616'
+  {{- end }}
   CORE_AIO_URL: "http://transform-core-aio-service:80"
   FILE_STORE_URL: "http://shared-file-store-service:80/alfresco/api/-default-/private/sfs/versions/1/file"
   {{- if .Values.transformServices.transformRouter.additionalEnvironmentVariables }}
