@@ -26,7 +26,6 @@ spec:
         app: postgresql
       annotations:
         checksum/postgresql-config: {{ include (print $.Template.BasePath "/postgres/postgresql-config.yaml") . | sha256sum }}
-        checksum/mq-secret: {{ include (print $.Template.BasePath "/active-mq/mq-secret.yaml") . | sha256sum }}
         checksum/db-secret: {{ include (print $.Template.BasePath "/db-secret.yaml") . | sha256sum }}
         {{- include "globalPodAnnotations" . | indent 8 }}
         {{- if .Values.postgresql.podAnnotations }}
@@ -40,8 +39,6 @@ spec:
         envFrom:
           - configMapRef:
               name: postgresql-configmap
-          - secretRef:
-              name: mq-secret
           - secretRef:
               name: db-secret
           {{- if .Values.postgresql.envFrom }}
