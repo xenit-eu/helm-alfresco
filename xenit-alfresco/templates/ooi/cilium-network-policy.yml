@@ -12,5 +12,8 @@ spec:
   egress:
     - toFQDNs:
         - matchName: "graph.microsoft.com"
+        - matchPattern: "*.*.*.*.sharepoint.com"
+        - matchPattern: "*.*.*.sharepoint.com"
+        - matchPattern: "*.*.sharepoint.com"
         - matchPattern: "*.sharepoint.com"
 {{- end }}
