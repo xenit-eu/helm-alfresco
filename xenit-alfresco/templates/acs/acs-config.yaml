@@ -29,9 +29,15 @@ data:
   {{- end }}
   {{- if .Values.transformServices.enabled }}
   GLOBAL_transform.service.enabled: 'true'
+  {{- if not .Values.transformServices.transformRouter.enabled }}
   GLOBAL_transform.service.url: 'http://transform-router-service:30500'
+  {{- end }}
+  {{- if not .Values.transformServices.sharedFileStore.enabled }}
   GLOBAL_sfs.url: 'http://shared-file-store-service:80/'
+  {{- end }}
+  {{- if not .Values.transformServices.transformCoreAio.enabled }}
   GLOBAL_localTransform.core-aio.url: 'http://transform-core-aio-service:80/'
+  {{- end }}
   {{- else }}
   GLOBAL_transform.service.enabled: 'false'
   {{- end }}
