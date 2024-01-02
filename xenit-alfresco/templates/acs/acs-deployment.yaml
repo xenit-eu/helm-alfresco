@@ -45,26 +45,14 @@ spec:
       - name: acs-container
         image: {{ .Values.acs.image.registry }}/{{ .Values.acs.image.repository }}:{{ .Values.acs.image.tag }}
         imagePullPolicy: {{ .Values.acs.imagePullPolicy | default "IfNotPresent" }}
+        {{- if .Values.acs.readinessProbe }}
         readinessProbe:
-          failureThreshold: {{ .Values.acs.readinessProbe.failureThreshold }}
-          httpGet:
-            path: {{ .Values.acs.readinessProbe.path }}
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: {{ .Values.acs.readinessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.acs.readinessProbe.periodSeconds }}
-          successThreshold: {{ .Values.acs.readinessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.acs.readinessProbe.timeoutSeconds }}
+          {{ toYaml .Values.acs.readinessProbe | nindent 10 }}
+        {{- end }}
+        {{- if .Values.acs.livenessProbe }}
         livenessProbe:
-          failureThreshold: {{ .Values.acs.livenessProbe.failureThreshold }}
-          httpGet:
-            path: {{ .Values.acs.livenessProbe.path }}
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: {{ .Values.acs.livenessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.acs.livenessProbe.periodSeconds }}
-          successThreshold: {{ .Values.acs.livenessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.acs.livenessProbe.timeoutSeconds }}
+          {{ toYaml .Values.acs.livenessProbe | nindent 10 }}
+        {{- end }}
         lifecycle:
           preStop:
             exec:
