@@ -48,7 +48,7 @@ spec:
         readinessProbe:
           failureThreshold: {{ .Values.acs.readinessProbe.failureThreshold }}
           httpGet:
-            path: {{ .Values.acs.readinessProbe.path }}
+            path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-ready-
             port: 8080
             scheme: HTTP
           initialDelaySeconds: {{ .Values.acs.readinessProbe.initialDelaySeconds }}
@@ -58,7 +58,7 @@ spec:
         livenessProbe:
           failureThreshold: {{ .Values.acs.livenessProbe.failureThreshold }}
           httpGet:
-            path: {{ .Values.acs.livenessProbe.path }}
+            path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-live-
             port: 8080
             scheme: HTTP
           initialDelaySeconds: {{ .Values.acs.livenessProbe.initialDelaySeconds }}
