@@ -315,67 +315,39 @@ For more information take a look at
 * Default: `IfNotPresent`
 * Description: Specify when the pods should pull the image from the repositories
 
-#### `acs.livenessProbe.failureThreshold`
+#### `acs.livenessProbe`
 
 * Required: false
-* Default: 1
-* Description: Specify the livenessProbe failure thresh hold fp how many consecutive failure before it stops probing
+* Default: 
+```
+    httpGet:
+      path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-live-
+      port: 8080
+      scheme: HTTP
+    failureThreshold: 1
+    initialDelaySeconds: 130
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 10
+```
+* Description: Specify the livenessProbe configuration for acs
 
-#### `acs.livenessProbe.initialDelaySeconds`
-
-* Required: false
-* Default: 130
-* Description: Specify the livenessProbe initial delay before it starts probing
-
-#### `acs.livenessProbe.periodSeconds`
-
-* Required: false
-* Default: 20
-* Description: Specify the livenessProbe period between probes
-
-#### `acs.livenessProbe.successThreshold`
-
-* Required: false
-* Default: 1
-* Description: Specify the livenessProbe success thresh hold for how many consecutive successes for the probe to be
-  considered successful after having failed
-
-#### `acs.livenessProbe.timeoutSeconds`
+#### `acs.readinessProbe`
 
 * Required: false
-* Default: 10
-* Description: Specify the livenessProbe timeout for probes to be considered as failure
-
-#### `acs.readinessProbe.failureThreshold`
-
-* Required: false
-* Default: 6
-* Description: Specify the readinessProbe failure thresh hold fp how many consecutive failure before it stops probing
-
-#### `acs.readinessProbe.initialDelaySeconds`
-
-* Required: false
-* Default: 60
-* Description: Specify the readinessProbe initial delay before it starts probing
-
-#### `acs.readinessProbe.periodSeconds`
-
-* Required: false
-* Default: 20
-* Description: Specify the readinessProbe period between probes
-
-#### `acs.readinessProbe.successThreshold`
-
-* Required: false
-* Default: 1
-* Description: Specify the readinessProbe success thresh hold for how many consecutive successes for the probe to be
-  considered successful after having failed
-
-#### `acs.readinessProbe.timeoutSeconds`
-
-* Required: false
-* Default: 10
-* Description: Specify the readinessProbe timeout for probes to be considered as failure
+* Default: 
+```
+    httpGet:
+      path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-ready-
+      port: 8080
+      scheme: HTTP
+    failureThreshold: 6
+    initialDelaySeconds: 60
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 10
+```
+* Description: Specify the readinessProbe configuration for acs
 
 #### `acs.strategy.type`
 
