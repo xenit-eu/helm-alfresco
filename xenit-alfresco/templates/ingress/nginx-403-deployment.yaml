@@ -1,4 +1,4 @@
-{{- if .Values.forbiddenHandler.enabled -}}
+{{- if .Values.ingress.blockAcsSolrApi.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:

@@ -1,4 +1,4 @@
-{{- if .Values.forbiddenHandler.enabled -}}
+{{- if .Values.ingress.blockAcsSolrApi.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -16,4 +16,4 @@ data:
         return 403 'Forbidden';
       }
     }
-  {{- end }}
+{{- end }}

@@ -26,6 +26,8 @@ ingress:
   defaultBackend:
     service: acs-service
     port: 30000
+  blockAcsSolrApi:
+    enabled: true
 acs:
   replicas: 1
   image:
@@ -277,5 +279,3 @@ persistentStorage:
     storage: 1
     efs:
       volumeHandle: ""
-forbiddenHandler:
-  enabled: true

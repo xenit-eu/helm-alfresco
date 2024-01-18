@@ -63,7 +63,7 @@ spec:
             port:
               number: 30500
       {{- end }}
-      {{- if .Values.forbiddenHandler.enabled }}
+      {{- if .Values.ingress.blockAcsSolrApi.enabled }}
       - path: /alfresco/s/api/solr
         pathType: Prefix
         backend:
