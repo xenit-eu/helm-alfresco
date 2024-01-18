@@ -71,8 +71,6 @@ spec:
             name: nginx-403-service
             port:
               number: 30403
-      {{- end }}
-      {{- if .Values.forbiddenHandler.enabled }}
       - path: /alfresco/service/api/solr
         pathType: Prefix
         backend:
