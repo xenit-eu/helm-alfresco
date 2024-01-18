@@ -277,3 +277,5 @@ persistentStorage:
     storage: 1
     efs:
       volumeHandle: ""
+forbiddenHandler:
+  enabled: true

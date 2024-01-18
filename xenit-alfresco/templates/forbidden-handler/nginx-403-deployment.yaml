@@ -1,0 +1,31 @@
+{{- if .Values.forbiddenHandler.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-403
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: nginx-403
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-403
+  template:
+    metadata:
+      labels:
+        app: nginx-403
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/nginx/conf.d
+      volumes:
+        - name: config-volume
+          configMap:
+            name: nginx-403-configmap
+{{- end }}

@@ -2167,3 +2167,12 @@ additional settings can be added through additionalEnvironmentVariables.
 * Required: when `persistentStorage.mq.storageClassName` is `scw-bssd`
 * Default: None
 * Description: The volume handle pointing to the AWS EFS location
+
+### Forbidden resources handler
+
+#### `forbiddenHandler.enabled`
+
+* Required: false
+* Default: `true`
+* Description: Enable 403 handler for alfresco api solr endpoints
+
