@@ -1,4 +1,4 @@
-{{- if .Values.ingress.blockAcsSolrApi.enabled -}}
+{{- if .Values.ingress.blockAcsSolrApi -}}
 apiVersion: v1
 kind: Service
 metadata:

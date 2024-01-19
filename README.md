@@ -283,7 +283,7 @@ For more information take a look at
 * Default: 30000
 * Description: the default service port that ingress will point to
 
-#### `ingress.blockAcsSolrApi.enabled`
+#### `ingress.blockAcsSolrApi`
 
 * Required: false
 * Default: `true`
