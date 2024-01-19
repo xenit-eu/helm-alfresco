@@ -63,6 +63,36 @@ spec:
             port:
               number: 30500
       {{- end }}
+      {{- if .Values.ingress.blockAcsSolrApi }}
+      - path: /alfresco/s/api/solr
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-403-service
+            port:
+              number: 30403
+      - path: /alfresco/service/api/solr
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-403-service
+            port:
+              number: 30403
+      - path: /alfresco/wcs/api/solr
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-403-service
+            port:
+              number: 30403
+      - path: /alfresco/wcservice/api/solr
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-403-service
+            port:
+              number: 30403
+      {{- end }}
       {{- if .Values.ingress.additionalPaths }}
       {{ toYaml .Values.ingress.additionalPaths | nindent 6 }}
       {{- end }}

@@ -1,0 +1,19 @@
+{{- if .Values.ingress.blockAcsSolrApi -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-403-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: nginx-403
+data:
+  default.conf: | 
+    server {
+      listen: 80;
+      server_name _;
+    
+      location / {
+        return 403 'Forbidden';
+      }
+    }
+{{- end }}
