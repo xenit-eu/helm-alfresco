@@ -7,13 +7,20 @@ metadata:
   labels:
     app: nginx-403
 data:
-  default.conf: | 
-    server {
-      listen: 80;
-      server_name _;
+  nginx.conf: |
+    worker_processes  1;
     
-      location / {
-        return 403 'Forbidden';
+    events {
+      worker_connections  1024;
+    }
+    http{
+      server {
+        listen 80;
+        server_name _;
+    
+        location / {
+          return 403 'Forbidden';
+        }
       }
     }
 {{- end }}
