@@ -283,12 +283,22 @@ For more information take a look at
 * Default: 30000
 * Description: the default service port that ingress will point to
 
-#### `ingress.blockAcsSolrApi`
+#### `ingress.blockAcsSolrApi.enabled`
 
 * Required: false
 * Default: `true`
 * Description: Enable 403 handler for alfresco api solr endpoints
+#### `ingress.blockAcsSolrApi.paths`
 
+* Required: false
+* Default: 
+```yaml
+- /alfresco/s/api/solr
+- /alfresco/service/api/solr
+- /alfresco/service/api/solr
+- /alfresco/wcservice/api/solr
+```
+* Description: List of paths that are blocked
 ### ACS
 
 #### `acs.replicas`
