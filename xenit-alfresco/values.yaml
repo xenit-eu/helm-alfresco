@@ -26,7 +26,13 @@ ingress:
   defaultBackend:
     service: acs-service
     port: 30000
-  blockAcsSolrApi: true
+  blockAcsSolrApi:
+    enabled: true
+    paths:
+      - /alfresco/s/api/solr
+      - /alfresco/service/api/solr
+      - /alfresco/service/api/solr
+      - /alfresco/wcservice/api/solr
 acs:
   replicas: 1
   image:
