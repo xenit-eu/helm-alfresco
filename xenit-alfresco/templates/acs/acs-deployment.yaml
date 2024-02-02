@@ -186,7 +186,7 @@ spec:
         - name: {{ .name }}
           configMap:
             defaultMode: 420
-            name: {{ .name }}
+            name: {{ .configMapName }}
             items:
             {{- range .items }}
               - key: {{ .key }}
