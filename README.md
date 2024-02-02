@@ -520,6 +520,24 @@ For more information take a look at
 * Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
   reference them here.
 
+#### `acs.configMapVolumes`
+
+* Required: false
+* Default: None
+* Description: A list of configMaps that need to be mounted as volumes to the alfresco pods. Make sure the configMap specified exists. Layout should be as follows:
+
+```yaml
+      - name: name1
+        mountPath: /apps/example
+        subPath: subPath/example
+        readOnly: true
+        configMapName: "example-configMap"
+        items:
+          - key: data-key
+            path: pathToMountTo
+```
+
+
 ### Digital Workspace
 
 #### `digitalWorkspace.enabled`
