@@ -103,6 +103,18 @@ spec:
             subPath: {{ .subPath }}
         {{- end }}
         {{- end }}
+        {{- if .Values.acs.configMapVolumes }}
+        {{- range .Values.acs.configMapVolumes }}
+          - name: {{ .name }}
+            mountPath: {{ .mountPath }}
+          {{- if .subPath }}
+            subPath: {{ .subPath }}
+          {{- end }}
+          {{- if .readOnly }}
+            readOnly: {{ .readOnly }}
+          {{- end }}
+        {{- end }}
+        {{- end }}
       {{- if .Values.share.mergeAcsShare}}
       - name: share-container
         image: {{ .Values.share.image.registry }}/{{ .Values.share.image.repository }}:{{ .Values.share.image.tag }}
@@ -167,6 +179,19 @@ spec:
         - name: {{ .name }}
           persistentVolumeClaim:
             claimName: {{ .name }}-pvc
+      {{- end }}
+      {{- end }}
+      {{- if .Values.acs.configMapVolumes }}
+      {{- range .Values.acs.configMapVolumes }}
+        - name: {{ .name }}
+          configMap:
+            defaultMode: 420
+            name: ldap1-ad-auth-config
+            items:
+            {{- range .items }}
+              - key: {{ .key }}
+                path: {{ .path }}
+            {{- end }}
       {{- end }}
       {{- end }}
       imagePullSecrets:
