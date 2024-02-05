@@ -103,6 +103,9 @@ spec:
             subPath: {{ .subPath }}
         {{- end }}
         {{- end }}
+        {{- if .Values.acs.additionalVolumeMounts }}
+        {{- toYaml .Values.acs.additionalVolumeMounts | nindent 10 }}
+        {{- end }}
       {{- if .Values.share.mergeAcsShare}}
       - name: share-container
         image: {{ .Values.share.image.registry }}/{{ .Values.share.image.repository }}:{{ .Values.share.image.tag }}
@@ -168,6 +171,9 @@ spec:
           persistentVolumeClaim:
             claimName: {{ .name }}-pvc
       {{- end }}
+      {{- end }}
+      {{- if .Values.acs.additionalVolumes }}
+        {{ toYaml .Values.acs.additionalVolumes | nindent 8 }}
       {{- end }}
       imagePullSecrets:
         {{- if .Values.general.imagePullSecrets}}
