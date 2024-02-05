@@ -103,8 +103,8 @@ spec:
             subPath: {{ .subPath }}
         {{- end }}
         {{- end }}
-        {{- if and .Values.acs.configMapVolumes .Values.acs.configMapVolumes.volumeMounts }}
-        {{- toYaml .Values.acs.configMapVolumes.volumeMounts | nindent 10 }}
+        {{- if .Values.acs.additionalVolumeMounts }}
+        {{- toYaml .Values.acs.additionalVolumeMounts | nindent 10 }}
         {{- end }}
       {{- if .Values.share.mergeAcsShare}}
       - name: share-container
@@ -172,8 +172,8 @@ spec:
             claimName: {{ .name }}-pvc
       {{- end }}
       {{- end }}
-      {{- if and .Values.acs.configMapVolumes .Values.acs.configMapVolumes.volumes }}
-        {{ toYaml .Values.acs.configMapVolumes.volumes | nindent 8 }}
+      {{- if .Values.acs.additionalVolumes }}
+        {{ toYaml .Values.acs.additionalVolumes | nindent 8 }}
       {{- end }}
       imagePullSecrets:
         {{- if .Values.general.imagePullSecrets}}

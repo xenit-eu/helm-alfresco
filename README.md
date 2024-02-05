@@ -520,7 +520,7 @@ For more information take a look at
 * Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
   reference them here.
 
-#### `acs.configMapVolumes.volumeMounts`
+#### `acs.additionalVolumeMounts`
 
 * Required: false
 * Default: None
@@ -541,7 +541,7 @@ For more information take a look at
         readOnly: true
 ```
 
-#### `acs.configMapVolumes.volumes`
+#### `acs.additionalVolumes`
 
 * Required: false
 * Default: None
@@ -2082,7 +2082,7 @@ additional settings can be added through additionalEnvironmentVariables.
 
 * Required: false
 * Default: None
-* Description: A list of aditional volume claims that can be added to the alfresco pods. Layout should be as follows:
+* Description: A list of additional volume claims that can be added to the alfresco pods. Layout should be as follows:
 
 ```yaml
       - name: name1
