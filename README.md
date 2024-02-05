@@ -520,21 +520,55 @@ For more information take a look at
 * Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
   reference them here.
 
-#### `acs.configMapVolumes`
+#### `acs.configMapVolumes.volumeMounts`
 
 * Required: false
 * Default: None
 * Description: A list of configMaps that need to be mounted as volumes to the alfresco pods. Make sure the configMap specified exists. Layout should be as follows:
 
 ```yaml
-      - name: name1
-        mountPath: /apps/example
-        subPath: subPath/example
+      - mountPath: >-
+          /usr/local/tomcat/shared/classes/alfresco/extension/subsystems/Authentication/ldap-ad/oup-ad1	
+        name: ldap1-ad-auth-volume	
+        readOnly: true	
+      - mountPath: >-	
+          /usr/local/tomcat/shared/classes/alfresco/extension/subsystems/Authentication/ldap-ad/oup-ad2	
+        name: ldap2-ad-auth-volume	
+        readOnly: true	
+      - mountPath: >-	
+          /usr/local/tomcat/shared/classes/alfresco/extension/subsystems/Authentication/ldap-ad/oup-ad3	
+        name: ldap3-ad-auth-volume	
         readOnly: true
-        configMapName: "example-configMap"
-        items:
-          - key: data-key
-            path: pathToMountTo
+```
+
+#### `acs.configMapVolumes.volumes`
+
+* Required: false
+* Default: None
+* Description: A list of configMaps that need to be mounted as volumes to the alfresco pods. Make sure the configMap specified exists. Layout should be as follows:
+
+```yaml
+      - configMap:
+          defaultMode: 420
+          items:
+            - key: ldap-ad-authentication.properties
+              path: ldap-ad-authentication.properties
+          name: ldap1-ad-auth-config
+        name: ldap1-ad-auth-volume
+      - configMap:
+          defaultMode: 420
+          items:
+            - key: ldap-ad-authentication.properties
+              path: ldap-ad-authentication.properties
+          name: ldap2-ad-auth-config
+        name: ldap2-ad-auth-volume
+      - configMap:
+          defaultMode: 420
+          items:
+            - key: ldap-ad-authentication.properties
+              path: ldap-ad-authentication.properties
+          name: ldap3-ad-auth-config
+        name: ldap3-ad-auth-volume
 ```
 
 
