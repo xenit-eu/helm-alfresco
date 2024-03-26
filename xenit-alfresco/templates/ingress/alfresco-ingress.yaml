@@ -29,6 +29,7 @@ spec:
   - host: {{ required "A host where your alfresco services can be reached on must be specified in values.ingress.host" .Values.ingress.host }}
     http:
       paths:
+      {{- if .Values.acs.ingress.rule.enabled }}
       - path: /alfresco
         pathType: Prefix
         backend:
@@ -36,7 +37,8 @@ spec:
             name: acs-service
             port:
               number: 30000
-      {{- if .Values.share.enabled }}
+      {{- end }}
+      {{- if and .Values.share.enabled .Values.share.ingress.rule.enabled }}
       - path: /share
         pathType: Prefix
         backend:
@@ -45,7 +47,7 @@ spec:
             port:
               number: 30100
       {{- end }}
-      {{- if .Values.digitalWorkspace.enabled }}
+      {{- if and .Values.digitalWorkspace.enabled .Values.digitalWorkspace.ingress.rule.enabled }}
       - path: {{ .Values.digitalWorkspace.basePath }}
         pathType: Prefix
         backend:
@@ -54,7 +56,7 @@ spec:
             port:
               number: 30200
       {{- end }}
-      {{- if .Values.ooi.enabled }}
+      {{- if and .Values.ooi.enabled .Values.ooi.ingress.rule.enabled }}
       - path: /ooi-service
         pathType: Prefix
         backend:
