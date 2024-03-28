@@ -80,8 +80,7 @@ acs:
     successThreshold: 1
     timeoutSeconds: 10
   ingress:
-    rule:
-      enabled: true
+    enabled: true
 digitalWorkspace:
   enabled: true
   replicas: 1
@@ -97,8 +96,7 @@ digitalWorkspace:
       cpu: "150m"
   basePath: "/workspace"
   ingress:
-    rule:
-      enabled: true
+    enabled: true
 share:
   enabled: true
   mergeAcsShare: false
@@ -126,8 +124,7 @@ share:
     successThreshold: 1
     timeoutSeconds: 10
   ingress:
-    rule:
-      enabled: true
+    enabled: true
 
 mq:
   enabled: true
@@ -253,8 +250,7 @@ ooi:
       memory: "128Mi"
       cpu: "100m"
   ingress:
-    rule:
-      enabled: true
+    enabled: true
 
 persistentStorage:
   alfresco:
