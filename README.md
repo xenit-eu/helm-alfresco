@@ -570,7 +570,10 @@ For more information take a look at
           name: ldap3-ad-auth-config
         name: ldap3-ad-auth-volume
 ```
-
+#### `acs.ingress.enabled`
+* Required: false
+* Default: `true`
+* Description: this will enable/disable the ingress for the acs-service. By default this rule will forward calls to /alfresco to acs-service:30000
 
 ### Digital Workspace
 
@@ -705,7 +708,10 @@ For more information take a look at
   ```
 * Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
   reference them here.
-
+#### `digitalWorkspace.ingress.enabled`
+* Required: false
+* Default: `true`
+* Description: this will enable/disable the ingress for the digitalWorkspaceService. By default this rule will forward calls to .Values.digitalWorkspace.basePath to digital-workspace-service:30200
 ### Share
 
 #### `share.enabled`
@@ -902,7 +908,10 @@ For more information take a look at
   ```
 * Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
   reference them here.
-
+#### `share.ingress.enabled`
+* Required: false
+* Default: `true`
+* Description: this will enable/disable the ingress for alfresco share. By default this rule will forward calls to /share to share-service:30100
 ### Active MQ
 
 #### `mq.adminLogin`
@@ -2048,6 +2057,12 @@ additional settings can be added through additionalEnvironmentVariables.
   ```
 * Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
   reference them here.
+
+#### `ooi.ingress.enabled`
+* Required: false
+* Default: `true`
+* Description: this will enable/disable the ingress for the ooi-service. By default this rule will forward calls to /ooi-service to ooi-service:30500
+
 
 ### Persistent Storage
 
