@@ -31,7 +31,7 @@ ingress:
     paths:
       - /alfresco/s/api/solr
       - /alfresco/service/api/solr
-      - /alfresco/service/api/solr
+      - /alfresco/wcs/api/solr
       - /alfresco/wcservice/api/solr
 acs:
   replicas: 1
