@@ -64,7 +64,7 @@ acs:
       path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-live-
       port: 8080
       scheme: HTTP
-    failureThreshold: 1
+    failureThreshold: 8
     initialDelaySeconds: 130
     periodSeconds: 20
     successThreshold: 1
@@ -74,7 +74,7 @@ acs:
       path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-ready-
       port: 8080
       scheme: HTTP
-    failureThreshold: 6
+    failureThreshold: 3
     initialDelaySeconds: 60
     periodSeconds: 20
     successThreshold: 1
@@ -112,13 +112,13 @@ share:
       memory: "256Mi"
       cpu: "0.5"
   livenessProbe:
-    failureThreshold: 1
+    failureThreshold: 8
     initialDelaySeconds: 130
     periodSeconds: 20
     successThreshold: 1
     timeoutSeconds: 10
   readinessProbe:
-    failureThreshold: 6
+    failureThreshold: 3
     initialDelaySeconds: 60
     periodSeconds: 20
     successThreshold: 1

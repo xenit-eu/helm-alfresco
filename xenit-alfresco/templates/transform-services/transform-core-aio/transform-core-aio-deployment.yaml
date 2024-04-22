@@ -60,14 +60,14 @@ spec:
             httpGet:
               path: /ready
               port: 8090
-            initialDelaySeconds: 20
+            initialDelaySeconds: 10
             periodSeconds: 60
             timeoutSeconds: 10
           livenessProbe:
             httpGet:
               path: /live
               port: 8090
-            initialDelaySeconds: 10
+            initialDelaySeconds: 20
             periodSeconds: 30
             failureThreshold: 1
             timeoutSeconds: 10

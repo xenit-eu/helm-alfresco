@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[XENOPS-1161] 
+* change liveness probe threshold to trigger after readiness probe failure to avoid looping restarts on slow systems 
+ 
+
 * make acs liveliness and readiness completely overridable
 * make transformation services components each enable configurable
 * remove mq config in other deployments when mq is disabled
