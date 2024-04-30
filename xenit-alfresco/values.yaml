@@ -188,7 +188,7 @@ transformServices:
       repository: 'alfresco/alfresco-shared-file-store'
       tag: '3.0.0'
     strategy:
-      type: RollingUpdate
+      type: Recreate
     resources:
       requests:
         memory: "512Mi"
