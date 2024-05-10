@@ -28,6 +28,7 @@ ingress:
     port: 30000
   blockAcsSolrApi:
     enabled: true
+    redirectRootToCustomNginx: false
     paths:
       - /alfresco/s/api/solr
       - /alfresco/service/api/solr

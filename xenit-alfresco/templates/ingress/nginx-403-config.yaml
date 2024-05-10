@@ -14,12 +14,20 @@ data:
       worker_connections  1024;
     }
     http{
+      log_format xenit_json escape=json '{ "time":"$time_iso8601","timestamp":$msec,"responseStatus":$status,"type":"access","requestTime":"$request_time","requestMethod":"$request_method","remoteAddr":"$remote_addr","requestUri":"$request" }';
+      access_log /var/log/nginx/access.log xenit_json;
       server {
         listen 80;
         server_name _;
-    
-        location / {
+        {{- if .Values.ingress.blockAcsSolrApi.enabled -}}
+        {{- range $.Values.ingress.blockAcsSolrApi.paths }}
+        location {{ . }} {
           return 403 'Forbidden';
+        }
+        {{- end }}
+        {{- end }} 
+        location / {
+          return 404 'Sorry, this page is not served here.';
         }
       }
     }

@@ -257,6 +257,7 @@ For more information take a look at
 
 * Required: false
 * Default: None
+* Remark: Do not use this to set the root`/` path, that should be set by either the defaultBackend or `ingress.blockAcsSolrApi.redirectRootToCustomNginx` 
 * Example:
 
 ```yaml
@@ -276,6 +277,8 @@ For more information take a look at
 * Required: true
 * Default: acs-service
 * Description: the default service name that ingress will point to
+> [!IMPORTANT]  
+> This will no longer set the actual ingress default Backend, instead it will set the service responsible for serving the root`/` path
 
 #### `ingress.defaultBackend.port`
 
@@ -288,6 +291,14 @@ For more information take a look at
 * Required: false
 * Default: `true`
 * Description: Enable 403 handler for alfresco api solr endpoints
+
+#### `ingress.blockAcsSolrApi.redirectRootToCustomNginx`
+* Required: false
+* Default: `false`
+* Description: Set 404 handler as root path for this ingress host.   
+ If set to `false` the root path will be redirected to the defaultBackend.service.  
+ Take care NOT to overwrite this using an `ingress.additionalPaths` setting! 
+  
 #### `ingress.blockAcsSolrApi.paths`
 
 * Required: false
