@@ -8,8 +8,9 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 ### Changes
 [XENOPS-1164]  date: 10 May 2024
 * remove defaultBackend from ingress rules, this should not be set by individual namespace resources
+* defaultBackend will point to new nginx-default-service providing 404 if page not found.
 * defaultBackend will be mapped to default ingress root path for the alfresco host only
-* possibility to set ingress root path to nginx-403.
+
 
 
 [XENOPS-1161] 

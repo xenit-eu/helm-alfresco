@@ -1,11 +1,10 @@
-{{- if .Values.ingress.blockAcsSolrApi.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-403-configmap
+  name: nginx-default-configmap
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    app: nginx-403
+    app: nginx-default
 data:
   nginx.conf: |
     worker_processes  1;
@@ -31,4 +30,4 @@ data:
         }
       }
     }
-{{- end }}
+
