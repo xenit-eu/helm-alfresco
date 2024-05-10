@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[XENOPS-1164]  date: 10 May 2024
+* remove defaultBackend from ingress rules, this should not be set by individual namespace resources
+* defaultBackend will be mapped to default ingress root path for the alfresco host only
+* possibility to set ingress root path to nginx-403.
+
+
 [XENOPS-1161] 
 * change liveness probe threshold to trigger after readiness probe failure to avoid looping restarts on slow systems 
  
