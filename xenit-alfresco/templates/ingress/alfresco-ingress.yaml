@@ -20,15 +20,19 @@ spec:
       # Provide a unique secret to store the SSL credentials
       secretName: tls-alfresco-{{ .Release.Name }}-secret
   {{- end }}
-  defaultBackend:
-    service:
-      name: {{ .Values.ingress.defaultBackend.service }}
-      port:
-        number: {{ .Values.ingress.defaultBackend.port }}
   rules:
   - host: {{ required "A host where your alfresco services can be reached on must be specified in values.ingress.host" .Values.ingress.host }}
     http:
       paths:
+      {{- if .Values.ingress.defaultBackend }}
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.ingress.defaultBackend.service }}
+            port:
+              number: {{ .Values.ingress.defaultBackend.port }}
+      {{- end }}
       {{- if .Values.acs.ingress.enabled }}
       - path: /alfresco
         pathType: Prefix
@@ -71,7 +75,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: nginx-403-service
+            name: nginx-default-service
             port:
               number: 30403
       {{- end }}

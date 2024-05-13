@@ -257,6 +257,7 @@ For more information take a look at
 
 * Required: false
 * Default: None
+* Remark: Do not use this to set the root`/` path, that should be set by the defaultBackend
 * Example:
 
 ```yaml
@@ -274,7 +275,7 @@ For more information take a look at
 #### `ingress.defaultBackend.service`
 
 * Required: true
-* Default: acs-service
+* Default: nginx-default-service
 * Description: the default service name that ingress will point to
 
 #### `ingress.defaultBackend.port`
@@ -288,6 +289,8 @@ For more information take a look at
 * Required: false
 * Default: `true`
 * Description: Enable 403 handler for alfresco api solr endpoints
+
+  
 #### `ingress.blockAcsSolrApi.paths`
 
 * Required: false

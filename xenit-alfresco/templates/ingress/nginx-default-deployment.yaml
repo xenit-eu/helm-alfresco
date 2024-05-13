@@ -1,20 +1,19 @@
-{{- if .Values.ingress.blockAcsSolrApi.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-403
+  name: nginx-default
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    app: nginx-403
+    app: nginx-default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx-403
+      app: nginx-default
   template:
     metadata:
       labels:
-        app: nginx-403
+        app: nginx-default
     spec:
       containers:
         - name: nginx
@@ -28,5 +27,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: nginx-403-configmap
-{{- end }}
+            name: nginx-default-configmap

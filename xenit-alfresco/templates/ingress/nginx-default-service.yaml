@@ -1,17 +1,15 @@
-{{- if .Values.ingress.blockAcsSolrApi.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-403-service
+  name: nginx-default-service
   namespace: {{ .Release.Namespace | quote }}
 spec:
   {{- if .Values.general.serviceType }}
   type: {{ .Values.general.serviceType }}
   {{- end }}
   selector:
-    app: nginx-403
+    app: nginx-default
   ports:
     - port: 30403
       targetPort: 80
       protocol: TCP
-{{- end }}
