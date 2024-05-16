@@ -578,6 +578,25 @@ For more information take a look at
 * Default: `true`
 * Description: this will enable/disable the ingress for the acs-service. By default this rule will forward calls to /alfresco to acs-service:30000
 
+#### `acs.initContainers`
+
+* Required: false
+* Default: empty
+* Example
+  ```yaml
+    initContainers:
+      - name: init-fs
+        image: "busybox:1.35.0"
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "50Mi"
+          limits:
+            memory: "100Mi"
+        command: [ "sh", "-c", "chown -R 33031:1000 /opt/data" ]
+  ```
+* Description: add field of init containers to acs deployment
+
 ### Digital Workspace
 
 #### `digitalWorkspace.enabled`
