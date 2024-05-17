@@ -8,6 +8,7 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 ### Changes
 [XENOPS-1166]
 * add init containers to acs deployment
+* fix alfresco additionalClaims split chart
 
 [XENOPS-1164]  date: 10 May 2024
 * remove defaultBackend from ingress rules, this should not be set by individual namespace resources
