@@ -1,6 +1,7 @@
 name: 'Integration testing'
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   integration-testing:
