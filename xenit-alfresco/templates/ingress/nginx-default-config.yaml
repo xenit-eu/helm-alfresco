@@ -18,6 +18,11 @@ data:
       server {
         listen 80;
         server_name _;
+        location /ngnxhealth {
+          add_header 'Content-Type' 'application/json';
+          access_log off;
+          return 200 '{"status":"UP"}';
+        }
         {{- if .Values.ingress.blockAcsSolrApi.enabled -}}
         {{- range $.Values.ingress.blockAcsSolrApi.paths }}
         location {{ . }} {

@@ -8,6 +8,7 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 ### Changes
 [v0.6.8]
 * Add `ingress.defaultBackend.mapToRootOnly` to make defaultBackend creation optional.
+* Add /ngnxhealth to nginx-default
 
 [XENOPS-1166]
 * add init containers to acs deployment
