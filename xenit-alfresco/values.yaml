@@ -24,6 +24,7 @@ ingress:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-production"
   defaultBackend:
+    mapToRootOnly: true
     service: nginx-default-service
     port: 30403
   blockAcsSolrApi:

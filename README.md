@@ -284,6 +284,14 @@ For more information take a look at
 * Default: 30000
 * Description: the default service port that ingress will point to
 
+#### `ingress.defaultBackend.mapToRootOnly`
+* Required: false
+* Default: true
+* Description: This setting (active by default) will disable the defaultBackend from the actual ingress rules and ONLY use the
+above defaultBackend settings to be mapped to the root `/` ingress rule.   
+Setting this value to `false` will activate defaultBackend ingress setting. This will create a default, hostname independent, catch-all rule. 
+This might be required if, for example on AWS, when an Internal loadbalancer is used that does not adhere to the hostname specific rules.
+
 #### `ingress.blockAcsSolrApi.enabled`
 
 * Required: false
