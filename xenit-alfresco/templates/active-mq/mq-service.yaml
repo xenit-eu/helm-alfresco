@@ -5,8 +5,8 @@ metadata:
   name: mq-service
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- if .Values.acs.serviceAnnotations }}
-    {{ toYaml .Values.acs.serviceAnnotations | nindent 4 }}
+    {{- if .Values.mq.serviceAnnotations }}
+    {{ toYaml .Values.mq.serviceAnnotations | nindent 4 }}
     {{- end }}
 spec:
   selector:
