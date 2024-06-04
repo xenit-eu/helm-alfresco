@@ -1,0 +1,12 @@
+{{- if .Values.reporting.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reporting-configmap
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: reporting
+  data:
+    REPORTING_CONFIG_MINMEMORY: 512Mi
+    REPORTING_CONFIG_MAXMEMORY: 2048Mi
+{{- end }}

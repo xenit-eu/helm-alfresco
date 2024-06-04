@@ -1,0 +1,51 @@
+{{- if .Values.reporting.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reporting-deployment
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: reporting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reporting
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: reporting
+      annotations:
+        checksum/reporting-config: {{ include (print $.Template.BasePath "/reporting/reporting-config.yaml") . | sha256sum }}
+    spec:
+      imagePullSecrets:
+        { { toYaml ( .Values.reporting.imagePullSecrets) | nindent 8 } }
+      restartPolicy: Always
+      containers:
+        - name: bnppf-reporting
+          image: '{{ .Values.reporting.image.registry }}/{{ .Values.reporting.image.repository }}:{{ .Values.reporting.image.tag }}'
+          imagePullPolicy: "IfNotPresent"
+          envFrom:
+            - configMapRef:
+                name: reporting-configmap
+            - secretRef:
+                name: grafana-secret
+            - secretRef:
+                name: alfresco-secret
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          volumeMounts:
+            - name: reporterCache
+              mountPath: <>/cache
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "500m"
+    volumes:
+      - name: reporterCache
+        persistentVolumeClaim:
+          claimName: bnppf-reporter
+{{- end }}
