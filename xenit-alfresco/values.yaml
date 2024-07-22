@@ -39,7 +39,7 @@ acs:
   image:
     registry: 'docker.io'
     repository: 'xenit/alfresco-repository-community'
-    tag: '7.3.0'
+    tag: '7.4.0'
   strategy:
     type: RollingUpdate
   resources:
