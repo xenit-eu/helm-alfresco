@@ -23,8 +23,8 @@ data:
           access_log off;
           return 200 '{"status":"UP"}';
         }
-        {{- if .Values.ingress.blockAcsSolrApi.enabled -}}
-        {{- range $.Values.ingress.blockAcsSolrApi.paths }}
+        {{- if .Values.ingress.blockedPaths.enabled -}}
+        {{- range $.Values.ingress.blockedPaths.paths }}
         location {{ . }} {
           return 403 'Forbidden';
         }

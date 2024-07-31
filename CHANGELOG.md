@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.7.0]
+* rename blocked solr path to blocked paths 
+* split default backend and default path
+
 [v0.6.9]
 * solve inconsistency with mq.serviceAnnotations
 
