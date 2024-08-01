@@ -249,7 +249,6 @@ For more information take a look at
 * Default:
   ```
   kubernetes.io/ingress.class: "nginx"
-  cert-manager.io/cluster-issuer: "letsencrypt-production"
   ```
 * Description: Annotations for ingress
 
@@ -272,34 +271,44 @@ For more information take a look at
 
 * Description: used to add more path to ingress under the same host name for new services
 
-#### `ingress.defaultBackend.service`
+#### `ingress.defaultPath.service`
 
 * Required: true
 * Default: nginx-default-service
 * Description: the default service name that ingress will point to
 
-#### `ingress.defaultBackend.port`
+#### `ingress.defaultPath.port`
 
 * Required: true
 * Default: 30000
 * Description: the default service port that ingress will point to
 
-#### `ingress.defaultBackend.mapToRootOnly`
-* Required: false
-* Default: true
-* Description: This setting (active by default) will disable the defaultBackend from the actual ingress rules and ONLY use the
-above defaultBackend settings to be mapped to the root `/` ingress rule.   
-Setting this value to `false` will activate defaultBackend ingress setting. This will create a default, hostname independent, catch-all rule. 
-This might be required if, for example on AWS, when an Internal loadbalancer is used that does not adhere to the hostname specific rules.
+#### `ingress.defaultBackend.service`
 
-#### `ingress.blockAcsSolrApi.enabled`
+* Required: false
+* Default: None
+* Description: Setting this value will activate defaultBackend ingress setting. This will create a default, hostname
+  independent, catch-all rule.
+  This might be required if, for example on AWS, when an Internal loadbalancer is used that does not adhere to the
+  hostname specific rules.
+
+#### `ingress.defaultBackend.port`
+
+* Required: false
+* Default: None
+* Description: Setting this value will activate defaultBackend ingress setting. This will create a default, hostname
+  independent, catch-all rule.
+  This might be required if, for example on AWS, when an Internal loadbalancer is used that does not adhere to the
+  hostname specific rules.
+
+#### `ingress.blockedPaths.enabled`
 
 * Required: false
 * Default: `true`
 * Description: Enable 403 handler for alfresco api solr endpoints
 
   
-#### `ingress.blockAcsSolrApi.paths`
+#### `ingress.blockedPaths.paths`
 
 * Required: false
 * Default: 
