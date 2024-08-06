@@ -24,7 +24,7 @@ jobs:
         run: ./gradlew check -i
       - name: Upload Artifact
         if: success() || failure()
-        uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
+        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4
         with:
           name: test-result
           path: /home/runner/work/**/build/reports
