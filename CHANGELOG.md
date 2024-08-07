@@ -7,7 +7,11 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 ### Changes
 [v0.7.0]
-* rename blocked solr path to blocked paths 
+* add flag to enable/disable enterprise-only functionality
+* remove HorizontalPodAutoscaler as it was not functional
+
+[v0.7.0]
+* rename blocked solr path to blocked paths
 * split default backend and default path
 
 [v0.6.9]
