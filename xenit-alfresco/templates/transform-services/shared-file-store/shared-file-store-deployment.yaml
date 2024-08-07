@@ -1,4 +1,4 @@
-{{- if and (.Values.transformServices.enabled) (.Values.transformServices.sharedFileStore.enabled) -}}
+{{- if and (.Values.transformServices.enabled) (.Values.transformServices.sharedFileStore.enabled) (.Values.general.enterprise) -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:

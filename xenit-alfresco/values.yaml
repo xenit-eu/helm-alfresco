@@ -1,4 +1,5 @@
 general:
+  enterprise: false
   strategy:
     type: RollingUpdate
     rollingUpdate:

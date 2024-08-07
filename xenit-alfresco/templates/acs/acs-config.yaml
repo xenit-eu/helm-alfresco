@@ -24,7 +24,7 @@ data:
   {{- if .Values.mq.enabled }}
   GLOBAL_messaging.broker.url: 'failover:(nio://mq-service:61616)?timeout=3000&jms.useCompression=true'
   {{- end }}
-  {{- if gt .Values.acs.replicas 1.0 }}
+  {{- if and (gt .Values.acs.replicas 1.0)  (.Values.general.enterprise) }}
   GLOBAL_alfresco.cluster.enabled: 'true'
   {{- end }}
   {{- if .Values.transformServices.enabled }}

@@ -105,6 +105,15 @@ For more information take a look at
 
 ### General
 
+#### `general.enterprise`
+
+* Required: false
+* Default: false
+* Description: Whether this is an enterprise version of Alfresco. In a community version Transform Service Router, 
+Transform Service Shared File Storage, Clustering (replica count should always have a max of 1 for ACS pods) and 
+Digital Workspace are disabled. 
+
+
 #### `general.strategy`
 
 * Required: false

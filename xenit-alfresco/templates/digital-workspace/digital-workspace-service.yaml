@@ -1,4 +1,4 @@
-{{- if .Values.digitalWorkspace.enabled -}}
+{{- if and (.Values.digitalWorkspace.enabled) (.Values.general.enterprise) -}}
 apiVersion: v1
 kind: Service
 metadata:

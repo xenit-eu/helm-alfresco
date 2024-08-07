@@ -1,4 +1,4 @@
-{{- if and (.Values.transformServices.enabled)  (.Values.transformServices.sharedFileStore.enabled) -}}
+{{- if and (.Values.transformServices.enabled)  (.Values.transformServices.sharedFileStore.enabled) (.Values.general.enterprise) -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:

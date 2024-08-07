@@ -1,4 +1,4 @@
-{{- if .Values.acs.hpa.enabled }}
+{{- if and (.Values.acs.hpa.enabled) (.Values.general.enterprise) }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
