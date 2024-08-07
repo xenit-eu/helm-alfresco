@@ -137,7 +137,7 @@ postgresql:
     repository: 'xenit/postgres'
     tag: 'latest'
   strategy:
-    type: RollingUpdate
+    type: Recreate
   resources:
     requests:
       memory: "1Gi"
