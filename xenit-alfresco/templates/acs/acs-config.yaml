@@ -27,6 +27,11 @@ data:
   {{- if and (gt .Values.acs.replicas 1.0)  (.Values.general.enterprise) }}
   GLOBAL_alfresco.cluster.enabled: 'true'
   {{- end }}
+  {{- if not (.Values.general.enterprise) }}
+  GLOBAL_local.transform.service.enabled: 'true'
+  GLOBAL_messaging.subsystem.autoStart: 'false'
+  GLOBAL_repo.event2.enabled: 'false'
+  {{- end}}
   {{- if .Values.transformServices.enabled }}
   GLOBAL_transform.service.enabled: 'true'
   {{- if .Values.transformServices.transformRouter.enabled }}
