@@ -1103,7 +1103,7 @@ Digital Workspace are disabled.
 #### `postgresql.strategy.type`
 
 * Required: false
-* Default: `RollingUpdate`
+* Default: `Recreate`
 * Description: Can be set to `Recreate` if you want all your pods to be killed before new ones are created
 
 #### `postgresql.additionalEnvironmentVariables`

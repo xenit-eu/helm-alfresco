@@ -6,9 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
-[v0.7.0]
+[v0.7.1]
 * add flag to enable/disable enterprise-only functionality
 * remove HorizontalPodAutoscaler as it was not functional
+* set postgresql default strategy to Recreate
 
 [v0.7.0]
 * rename blocked solr path to blocked paths
