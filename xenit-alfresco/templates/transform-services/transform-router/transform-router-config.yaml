@@ -1,4 +1,4 @@
-{{- if and (.Values.transformServices.enabled) (.Values.transformServices.transformRouter.enabled)  -}}
+{{- if and (.Values.transformServices.enabled) (.Values.transformServices.transformRouter.enabled) (.Values.general.enterprise) -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:

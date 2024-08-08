@@ -7,7 +7,11 @@ metadata:
   labels:
     app: acs
 spec:
+  {{- if  .Values.general.enterprise }}
   replicas: {{ .Values.acs.replicas }}
+  {{- else }}
+  replicas: 1
+  {{- end }}
   selector:
     matchLabels:
       app: acs

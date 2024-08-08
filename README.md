@@ -105,6 +105,15 @@ For more information take a look at
 
 ### General
 
+#### `general.enterprise`
+
+* Required: false
+* Default: true
+* Description: Whether this is an enterprise version of Alfresco. In a community version Transform Service Router, 
+Transform Service Shared File Storage, Clustering (replica count should always have a max of 1 for ACS pods), MQ and 
+Digital Workspace are disabled. 
+
+
 #### `general.strategy`
 
 * Required: false
@@ -485,48 +494,6 @@ For more information take a look at
 * Required: false
 * Default: None
 * Description: The maximum resources a pod may consume from a node
-
-#### `acs.hpa.enabled`
-
-* Required: false
-* Default: false
-* Description: Whether the ACS deployment should autoscale
-
-#### `acs.hpa.minReplicas`
-
-* Required: false
-* Default: 1
-* Description: The min ammount of replicas will run when autoscaling
-
-#### `acs.hpa.maxReplicas`
-
-* Required: false
-* Default: 10
-* Description: The max ammount of replicas will run when autoscaling
-
-#### `acs.hpa.cpu.enabled`
-
-* Required: false
-* Default: false
-* Description: whether horizontal scaling should trigger on cpu load
-
-#### `acs.hpa.cpu.utilization`
-
-* Required: false
-* Default: 70
-* Description: The CPU cutover percentage
-
-#### `acs.hpa.memory.enabled`
-
-* Required: false
-* Default: true
-* Description: whether horizontal scaling should trigger on memory load
-
-#### `acs.hpa.memory.utilization`
-
-* Required: false
-* Default: 70
-* Description: The Memory cutover percentage
 
 #### `acs.imagePullSecrets`
 
@@ -1136,7 +1103,7 @@ For more information take a look at
 #### `postgresql.strategy.type`
 
 * Required: false
-* Default: `RollingUpdate`
+* Default: `Recreate`
 * Description: Can be set to `Recreate` if you want all your pods to be killed before new ones are created
 
 #### `postgresql.additionalEnvironmentVariables`
