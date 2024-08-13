@@ -1,6 +1,6 @@
 {{- $namespace := .Release.Namespace -}}
 {{- with .Values.persistentStorage.postgres }}
-{{- if .enabled}}
+{{- if .enabled not(selfmanaged)}}
 {{- $name := "postgres" -}}
 {{- $storageClassName := .storageClassName -}}
 {{- $storage := .storage -}}

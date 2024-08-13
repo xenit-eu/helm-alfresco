@@ -2080,6 +2080,12 @@ additional settings can be added through additionalEnvironmentVariables.
 * Default: `true`
 * Description: Enable or disable the creation of a PV and PVC for the ACS pods
 
+#### `persistentStorage.alfresco.selfmanaged`
+
+* Required: false
+* Default: `false`
+* Description: Allows using a PVC with name 'alfresco-pvc' that already exists. The PVC will not be created if this setting is set to `true`
+
 #### `persistentStorage.alfresco.storageClassName`
 
 * Required: false
@@ -2122,6 +2128,12 @@ additional settings can be added through additionalEnvironmentVariables.
 * Required: false
 * Default: `true`
 * Description: Enable or disable the creation of a PV and PVC for the PostgresQL pods
+
+#### `persistentStorage.postgres.selfmanaged`
+
+* Required: false
+* Default: `false`
+* Description: Allows using a PVC with name 'postgres-pvc' that already exists. The PVC will not be created if this setting is set to `true`
 
 #### `persistentStorage.postgres.storageClassName`
 
@@ -2204,6 +2216,12 @@ additional settings can be added through additionalEnvironmentVariables.
 * Default: `true`
 * Description: Enable or disable the creation of a PV and PVC for the Shared File Store pods
 
+#### `persistentStorage.sharedFileStore.selfmanaged`
+
+* Required: false
+* Default: `false`
+* Description: Allows using a PVC with name 'shared-file-store-pvc' that already exists. The PVC will not be created if this setting is set to `true`
+
 #### `persistentStorage.sharedFileStore.storageClassName`
 
 * Required: false
@@ -2231,6 +2249,11 @@ additional settings can be added through additionalEnvironmentVariables.
 * Default: `true`
 * Description: Enable or disable the creation of a PV and PVC for the Active MQ pods
 
+#### `persistentStorage.mq.selfmanaged`
+
+* Required: false
+* Default: `false`
+* Description: Allows using a PVC with name 'mq-pvc' that already exists. The PVC will not be created if this setting is set to `true`
 
 #### `persistentStorage.mq.initVolumes`
 

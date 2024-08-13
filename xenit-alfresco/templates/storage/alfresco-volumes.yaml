@@ -1,6 +1,6 @@
 {{- $namespace := .Release.Namespace -}}
 {{- with .Values.persistentStorage.alfresco }}
-{{- if .enabled}}
+{{- if and .enabled not(selfmanaged)}}
 {{- $name := "alfresco" -}}
 {{- $storageClassName := .storageClassName -}}
 {{- $storage := .storage -}}

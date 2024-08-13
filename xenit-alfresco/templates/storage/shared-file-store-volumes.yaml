@@ -1,6 +1,6 @@
 {{- $namespace := .Release.Namespace -}}
 {{- with .Values.persistentStorage.sharedFileStore }}
-{{- if .enabled}}
+{{- if .enabled not(selfmanaged)}}
 {{- $name := "shared-file-store" -}}
 {{- $storageClassName := .storageClassName -}}
 {{- $storage := .storage -}}
