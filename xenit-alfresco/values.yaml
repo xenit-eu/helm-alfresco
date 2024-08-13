@@ -23,6 +23,7 @@ ingress:
   protocol: 'https'
   ingressAnnotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
   defaultPath:
     service: nginx-default-service
     port: 30403
