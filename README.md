@@ -377,6 +377,13 @@ Digital Workspace are disabled.
 ```
 * Description: Specify the livenessProbe configuration for acs
 
+#### `acs.customLivenessProbe`
+
+* Required: false
+* Default: None
+* Description: Specify a custom livenessProbe configuration for acs (for example to replace httpGet with exec). 
+* When this is defined, acs.livenessProbe is ignored.
+
 #### `acs.readinessProbe`
 
 * Required: false
