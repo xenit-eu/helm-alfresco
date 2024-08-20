@@ -377,6 +377,13 @@ Digital Workspace are disabled.
 ```
 * Description: Specify the livenessProbe configuration for acs
 
+#### `acs.customLivenessProbe`
+
+* Required: false
+* Default: None
+* Description: Specify a custom livenessProbe configuration for acs (for example to replace httpGet with exec). 
+* When this is defined, acs.livenessProbe is ignored.
+
 #### `acs.readinessProbe`
 
 * Required: false
@@ -393,6 +400,13 @@ Digital Workspace are disabled.
     timeoutSeconds: 10
 ```
 * Description: Specify the readinessProbe configuration for acs
+
+#### `acs.customReadinessProbe`
+
+* Required: false
+* Default: None
+* Description: Specify a custom readinessProbe configuration for acs (for example to replace httpGet with exec).
+* When this is defined, acs.readinessProbe is ignored.
 
 #### `acs.strategy.type`
 

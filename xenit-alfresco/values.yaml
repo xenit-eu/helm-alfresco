@@ -60,6 +60,7 @@ acs:
     periodSeconds: 20
     successThreshold: 1
     timeoutSeconds: 10
+  customLivenessProbe:
   readinessProbe:
     httpGet:
       path: /alfresco/api/-default-/public/alfresco/versions/1/probes/-ready-
@@ -70,6 +71,7 @@ acs:
     periodSeconds: 20
     successThreshold: 1
     timeoutSeconds: 10
+  customReadinessProbe:
   ingress:
     enabled: true
 digitalWorkspace:
