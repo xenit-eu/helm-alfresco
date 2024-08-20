@@ -401,6 +401,13 @@ Digital Workspace are disabled.
 ```
 * Description: Specify the readinessProbe configuration for acs
 
+#### `acs.customReadinessProbe`
+
+* Required: false
+* Default: None
+* Description: Specify a custom readinessProbe configuration for acs (for example to replace httpGet with exec).
+* When this is defined, acs.readinessProbe is ignored.
+
 #### `acs.strategy.type`
 
 * Required: false

@@ -49,7 +49,10 @@ spec:
       - name: acs-container
         image: {{ .Values.acs.image.registry }}/{{ .Values.acs.image.repository }}:{{ .Values.acs.image.tag }}
         imagePullPolicy: {{ .Values.acs.imagePullPolicy | default "IfNotPresent" }}
-        {{- if .Values.acs.readinessProbe }}
+        {{- if .Values.acs.customReadinessProbe }}
+        readinessProbe:
+          {{ toYaml .Values.acs.customReadinessProbe | nindent 10 }}
+        {{- else if .Values.acs.readinessProbe }}
         readinessProbe:
           {{ toYaml .Values.acs.readinessProbe | nindent 10 }}
         {{- end }}

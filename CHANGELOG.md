@@ -8,6 +8,7 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 ### Changes
 [v0.7.3]
 * added acs.customLivenessProbe
+* added acs.customReadinessProbe
 
 [v0.7.2]
 * fix cluster-issuer default value
