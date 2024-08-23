@@ -284,3 +284,8 @@ persistentStorage:
     storage: 1
     efs:
       volumeHandle: ""
+    volumeMounts:
+      mountPath: "/opt/activemq/data"
+      subPath: "mq/data"
+    claimName: "mq-pvc"
+    selfManaged: false

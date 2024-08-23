@@ -1,4 +1,4 @@
-{{- if .Values.mq.enabled}}
+{{- if and (.Values.mq.enabled) (not .Values.persistentStorage.mq.selfManaged) }}
 {{- $namespace := .Release.Namespace -}}
 {{- with .Values.persistentStorage.mq }}
 {{- if .enabled}}

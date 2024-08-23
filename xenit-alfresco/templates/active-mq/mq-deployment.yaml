@@ -81,8 +81,8 @@ spec:
           {{- if .Values.persistentStorage.mq.enabled }}
           volumeMounts:
             - name: data
-              mountPath: /opt/activemq/data
-              subPath: mq/data
+              mountPath: {{ .Values.persistentStorage.mq.volumeMounts.mountPath }}
+              subPath: {{ .Values.persistentStorage.mq.volumeMounts.subPath }}
           {{- end }}
       {{- if .Values.persistentStorage.mq.initVolumes }}
       initContainers:
@@ -98,8 +98,8 @@ spec:
           {{- if .Values.persistentStorage.mq.enabled }}
           volumeMounts:
             - name: data
-              mountPath: /opt/activemq/data
-              subPath: mq/data
+              mountPath: {{ .Values.persistentStorage.mq.volumeMounts.mountPath }}
+              subPath: {{ .Values.persistentStorage.mq.volumeMounts.subPath }}
           {{- end }}
       {{- end }}
       imagePullSecrets:
@@ -113,6 +113,6 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: mq-pvc
+            claimName: {{ .Values.persistentStorage.mq.claimName }}
       {{- end }}
 {{- end }}
