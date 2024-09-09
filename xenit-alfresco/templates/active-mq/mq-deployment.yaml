@@ -94,7 +94,7 @@ spec:
               memory: "50Mi"
             limits:
               memory: "100Mi"
-          command: [ "sh", "-c", "chown -R 33031:1000 /opt/activemq/data" ]
+          command: [ "sh", "-c", "chown -R 33031:1000 {{ .Values.persistentStorage.mq.volumeMounts.mountPath }}" ]
           {{- if .Values.persistentStorage.mq.enabled }}
           volumeMounts:
             - name: data

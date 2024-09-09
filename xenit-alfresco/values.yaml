@@ -148,6 +148,7 @@ postgresql:
 
 solr:
   enabled: true
+  selfManaged: false
   replicas: 2
   podManagementPolicy: Parallel
   image:

@@ -1,4 +1,4 @@
-{{- if .Values.solr.enabled -}}
+{{- if and (.Values.solr.enabled) (not .Values.solr.selfManaged) -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
