@@ -84,6 +84,16 @@ spec:
               mountPath: /opt/activemq/data
               subPath: mq/data
           {{- end }}
+          {{- if .Values.persistentStorage.mq.additionalClaims }}
+          {{- range .Values.persistentStorage.mq.additionalClaims }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              subPath: {{ .subPath }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.mq.additionalVolumeMounts }}
+          {{- toYaml .Values.mq.additionalVolumeMounts | nindent 12 }}
+          {{- end }}
       {{- if .Values.persistentStorage.mq.initVolumes }}
       initContainers:
         - name: init-fs
@@ -115,4 +125,14 @@ spec:
           persistentVolumeClaim:
             claimName: mq-pvc
       {{- end }}
+        {{- if .Values.persistentStorage.mq.additionalClaims }}
+      {{- range .Values.persistentStorage.mq.additionalClaims }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ .name }}-pvc
+      {{- end }}
+        {{- end }}
+        {{- if .Values.mq.additionalVolumes }}
+        {{- toYaml .Values.mq.additionalVolumes | nindent 8 }}
+        {{- end }}
 {{- end }}
