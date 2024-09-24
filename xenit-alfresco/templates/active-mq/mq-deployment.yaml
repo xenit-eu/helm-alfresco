@@ -78,8 +78,8 @@ spec:
             {{ toYaml .Values.mq.resources.limits | nindent 14 }}
             {{- end }}
           {{- end }}
-          {{- if .Values.persistentStorage.mq.enabled }}
           volumeMounts:
+          {{- if .Values.persistentStorage.mq.enabled }}
             - name: data
               mountPath: /opt/activemq/data
               subPath: mq/data
@@ -119,8 +119,8 @@ spec:
         {{- if .Values.mq.imagePullSecrets}}
         {{ toYaml .Values.mq.imagePullSecrets | nindent 8 }}
         {{- end }}
-      {{- if .Values.persistentStorage.mq.enabled }}
       volumes:
+      {{- if .Values.persistentStorage.mq.enabled }}
         - name: data
           persistentVolumeClaim:
             claimName: mq-pvc
