@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.7.4]
+* added mq.additionalVolumes
+* added mq.additionalVolumeMounts
+* added persistentStorage.mq.additionalClaims
+
 [v0.7.3]
 * added acs.customLivenessProbe
 * added acs.customReadinessProbe
