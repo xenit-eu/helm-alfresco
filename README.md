@@ -1076,6 +1076,26 @@ Digital Workspace are disabled.
 * Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
   reference them here.
 
+#### `mq.additionalVolumes`
+* Required: false
+* Default: None
+* Description: A list of additional volumes for the mq pods. Example:
+```yaml
+      - name: activemq-data-1
+        persistentVolumeClaim:
+          claimName: alfresco-pvc-1
+```
+
+#### `mq.additionalVolumeMounts`
+* Required: false
+* Default: None
+* Description: A list of additional volume mounts for the mq pods. Example:
+```yaml
+      - name: activemq-data-1
+        mountPath: /mountpath
+        subPath: subpath
+```
+
 ### Postgresql
 
 #### `postgresql.enabled`
@@ -2270,3 +2290,18 @@ additional settings can be added through additionalEnvironmentVariables.
 * Required: when `persistentStorage.mq.storageClassName` is `scw-bssd`
 * Default: None
 * Description: The volume handle pointing to the AWS EFS location
+
+### `persistentStorage.mq.additionalClaims`
+* Required: false
+* Default: None
+* Description: A list of additional volume claims that can be added to the mq pods. Layout should be as follows:
+
+```yaml
+      - name: name1
+        mountPath: /apps/example
+        subPath: subPath/example
+        storageClassName: "standard"
+        storage: 2
+        efs:
+          volumeHandle: "efs-identifier"
+```

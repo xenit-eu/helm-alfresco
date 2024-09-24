@@ -8,5 +8,15 @@
 {{- $efsVolumeHandle := .efs.volumeHandle -}}
 {{- include "hepers.volumeHelper" (list $namespace $name $storageClassName $storage $efsVolumeHandle) }}
 {{- end }}
+{{- if .additionalClaims }}
+{{- range .additionalClaims }}
+{{- $name := .name -}}
+{{- $storageClassName := .storageClassName -}}
+{{- $storage := .storage -}}
+{{- $efsVolumeHandle := .efs.volumeHandle -}}
+{{- include "hepers.volumeHelper" (list $namespace $name $storageClassName $storage $efsVolumeHandle) }}
+---
+{{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
