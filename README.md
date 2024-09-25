@@ -113,6 +113,14 @@ For more information take a look at
 Transform Service Shared File Storage, Clustering (replica count should always have a max of 1 for ACS pods), MQ and 
 Digital Workspace are disabled. 
 
+#### `general.hibernate`
+
+* Required: false
+* Default: false
+* Description: Setting this parameter to true will set all replicas to 0 and alter the default
+nginx rules to redirect the normal pages to a 503 maintenance page.
+
+
 
 #### `general.strategy`
 
