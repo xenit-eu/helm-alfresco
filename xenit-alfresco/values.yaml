@@ -1,4 +1,5 @@
 general:
+  hibernate: false
   enterprise: true
   strategy:
     type: RollingUpdate

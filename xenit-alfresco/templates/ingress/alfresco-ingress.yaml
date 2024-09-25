@@ -31,7 +31,15 @@ spec:
   - host: {{ required "A host where your alfresco services can be reached on must be specified in values.ingress.host" .Values.ingress.host }}
     http:
       paths:
-      {{- if .Values.ingress.defaultPath }}
+      {{- if .Values.general.hibernate }}
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-default-service
+            port:
+              number: 30403
+      {{- else if .Values.ingress.defaultPath }}
       - path: /
         pathType: Prefix
         backend:
@@ -40,7 +48,7 @@ spec:
             port:
               number: {{ .Values.ingress.defaultPath.port }}
       {{- end }}
-      {{- if .Values.acs.ingress.enabled }}
+      {{- if and .Values.acs.ingress.enabled (not .Values.general.hibernate) }}
       - path: /alfresco
         pathType: Prefix
         backend:
@@ -49,7 +57,7 @@ spec:
             port:
               number: 30000
       {{- end }}
-      {{- if and .Values.share.enabled .Values.share.ingress.enabled }}
+      {{- if and .Values.share.enabled .Values.share.ingress.enabled (not .Values.general.hibernate) }}
       - path: /share
         pathType: Prefix
         backend:
@@ -58,7 +66,7 @@ spec:
             port:
               number: 30100
       {{- end }}
-      {{- if and .Values.digitalWorkspace.enabled .Values.digitalWorkspace.ingress.enabled }}
+      {{- if and .Values.digitalWorkspace.enabled .Values.digitalWorkspace.ingress.enabled (not .Values.general.hibernate) }}
       - path: {{ .Values.digitalWorkspace.basePath }}
         pathType: Prefix
         backend:
@@ -67,7 +75,7 @@ spec:
             port:
               number: 30200
       {{- end }}
-      {{- if and .Values.ooi.enabled .Values.ooi.ingress.enabled }}
+      {{- if and .Values.ooi.enabled .Values.ooi.ingress.enabled (not .Values.general.hibernate) }}
       - path: /ooi-service
         pathType: Prefix
         backend:
@@ -87,10 +95,10 @@ spec:
               number: 30403
       {{- end }}
       {{- end }}
-      {{- if .Values.ingress.additionalPaths }}
+      {{- if and .Values.ingress.additionalPaths (not .Values.general.hibernate) }}
       {{ toYaml .Values.ingress.additionalPaths | nindent 6 }}
       {{- end }}
-  {{- if .Values.syncService.enabled }}
+  {{- if and .Values.syncService.enabled (not .Values.general.hibernate) }}
   - host: {{ required "If sync Services are enabled a specific host for sync services must be specified in values.ingress.syncServiceHost" .Values.ingress.syncServiceHost }}
     http:
       paths:

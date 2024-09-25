@@ -7,7 +7,11 @@ metadata:
   labels:
     app: digital-workspace
 spec:
+  {{- if .Values.general.hibernate }}
+  replicas: 0
+  {{- else }}
   replicas: {{ .Values.digitalWorkspace.replicas }}
+  {{- end }}
   selector:
     matchLabels:
       app: digital-workspace
