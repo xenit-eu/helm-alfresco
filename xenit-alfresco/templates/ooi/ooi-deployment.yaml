@@ -12,7 +12,11 @@ metadata:
   labels:
     app: ooi
 spec:
+  {{- if .Values.general.hibernate }}
+  replicas: 0
+  {{- else }}
   replicas: {{ .Values.ooi.replicas }}
+  {{- end }}
   selector:
     matchLabels:
       app: ooi
