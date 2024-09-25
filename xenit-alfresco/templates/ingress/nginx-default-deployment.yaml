@@ -14,7 +14,7 @@ spec:
     metadata:
       annotations:
       {{- if .Values.general.hibernate }}
-        hibernated: true
+        hibernated: 'true'
       {{- end }}
       labels:
         app: nginx-default
