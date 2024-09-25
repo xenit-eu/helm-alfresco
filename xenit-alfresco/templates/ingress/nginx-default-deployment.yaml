@@ -12,8 +12,8 @@ spec:
       app: nginx-default
   template:
     metadata:
-      {{- if .Values.general.hibernate }}
       annotations:
+      {{- if .Values.general.hibernate }}
         hibernated: true
       {{- end }}
       labels:
