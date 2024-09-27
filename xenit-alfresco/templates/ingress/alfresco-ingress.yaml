@@ -9,6 +9,9 @@ metadata:
     {{ toYaml .Values.ingress.ingressAnnotations | nindent 4 }}
     {{- end }}
 spec:
+  {{- if .Values.ingress.ingressClass.enabled }}
+  ingressClassName: nginx-default-ingressClass
+  {{- end }}
   {{- if eq .Values.ingress.protocol "https" }}
   tls:
     - hosts:
