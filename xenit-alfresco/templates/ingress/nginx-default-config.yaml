@@ -29,7 +29,30 @@ data:
           return 403 'Forbidden';
         }
         {{- end }}
-        {{- end }} 
+        {{- end }}
+        {{- if .Values.general.hibernate }}
+        location /alfresco {
+          return 302 /maintenance;
+        }
+        {{- if and .Values.share.enabled .Values.share.ingress.enabled }}
+        location /share {
+          return 302 /maintenance;
+        }
+        {{- end }}
+        {{- if and .Values.digitalWorkspace.enabled .Values.digitalWorkspace.ingress.enabled }}
+        location {{ .Values.digitalWorkspace.basePath }} {
+          return 302 /maintenance;
+        }
+        {{- end }}
+        {{- if and .Values.ooi.enabled .Values.ooi.ingress.enabled }}
+        location /ooi-service {
+          return 302 /maintenance;
+        }
+        {{- end }}
+        location /maintenance {
+          return 503 'Sorry, this application is currently hibernated.';
+        }
+        {{- end }}
         location / {
           return 404 'Sorry, this page is not served here.';
         }

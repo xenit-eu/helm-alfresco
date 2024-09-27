@@ -7,7 +7,11 @@ metadata:
   labels:
     app: mq
 spec:
+  {{- if .Values.general.hibernate }}
+  replicas: 0
+  {{- else }}
   replicas: {{ .Values.mq.replicas }}
+  {{- end }}
   selector:
     matchLabels:
       app: mq

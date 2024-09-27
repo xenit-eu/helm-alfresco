@@ -7,7 +7,11 @@ metadata:
   labels:
     app: transform-router
 spec:
+  {{- if .Values.general.hibernate }}
+  replicas: 0
+  {{- else }}
   replicas: {{ .Values.transformServices.transformRouter.replicas }}
+  {{- end }}
   selector:
     matchLabels:
       app: transform-router
