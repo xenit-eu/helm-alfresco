@@ -10,7 +10,7 @@ metadata:
     {{- end }}
 spec:
   {{- if .Values.ingress.ingressClass.enabled }}
-  ingressClassName: nginx-default-ingressclass
+  ingressClassName: nginx
   {{- end }}
   {{- if eq .Values.ingress.protocol "https" }}
   tls:
