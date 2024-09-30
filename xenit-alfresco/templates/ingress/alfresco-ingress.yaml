@@ -5,12 +5,22 @@ metadata:
   name: alfresco-ingress
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    {{- if .Values.ingress.ingressAnnotations}}
-    {{ toYaml .Values.ingress.ingressAnnotations | nindent 4 }}
+    {{- if .Values.ingress.ingressAnnotations }}
+    {{- /*
+      See https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
+      Remove kubernetes.io/ingress.class annotation if ingressClass is set
+      ingressClass can be removed from defaults by setting ingressClass: null in values override
+      Tied to spec.ingressClassName
+    */ -}}
+    {{- range $key, $value := .Values.ingress.ingressAnnotations }}
+    {{- if not ( and ($.Values.ingress.ingressClass) (eq $key "kubernetes.io/ingress.class")) }}
+    {{ $key  }}: {{ $value }}
+    {{- end }}
+    {{- end }}
     {{- end }}
 spec:
-  {{- if .Values.ingress.ingressClass.enabled }}
-  ingressClassName: nginx
+  {{- if .Values.ingress.ingressClass }}
+  ingressClassName: {{ .Values.ingress.ingressClass }}
   {{- end }}
   {{- if eq .Values.ingress.protocol "https" }}
   tls:
