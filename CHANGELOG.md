@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+
+[v0.7.6]
+* changed `alfresco-ingress` definition & default values to enable usage of `ingressClassName` property in favour of `kubernetes.io/ingress.class` annotation
+
 [v0.7.5]
 * added general.hibernate to set all replicas to 0
 
