@@ -21,6 +21,7 @@ general:
       selfManaged: false
 
 ingress:
+  ingressClass: "nginx"
   protocol: 'https'
   ingressAnnotations:
     kubernetes.io/ingress.class: "nginx"

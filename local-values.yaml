@@ -2,6 +2,8 @@ ingress:
   host: test
   protocol: http
   kubernetes.io/ingress.class: {}
+#  enabling the line below will cause the ingress.class annotation to be rendered instead of the ingressClass property
+#  ingressClass: null
 acs:
   resources:
     requests:

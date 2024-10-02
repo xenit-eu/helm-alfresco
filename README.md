@@ -260,14 +260,28 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
 * Default: None
 * Description: The host that points to the alfresco cluster for the syncService service
 
+#### `ingress.ingressClass`
+
+* Required: false
+* Default: `nginx`
+* Description: Reference name for the ingressClass to be used. 
+  Replacement for `kubernetes.io/ingress.class` annotation since it's deprecation in k8s 1.18. 
+  Set to `null` to allow usage of `kubernetes.io/ingress.class` in the `ingress.ingressAnnotations` dict.
+
 #### `ingress.ingressAnnotations`
 
 * Required: false
 * Default:
   ```
-  kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
   ```
-* Description: Annotations for ingress
+* Description: Annotations for ingress.
+* Remarks:
+  * The default value of `kubernetes.io/ingress.class: "nginx"` will be filtered
+  out if the `ingress.ingressClass` is set (This includes the default value). 
+  The `kubernetes.io/ingress.class` is deprecated since k8s v1.18, but some setups still rely on it.
+  Hence it can still be set and used if `ingress.ingressClass` is set to `null`.
 
 #### `ingress.additionalPaths`
 
