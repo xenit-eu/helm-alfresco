@@ -7,8 +7,11 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 ### Changes
 
-[v0.7.6]
-* changed `alfresco-ingress` definition & default values to enable usage of `ingressClassName` property in favour of `kubernetes.io/ingress.class` annotation
+[v0.8.0]
+
+* **Potentially breaking change**: changed `alfresco-ingress` definition & default values to enable usage of `ingressClassName` property in favour of `kubernetes.io/ingress.class` annotation.
+
+  **⚠️ This may particularly impact aws deployments using alb**
 
 [v0.7.5]
 * added general.hibernate to set all replicas to 0
