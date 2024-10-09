@@ -1,4 +1,5 @@
 {{- if .Values.general.networkPolicies.enabled }}
+{{- if .Values.postgresql.enabled }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -19,6 +20,8 @@ spec:
       ports:
         - protocol: TCP
           port: 5432
+{{- end }}
+{{- if .Values.mq.enabled }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -39,6 +42,8 @@ spec:
       ports:
         - protocol: TCP
           port: 61616
+{{- end }}
+{{- if .Values.transformServices.transformCoreAio.enabled }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -59,6 +64,7 @@ spec:
       ports:
         - protocol: TCP
           port: 8090
+{{- end }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -86,66 +92,6 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: acs-to-sync-service
-spec:
-  podSelector:
-    matchLabels:
-      app: acs
-  policyTypes:
-    - Egress
-  egress:
-    - to:
-        - podSelector:
-            matchLabels:
-              app: sync-service
-      ports:
-        - protocol: TCP
-          port: 9090
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  namespace: {{ .Release.Namespace }}
-  name: acs-to-transform-router
-spec:
-  podSelector:
-    matchLabels:
-      app: acs
-  policyTypes:
-    - Egress
-  egress:
-    - to:
-        - podSelector:
-            matchLabels:
-              app: transform-router
-      ports:
-        - protocol: TCP
-          port: 8095
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  namespace: {{ .Release.Namespace }}
-  name: acs-to-shared-file-store
-spec:
-  podSelector:
-    matchLabels:
-      app: acs
-  policyTypes:
-    - Egress
-  egress:
-    - to:
-        - podSelector:
-            matchLabels:
-              app: shared-file-store
-      ports:
-        - protocol: TCP
-          port: 8099
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  namespace: {{ .Release.Namespace }}
   name: acs-from-solr
 spec:
   podSelector:
@@ -163,28 +109,27 @@ spec:
           port: 8080
         - protocol: TCP
           port: 8443
+{{- if (.Values.syncService.enabled) }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: acs-from-share
+  name: acs-to-sync-service
 spec:
   podSelector:
     matchLabels:
       app: acs
   policyTypes:
-    - Ingress
-  ingress:
-    - from:
+    - Egress
+  egress:
+    - to:
         - podSelector:
             matchLabels:
-              app: share
+              app: sync-service
       ports:
         - protocol: TCP
-          port: 8080
-        - protocol: TCP
-          port: 8443
+          port: 9090
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -207,6 +152,76 @@ spec:
           port: 8080
         - protocol: TCP
           port: 8443
+{{- end }}
+{{- if and (.Values.transformServices.enabled) (.Values.transformServices.transformRouter.enabled) (.Values.general.enterprise) }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-to-transform-router
+spec:
+  podSelector:
+    matchLabels:
+      app: acs
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: transform-router
+      ports:
+        - protocol: TCP
+          port: 8095
+{{- end }}}
+{{- if and (.Values.transformServices.enabled) (.Values.transformServices.sharedFileStore.enabled) (.Values.general.enterprise) }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-to-shared-file-store
+spec:
+  podSelector:
+    matchLabels:
+      app: acs
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: shared-file-store
+      ports:
+        - protocol: TCP
+          port: 8099
+{{- end }}
+{{- if and (.Values.share.enabled) (.Values.general.networkPolicies.enabled) }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-from-share
+spec:
+  podSelector:
+    matchLabels:
+      app: acs
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: share
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 8443
+{{- end }}
+{{- if (.Values.ooi.enabled) }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -229,5 +244,6 @@ spec:
           port: 8080
         - protocol: TCP
           port: 8443
+{{- end }}
 ---
 {{- end }}
