@@ -32,6 +32,9 @@ class HelmAlfrescoTest {
         var values = """
                 general:
                   cni: kindnetd
+                  networkPolicies:
+                    cilium:
+                      enabled: false
                 ingress:
                   host: test
                   protocol: http
