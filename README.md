@@ -189,13 +189,22 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
 * Default: true
 * Description: A field to enabled/disable network policies.
 
+#### `general.networkPolicies.cilium.enabled`
+
+* Required: false
+* Default: true
+* Description: A field to enable/disable ciliumnetworkpolicies.
+
 #### `general.cni`
 
 * Required: false
 * Default: cilium
 * Description: A field to tell the helm chart what cni provider your cluster is using. By default we assume cilium. If
   this is not the case you will need to add a network policy to allow the following
-* Alfresco to access heartbeat
+  * Alfresco to access heartbeat
+* **Note**: setting the cni to cilium, no longer automatically enables cilium policies:
+  * Cilium can enforce just regular k8s network policies, ciliumnetworkpolicies are not implied by usage of cilium.
+  * It is possible to run cilium chained to another cni (which we currently do on AWS).
 
 #### `general.secrets.acs.selfManaged`
 

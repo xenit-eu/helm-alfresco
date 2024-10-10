@@ -10,6 +10,8 @@ general:
   cni: cilium
   networkPolicies:
     enabled: true
+    cilium:
+      enabled: true
   secrets:
     acs:
       selfManaged: false

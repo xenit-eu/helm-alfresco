@@ -26,3 +26,5 @@ digitalWorkspace:
 general:
   networkPolicies:
     enabled: false
+    cilium:
+      enabled: false
