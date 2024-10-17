@@ -1,4 +1,4 @@
-{{- if and (.Values.mq.enabled) (.Values.general.enterprise) -}}
+{{- if .Values.mq.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
