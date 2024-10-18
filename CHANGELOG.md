@@ -9,6 +9,7 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 [v0.8.0]
 
+* refined network policies creation
 * **Potentially breaking change**: changed `alfresco-ingress` definition & default values to enable usage of `ingressClassName` property in favour of `kubernetes.io/ingress.class` annotation.
 
   **⚠️ This may particularly impact aws deployments using alb**
