@@ -1330,6 +1330,14 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
   ```
 * Description: With this list of parameters you can add 1 or multiple annotations to the Solr service
 
+#### `solr.enforceHostnameAntiAffinity`
+
+* Required: false
+* Default: false
+* Description: If true, this option enforces a pod anti-affinity on the Solr pods based on the hostnames.
+  I.e. if true, each Solr pod will require a unique node. Starting more pods than nodes will put the
+  remainder pods in a `Pending` state.
+
 #### `solr.serviceAccount`
 
 * Required: false
