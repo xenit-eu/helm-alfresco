@@ -1337,6 +1337,8 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
 * Description: If true, this option enforces a pod anti-affinity on the Solr pods based on the zones.
   I.e. if true, each Solr pod will require a unique zone. Starting more pods than zones will put the
   remainder pods in a `Pending` state.
+  <br>
+  <b>Please note that switching off the anti-affinity does not alter the anti-affinity of the already running pods!</b>
 
 #### `solr.serviceAccount`
 
