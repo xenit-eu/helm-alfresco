@@ -30,6 +30,18 @@ spec:
         {{ toYaml .Values.solr.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.solr.enforceZoneAntiAffinity }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: "topology.kubernetes.io/zone"
+              labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: "In"
+                    values:
+                      - solr
+      {{- end }}
       {{- if .Values.solr.serviceAccount }}
       serviceAccountName: {{ .Values.solr.serviceAccount }}
       {{- end }}

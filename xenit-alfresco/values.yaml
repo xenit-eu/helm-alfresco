@@ -151,6 +151,7 @@ postgresql:
 solr:
   enabled: true
   replicas: 2
+  enforceZoneAntiAffinity: false
   podManagementPolicy: Parallel
   image:
     registry: 'docker.io'

@@ -7,6 +7,9 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 ### Changes
 
+[v0.8.2]
+* added solr.enforceZoneAntiAffinity
+
 [v0.8.0]
 
 * **Potentially breaking change**: changed `alfresco-ingress` definition & default values to enable usage of `ingressClassName` property in favour of `kubernetes.io/ingress.class` annotation.
