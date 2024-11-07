@@ -14,7 +14,7 @@ metadata:
     */ -}}
     {{- range $key, $value := .Values.ingress.ingressAnnotations }}
     {{- if not ( and ($.Values.ingress.ingressClass) (eq $key "kubernetes.io/ingress.class")) }}
-    {{ $key  }}: {{ $value }}
+    {{ $key  }}: {{ $value | quote }}
     {{- end }}
     {{- end }}
     {{- end }}
