@@ -7,6 +7,9 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 ### Changes
 
+[v0.8.3]
+* fixed a bug that caused the ingress annotations to miss necessary quotes
+
 [v0.8.2]
 * added solr.enforceZoneAntiAffinity
 
