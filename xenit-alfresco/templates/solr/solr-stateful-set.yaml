@@ -30,11 +30,11 @@ spec:
         {{ toYaml .Values.solr.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
-      {{- if .Values.solr.enforceHostnameAntiAffinity }}
+      {{- if .Values.solr.enforceZoneAntiAffinity }}
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            - topologyKey: "kubernetes.io/hostname"
+            - topologyKey: "topology.kubernetes.io/zone"
               labelSelector:
                 matchExpressions:
                   - key: "app"
