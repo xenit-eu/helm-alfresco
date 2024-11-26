@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.4]
+* do not create a pvc for shared-file-store when enterprise=false
 
 [v0.8.3]
 * fixed a bug that caused the ingress annotations to miss necessary quotes
