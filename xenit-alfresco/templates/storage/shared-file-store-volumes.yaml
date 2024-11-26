@@ -1,5 +1,5 @@
 {{- $namespace := .Release.Namespace -}}
-{{- if .Values.enterprise }}
+{{- if .Values.general.enterprise }}
 {{- with .Values.persistentStorage.sharedFileStore }}
 {{- if .enabled }}
 {{- $name := "shared-file-store" -}}
