@@ -1,10 +1,12 @@
 {{- $namespace := .Release.Namespace -}}
+{{- if .Values.enterprise }}
 {{- with .Values.persistentStorage.sharedFileStore }}
-{{- if and .enabled .Values.enterprise }}
+{{- if .enabled }}
 {{- $name := "shared-file-store" -}}
 {{- $storageClassName := .storageClassName -}}
 {{- $storage := .storage -}}
 {{- $efsVolumeHandle := .efs.volumeHandle -}}
 {{- include "hepers.volumeHelper" (list $namespace $name $storageClassName $storage $efsVolumeHandle) }}
+{{- end }}
 {{- end }}
 {{- end }}
