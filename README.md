@@ -308,6 +308,15 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
 * Default: nginx-default-service
 * Description: the default service name that ingress will point to
 
+  **Note: root redirect on nginx**: Nginx can be configured to redirect from root to a specific app through annotations.
+```yaml
+ingress:
+  host: alf1.xenit.eu
+  protocol: https
+  ingressAnnotations:
+    nginx.ingress.kubernetes.io/app-root: /share
+```
+
 #### `ingress.defaultPath.port`
 
 * Required: true
