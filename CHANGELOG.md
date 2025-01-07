@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.5]
+* SOLR, use "find" to delete write.lock  
+After SOLR restore from backup the active index folder could be set to restore.xxxx preventing the removal of write.lock using the standard rm command.  
+ 
 [v0.8.4]
 * do not create a pvc for shared-file-store when enterprise=false
 
