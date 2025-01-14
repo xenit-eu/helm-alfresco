@@ -250,6 +250,7 @@ ooi:
 
 persistentStorage:
   alfresco:
+    name: alfresco
     enabled: true
     storageClassName: "" # Standard for local / scw-bssd for scaleway / efs-storage-class for efs
     storage: 3

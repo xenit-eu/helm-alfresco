@@ -1,7 +1,7 @@
 {{- $namespace := .Release.Namespace -}}
 {{- with .Values.persistentStorage.alfresco }}
 {{- if .enabled}}
-{{- $name := default "alfresco" .name -}}
+{{- $name := .name -}}
 {{- $storageClassName := .storageClassName -}}
 {{- $storage := .storage -}}
 {{- $efsVolumeHandle := .efs.volumeHandle -}}
