@@ -2155,6 +2155,12 @@ additional settings can be added through additionalEnvironmentVariables.
 * Default: `true`
 * Description: Enable or disable the creation of a PV and PVC for the ACS pods
 
+#### `persistentStorage.alfresco.name`
+
+* Required: false
+* Default: `alfresco`
+* Description: the prefix for the Alfresco PV and PVC; will result in `${PREFIX}-pv` and `${PREFIX}-pvc`.
+
 #### `persistentStorage.alfresco.storageClassName`
 
 * Required: false
