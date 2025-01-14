@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+
+[v0.8.7]
+* Fixed a bug that caused the Alfresco pod to still use `alfresco-pvc`, even when `persistentStorage.alfresco.name` was set.
+
 [v0.8.6]
 * Introduced the `persistentStorage.alfresco.name` option to allow for the specification of the PV and PVC name for Alfresco.
 
