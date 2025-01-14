@@ -175,7 +175,7 @@ spec:
       {{- if .Values.persistentStorage.alfresco.enabled }}
         - name: data
           persistentVolumeClaim:
-            claimName: alfresco-pvc
+            claimName: {{ .Values.persistentStorage.alfresco.name }}-pvc
       {{- end }}
       {{- if .Values.persistentStorage.alfresco.additionalClaims }}
       {{- range .Values.persistentStorage.alfresco.additionalClaims }}
