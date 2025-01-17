@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.8]
+* Introduced the `persistentStorage.aws.efs.storageClass.enableIfRequired`
+option, which can be used to prevent the AWS `efs-storage-class` from being created.
+* Introduced the `persistentStorage.mq.name` option to specify the name of the ActiveMQ
+PV and PVC.
 
 [v0.8.7]
 * Fixed a bug that caused the Alfresco pod to still use `alfresco-pvc`, even when `persistentStorage.alfresco.name` was set.

@@ -127,7 +127,7 @@ spec:
       {{- if .Values.persistentStorage.mq.enabled }}
         - name: data
           persistentVolumeClaim:
-            claimName: mq-pvc
+            claimName: {{ .Values.persistentStorage.mq.name }}-pvc
       {{- end }}
         {{- if .Values.persistentStorage.mq.additionalClaims }}
       {{- range .Values.persistentStorage.mq.additionalClaims }}
