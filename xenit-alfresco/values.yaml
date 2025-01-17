@@ -249,6 +249,10 @@ ooi:
     enabled: true
 
 persistentStorage:
+  aws:
+    efs:
+      storageClass:
+        enableIfRequired: true  # If true, the storage class will be created if a volume with storage class "efs-storage-class" is used.
   alfresco:
     name: alfresco
     enabled: true
