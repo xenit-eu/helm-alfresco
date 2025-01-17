@@ -286,6 +286,7 @@ persistentStorage:
     efs:
       volumeHandle: ""
   mq:
+    name: mq
     enabled: true
     initVolumes: true
     storageClassName: ""

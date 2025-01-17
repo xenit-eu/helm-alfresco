@@ -2,7 +2,7 @@
 {{- $namespace := .Release.Namespace -}}
 {{- with .Values.persistentStorage.mq }}
 {{- if .enabled}}
-{{- $name := "mq" -}}
+{{- $name := .name -}}
 {{- $storageClassName := .storageClassName -}}
 {{- $storage := .storage -}}
 {{- $efsVolumeHandle := .efs.volumeHandle -}}
