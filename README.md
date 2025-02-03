@@ -268,13 +268,21 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
   Replacement for `kubernetes.io/ingress.class` annotation since it's deprecation in k8s 1.18. 
   Set to `null` to allow usage of `kubernetes.io/ingress.class` in the `ingress.ingressAnnotations` dict.
 
+### `ingress.clusterIssuer`
+
+* Required: true
+* Default: `letsencrypt-production`
+* Description: Reference name for the cert-manager ClusterIssuer to be used. 
+  This is used to request a certificate for the ingress host.
+  This property adds the `cert-manager.io/cluster-issuer` annotation to the ingress.
+  If you don't want a certificate, set this to an empty string.
+
 #### `ingress.ingressAnnotations`
 
 * Required: false
 * Default:
   ```
     kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
   ```
 * Description: Annotations for ingress.
 * Remarks:
@@ -282,6 +290,8 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
   out if the `ingress.ingressClass` is set (This includes the default value). 
   The `kubernetes.io/ingress.class` is deprecated since k8s v1.18, but some setups still rely on it.
   Hence it can still be set and used if `ingress.ingressClass` is set to `null`.
+  * Do not use this for the `cert-manager.io/cluster-issuer` annotation;
+    use `ingress.clusterIssuer` instead.
 
 #### `ingress.additionalPaths`
 

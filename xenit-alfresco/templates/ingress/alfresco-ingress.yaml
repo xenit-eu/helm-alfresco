@@ -5,6 +5,9 @@ metadata:
   name: alfresco-ingress
   namespace: {{ .Release.Namespace | quote }}
   annotations:
+    {{- if and (.Values.ingress.clusterIssuer) (not (eq .Values.ingress.clusterIssuer "")) }}
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterIssuer | quote }}
+    {{- end }}
     {{- if .Values.ingress.ingressAnnotations }}
     {{- /*
       See https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
