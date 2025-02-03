@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.9]
+* Introduced the `ingress.clusterIssuer` option to specify the cluster issuer for the ingress.
+
 [v0.8.8]
 * Introduced the `persistentStorage.aws.efs.storageClass.enableIfRequired`
 option, which can be used to prevent the AWS `efs-storage-class` from being created.
