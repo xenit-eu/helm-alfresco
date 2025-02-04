@@ -36,6 +36,7 @@ ingress:
       - /alfresco/service/api/solr
       - /alfresco/wcs/api/solr
       - /alfresco/wcservice/api/solr
+
 acs:
   replicas: 1
   image:
@@ -76,6 +77,7 @@ acs:
   customReadinessProbe:
   ingress:
     enabled: true
+
 digitalWorkspace:
   enabled: true
   replicas: 1
@@ -92,6 +94,7 @@ digitalWorkspace:
   basePath: "/workspace"
   ingress:
     enabled: true
+
 share:
   enabled: true
   mergeAcsShare: false
@@ -174,6 +177,7 @@ solr:
     periodSeconds: 10
     successThreshold: 1
     timeoutSeconds: 10
+
 transformServices:
   enabled: true
   sharedFileStore:

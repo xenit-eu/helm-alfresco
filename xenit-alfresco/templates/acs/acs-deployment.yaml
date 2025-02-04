@@ -91,6 +91,10 @@ spec:
             protocol: TCP
           - containerPort: 8443
             protocol: TCP
+          {{- if ((((.Values.acs).email).inbound).port) }}
+          - containerPort: {{ .Values.acs.email.inbound.port }}
+            protocol: TCP
+          {{- end }}
         {{- if or (.Values.acs.resources.requests) ((.Values.acs.resources.limits)) }}
         resources:
           {{- if .Values.acs.resources.requests }}

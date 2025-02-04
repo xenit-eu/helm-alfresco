@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.10]
+* Make port for inbound email on acs configurable
+
 [v0.8.9]
 * Introduced the `ingress.clusterIssuer` option to specify the cluster issuer for the ingress.
 
