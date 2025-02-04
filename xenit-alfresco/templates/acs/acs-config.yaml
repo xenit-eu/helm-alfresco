@@ -48,6 +48,9 @@ data:
   {{- if not .Values.solr.enabled }}
   GLOBAL_index.subsystem.name: "noindex"
   {{- end }}
+  {{- if ((((.Values.acs).email).inbound).port) }}
+  GLOBAL_email.server.port: {{ .Values.acs.email.inbound.port }}
+  {{- end }}
   {{- if .Values.acs.additionalEnvironmentVariables }}
   {{ toYaml .Values.acs.additionalEnvironmentVariables | nindent 2 }}
   {{- end }}

@@ -479,6 +479,13 @@ ingress:
 * Default: `https`
 * Description: Set to overwrite the share protocol
 
+#### `acs.email.inbound.port`
+
+* Required: false
+* Default: None
+* Description: Set given port for inbound mail in the acs config and expose it in the acs-service & deployment. 
+* **Warning**: Setting only this port does not enable the system. Enabling requires additional acs config (see alfresco documentation) and configuration of the ingress (see applicable ingress documentation)
+
 #### `acs.additionalEnvironmentVariables`
 
 * Required: false
