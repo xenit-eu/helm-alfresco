@@ -20,10 +20,11 @@ spec:
         protocol: TCP
         port: 8443
         targetPort: 8443
-    {{- if ((((.Values.acs).email).inbound).port) }}
+    {{- if and ((((.Values.acs).email).inbound).servicePort) ((((.Values.acs).email).inbound).port) }}
       - name: 'acs-inbound-smtp'
         protocol: TCP
-        port: {{ .Values.acs.email.inbound.port }}
+        port: {{ .Values.acs.email.inbound.servicePort }}
+        targetPort:  {{ .Values.acs.email.inbound.port }}
     {{- end }}
   {{- if .Values.general.serviceType }}
   type: {{ .Values.general.serviceType }}
