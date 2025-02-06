@@ -486,7 +486,7 @@ ingress:
 * Description: Set given port for inbound mail in the acs config and deployment
 * **Warning**: Setting only this port does not enable the system. Enabling requires additional acs config (see alfresco documentation).
 * **Warning**: Modern acs images do not run the application as root, which precludes it from binding on priviliged ports -like the smtp well-known port 25.
-* **Warning**: Setting only this property does not expose the port on the acs-service or the ingress. This freatures requires the property `acs.email.inbound.servciePort` and additional configuration of the ingress (see applicable ingress documentation)
+* **Warning**: Setting only this property does not expose the port on the acs-service or the ingress. This freatures requires the property `acs.email.inbound.servicePort` and additional configuration of the ingress (see applicable ingress documentation)
 
 #### `acs.email.inbound.servicePort`
 
