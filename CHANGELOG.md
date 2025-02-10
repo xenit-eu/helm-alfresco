@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.12]
+* Added support for custom ActiveMQ init. container images.
+
 [v0.8.11]
 * uncouple port for inbound email on acs pod and acs service
 
