@@ -1019,6 +1019,24 @@ ingress:
 * Default: `1`
 * Description: The number of pods that will be running
 
+#### `mq.init.image.registry`
+
+* Required: false
+* Default: `docker.io`
+* Description: The registry where the docker container can be found in
+
+#### `mq.init.image.repository`
+* 
+* Required: false
+* Default: `busybox`
+* Description: The repository of the docker image that will be used
+
+#### `mq.init.image.tag`
+
+* Required: false
+* Default: `1.35.0`
+* Description: The tag of the docker image that will be used
+
 #### `mq.image.registry`
 
 * Required: false

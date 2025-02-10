@@ -101,7 +101,7 @@ spec:
       {{- if .Values.persistentStorage.mq.initVolumes }}
       initContainers:
         - name: init-fs
-          image: "busybox:1.35.0"
+          image: {{ .Values.mq.init.image.registry }}/{{ .Values.mq.init.image.repository }}:{{ .Values.mq.init.image.tag }}
           imagePullPolicy: IfNotPresent
           resources:
             requests:
