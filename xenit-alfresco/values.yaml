@@ -24,6 +24,11 @@ ingress:
   clusterIssuer: "letsencrypt-production"
   ingressClass: "nginx"
   protocol: 'https'
+  nginx:
+    image:
+      registry: 'docker.io'
+      repository: 'nginx'
+      tag: 'alpine'
   ingressAnnotations:
     kubernetes.io/ingress.class: "nginx"
   defaultPath:

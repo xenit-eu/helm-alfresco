@@ -277,6 +277,25 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
   This property adds the `cert-manager.io/cluster-issuer` annotation to the ingress.
   If you don't want a certificate, set this to an empty string.
 
+### `ingress.nginx.image.registry`
+
+* Required: false
+* Default: `docker.io`
+* Description: The registry where the docker container can be found in
+
+
+### `ingress.nginx.image.repository`
+
+* Required: false
+* Default: `nginx`
+* Description: The repository of the docker image that will be used
+
+### `ingress.nginx.image.tag`
+
+* Required: false
+* Default: `alpine`
+* Description: The tag of the docker image that will be used
+
 #### `ingress.ingressAnnotations`
 
 * Required: false
