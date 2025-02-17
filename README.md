@@ -82,7 +82,7 @@ data:
 * finally, run skaffold (instead of helm) and wait for the ingress controller to be ready first:
   ```bash
   skaffold dev
-  ``` 
+  ```
 
 ## Image Requirements
 
@@ -102,6 +102,16 @@ For more information take a look at
 * https://github.com/xenit-eu
 
 ## Configuration
+
+### Global
+
+The global section is shared with the parent chart and other dependency charts.
+
+#### `global.alfresco.dbUrl`
+
+- Required: false
+- Default: not set
+- Description: Can be used to point to your DB instead of `acs.dbUrl` if you are not using the provided postgresql
 
 ### General
 
@@ -1751,7 +1761,7 @@ additional settings can be added through additionalEnvironmentVariables.
   livenessPercent: "150"
   livenessTransformPeriodSeconds: "600"
   maxTransforms: "100000"
-  ```
+```
 
 
 #### `transformServices.transformCoreAio.podAnnotations`
