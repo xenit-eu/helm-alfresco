@@ -107,7 +107,7 @@ share:
   image:
     registry: 'docker.io'
     repository: 'xenit/alfresco-share-community'
-    tag: '7.3'
+    tag: '7.4'
   strategy:
     type: RollingUpdate
   resources:
