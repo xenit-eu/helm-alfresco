@@ -9,9 +9,6 @@ metadata:
 data:
   DB_URL: {{ quote .Values.acs.dbUrl }}
   DB_DRIVER: {{ quote .Values.acs.dbDriver }}
-  {{- if .Values.solr.enabled }}
-  GLOBAL_solr.port: '30300'
-  {{- end }}
   {{- if .Values.share.enabled }}
   SHARE_HOST: {{ quote .Values.ingress.host }}
   SHARE_PORT: {{ quote .Values.acs.sharePort }}
@@ -45,7 +42,16 @@ data:
   GLOBAL_transform.service.enabled: 'false'
   {{- end }}
   GLOBAL_aos.baseUrlOverwrite: '{{ .Values.ingress.syncServiceHost }}://{{ .Values.ingress.host }}/alfresco/aos'
-  {{- if not .Values.solr.enabled }}
+  {{- if .Values.solr.enabled }}
+  GLOBAL_index.subsystem.name: "solr6"
+  GLOBAL_solr.port: '30300'
+  {{- else if .Values.elastic.enabled }}
+  GLOBAL_index.subsystem.name: "elasticsearch"
+  GLOBAL_elasticsearch.host: {{ .Values.elastic.host | quote }}
+  GLOBAL_elasticsearch.port: {{ .Values.elastic.port | quote }}
+  GLOBAL_elasticsearch.indexName: {{ (((.Values.global).elasticsearch).indexName) | default (printf "alfresco-%s" .Release.Name) | quote }}
+  GLOBAL_elasticsearch.createIndexIfNotExists: {{ .Values.elastic.createIndexIfNotExists | quote }}
+  {{- else }}
   GLOBAL_index.subsystem.name: "noindex"
   {{- end }}
   {{- if ((((.Values.acs).email).inbound).port) }}

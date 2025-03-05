@@ -1318,6 +1318,46 @@ ingress:
 * Description: If you use an image that is not public. then you can create dockerconfigjson secrets on your cluster and
   reference them here.
 
+### Elastic
+
+#### `elastic.enabled`
+
+* Required: false
+* Default: `false`
+* Description: Enable or disable elastic search subsystem
+> [!IMPORTANT]  
+> Alfresco can only use one search subsystem at a time, if you still have SOLR enabled (which you -shouldn't- when enabling this option),
+> SOLR will take precedence in the alfresco configmap.
+
+#### `elastic.host`
+
+* Required: false
+* Default: `elasticsearch`
+* Description: Host (service) name of elastic.
+
+#### `elastic.port`
+
+* Required: false
+* Default: `9200`
+* Description: Port of the elastic service.
+
+#### `elastic.createIndexIfNotExists`
+
+* Required: false
+* Default: `true`
+* Description: When enabled, and if the elastic index does not exist, it will be created automatically.
+
+#### `global.elasticsearch.indexName`
+
+* Required: false
+* Default: `"alfresco-{{.Release.Name}}"`
+* Description: This is a global setting for the indexname. The default name is dynamic, it is based on your release name. 
+* This prevents potential issues when using a shared elastic environment.
+
+
+> [!WARNING]  
+> This is a global setting that other charts (or this one) picks up, double check other dependant charts when setting it.
+
 ### SOLR
 
 #### `solr.enabled`
@@ -1325,6 +1365,9 @@ ingress:
 * Required: false
 * Default: `true`
 * Description: Enable or disable the Solr
+> [!IMPORTANT]  
+> Alfresco can only use one search subsystem at a time, if you have ELASTIC enabled (which you -shouldn't- when enabling this option),
+> SOLR will take precedence in the alfresco configmap.
 
 #### `solr.replicas`
 
