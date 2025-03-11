@@ -1327,7 +1327,7 @@ ingress:
 * Description: Enable or disable elastic search subsystem
 > [!IMPORTANT]  
 > Alfresco can only use one search subsystem at a time, if you still have SOLR enabled (which you -shouldn't- when enabling this option),
-> SOLR will take precedence in the alfresco configmap.
+> The helm chart will fail with an error message
 
 #### `elastic.host`
 
@@ -1367,7 +1367,7 @@ ingress:
 * Description: Enable or disable the Solr
 > [!IMPORTANT]  
 > Alfresco can only use one search subsystem at a time, if you have ELASTIC enabled (which you -shouldn't- when enabling this option),
-> SOLR will take precedence in the alfresco configmap.
+> The helm chart will fail with an error message
 
 #### `solr.replicas`
 

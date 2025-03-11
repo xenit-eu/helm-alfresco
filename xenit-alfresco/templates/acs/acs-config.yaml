@@ -1,3 +1,6 @@
+{{- if and .Values.elastic.enabled .Values.solr.enabled }}
+  {{ fail "Both SOLR and elastic search systems are enabled, you can only have 1 (or none) enabled." }}
+{{- end }}
 # Defines the properties required by the content repository
 apiVersion: v1
 kind: ConfigMap
