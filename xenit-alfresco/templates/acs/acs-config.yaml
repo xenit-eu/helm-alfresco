@@ -52,7 +52,7 @@ data:
   GLOBAL_index.subsystem.name: "elasticsearch"
   GLOBAL_elasticsearch.host: {{ .Values.elastic.host | quote }}
   GLOBAL_elasticsearch.port: {{ .Values.elastic.port | quote }}
-  GLOBAL_elasticsearch.indexName: {{ (((.Values.global).elasticsearch).indexName) | default (printf "alfresco-%s" .Release.Name) | quote }}
+  GLOBAL_elasticsearch.indexName: {{ (((.Values.global).elasticsearch).indexName) | default (printf "alfresco-%s" .Release.Namespace ) | quote }}
   GLOBAL_elasticsearch.createIndexIfNotExists: {{ .Values.elastic.createIndexIfNotExists | quote }}
   {{- else }}
   GLOBAL_index.subsystem.name: "noindex"

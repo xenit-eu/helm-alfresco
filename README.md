@@ -1350,8 +1350,8 @@ ingress:
 #### `global.elasticsearch.indexName`
 
 * Required: false
-* Default: `"alfresco-{{.Release.Name}}"`
-* Description: This is a global setting for the indexname. The default name is dynamic, it is based on your release name. 
+* Default: `"alfresco-{{ .Release.Namespace }}"`
+* Description: This is a global setting for the indexname. The default name is dynamic, it is based on your namespace name. 
 * This prevents potential issues when using a shared elastic environment.
 
 
