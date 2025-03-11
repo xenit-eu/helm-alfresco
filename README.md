@@ -1347,16 +1347,23 @@ ingress:
 * Default: `true`
 * Description: When enabled, and if the elastic index does not exist, it will be created automatically.
 
+#### `elastic.elasticsearch.indexName`
+
+* Required: false
+* Default: `"alfresco-{{ .Release.Namespace }}`
+* Description: This is the setting for the elastic index name. The default name is dynamic, it is based on your namespace name.
+* This prevents potential issues when using a shared elastic environment.
+> [!NOTE]  
+> The global value lobal.elasticsearch.indexName takes precedence when set.
+
 #### `global.elasticsearch.indexName`
 
 * Required: false
 * Default: `"alfresco-{{ .Release.Namespace }}"`
-* Description: This is a global setting for the indexname. The default name is dynamic, it is based on your namespace name. 
+* Description: This is a global setting for the elastic index name. The default name is dynamic, it is based on your namespace name. 
 * This prevents potential issues when using a shared elastic environment.
-
-
-> [!WARNING]  
-> This is a global setting that other charts (or this one) picks up, double check other dependant charts when setting it.
+> [!NOTE]  
+> This setting will take precedence over elastic.elasticsearch.indexName when set
 
 ### SOLR
 
