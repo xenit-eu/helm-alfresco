@@ -1,3 +1,6 @@
+{{- if and .Values.elastic.enabled .Values.solr.enabled }}
+  {{ fail "Both SOLR and elastic search systems are enabled, you can only have 1 (or none) enabled." }}
+{{- end }}
 # Defines the properties required by the content repository
 apiVersion: v1
 kind: ConfigMap
@@ -9,9 +12,6 @@ metadata:
 data:
   DB_URL: {{ quote .Values.acs.dbUrl }}
   DB_DRIVER: {{ quote .Values.acs.dbDriver }}
-  {{- if .Values.solr.enabled }}
-  GLOBAL_solr.port: '30300'
-  {{- end }}
   {{- if .Values.share.enabled }}
   SHARE_HOST: {{ quote .Values.ingress.host }}
   SHARE_PORT: {{ quote .Values.acs.sharePort }}
@@ -45,7 +45,16 @@ data:
   GLOBAL_transform.service.enabled: 'false'
   {{- end }}
   GLOBAL_aos.baseUrlOverwrite: '{{ .Values.ingress.syncServiceHost }}://{{ .Values.ingress.host }}/alfresco/aos'
-  {{- if not .Values.solr.enabled }}
+  {{- if .Values.solr.enabled }}
+  GLOBAL_index.subsystem.name: "solr6"
+  GLOBAL_solr.port: '30300'
+  {{- else if .Values.elastic.enabled }}
+  GLOBAL_index.subsystem.name: "elasticsearch"
+  GLOBAL_elasticsearch.host: {{ .Values.elastic.host | quote }}
+  GLOBAL_elasticsearch.port: {{ .Values.elastic.port | quote }}
+  GLOBAL_elasticsearch.indexName: {{ coalesce (((.Values.global).elasticsearch).indexName)  (((.Values.elastic).elasticsearch).indexName) (printf "alfresco-%s" .Release.Namespace ) | quote }}
+  GLOBAL_elasticsearch.createIndexIfNotExists: {{ .Values.elastic.createIndexIfNotExists | quote }}
+  {{- else }}
   GLOBAL_index.subsystem.name: "noindex"
   {{- end }}
   {{- if ((((.Values.acs).email).inbound).port) }}

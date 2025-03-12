@@ -188,6 +188,11 @@ solr:
     successThreshold: 1
     timeoutSeconds: 10
 
+elastic:
+  enabled: false
+  host: "elasticsearch"
+  port: '9200'
+  createIndexIfNotExists: true
 transformServices:
   enabled: true
   sharedFileStore:

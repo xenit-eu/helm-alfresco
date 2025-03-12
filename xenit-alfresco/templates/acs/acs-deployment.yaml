@@ -27,6 +27,9 @@ spec:
     metadata:
       labels:
         app: acs
+        {{- if .Values.elastic.enabled }}
+        elasticsearch-client: true
+        {{- end }}
       annotations:
         checksum/acs-config: {{ include (print $.Template.BasePath "/acs/acs-config.yaml") . | sha256sum }}
         checksum/db-secret: {{ include (print $.Template.BasePath "/db-secret.yaml") . | sha256sum }}

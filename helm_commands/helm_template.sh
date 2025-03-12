@@ -1,0 +1,1 @@
+helm template --namespace test-namespace template-test ./xenit-alfresco/ --values ./xenit-alfresco/values.yaml --set ingress.host=template-test  ${@}
