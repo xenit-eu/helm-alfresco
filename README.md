@@ -1354,7 +1354,7 @@ ingress:
 * Description: This is the setting for the elastic index name. The default name is dynamic, it is based on your namespace name.
 * This prevents potential issues when using a shared elastic environment.
 > [!NOTE]  
-> The global value lobal.elasticsearch.indexName takes precedence when set.
+> The global value `global.elasticsearch.indexName` takes precedence when set.
 
 #### `global.elasticsearch.indexName`
 
