@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
-[v0.8.14]
+[v0.8.16]
 * Introduced the `ingress.hosts` property that can be used to specify multiple hostnames for the ingress configuration.
   `ingress.host` can still be used for a single hostname.
 
