@@ -21,6 +21,7 @@ general:
       selfManaged: false
 
 ingress:
+  hosts: [] # Note: you can still use the legacy 'host' property instead; cf. alfresco-ingress.yaml.
   clusterIssuer: "letsencrypt-production"
   ingressClass: "nginx"
   protocol: 'https'

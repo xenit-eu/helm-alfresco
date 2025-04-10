@@ -250,9 +250,19 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
 
 #### `ingress.host`
 
-* Required: true
+* Required: if `ingress.hosts` is an empty list
 * Default: None
-* Description: The host that points to the alfresco cluster for all services besides the syncService service
+* Description: The host that points to the alfresco cluster for all services besides the syncService service.
+  Although this is not recommended, this property can be combined with the `ingress.hosts` property. 
+  In that case, the hostnames will be combined.
+
+#### `ingress.hosts`
+
+* Required: if `ingress.host` is None
+* Default: empty list
+* Description: The hosts that point to the alfresco cluster for all services besides the syncService service.
+  This property can be combined with the `ingress.host` property. In that case, the hostnames will be combined.
+
 
 #### `ingress.syncServiceHost`
 
