@@ -1,3 +1,17 @@
+# Collect all host names.
+{{- $allHostNames := .Values.ingress.hosts }}
+## Add support for the legacy ingress.host property.
+{{- if .Values.ingress.host }}
+  {{- $allHostNames = append $allHostNames .Values.ingress.host }}
+{{- end }}
+## At least one Alfresco hostname should be specified.
+{{- if eq (len $allHostNames) 0}}
+  {{ fail "No hostname specified. Please specify the 'values.ingress.hosts' property (list of hostnames)." }}
+{{- end }}
+
+# Use the first host name as the default host name.
+{{- $defaultHostName := index $allHostNames 0 }}
+
 {{- if .Values.share.enabled -}}
 apiVersion: v1
 kind: ConfigMap
@@ -14,7 +28,7 @@ data:
   ALFRESCO_INTERNAL_HOST: 'acs-service'
   ALFRESCO_INTERNAL_PORT: '30000'
   {{- end }}
-  ALFRESCO_HOST: {{ .Values.ingress.host }}
+  ALFRESCO_HOST: {{ quote $defaultHostName }}
   ALFRESCO_PORT: '443'
   ALFRESCO_PROTOCOL: 'https'
   {{- if .Values.share.mergeAcsShare }}

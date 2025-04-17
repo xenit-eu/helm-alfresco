@@ -254,7 +254,10 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
 * Default: None
 * Description: The host that points to the alfresco cluster for all services besides the syncService service.
   Although this is not recommended, this property can be combined with the `ingress.hosts` property. 
-  In that case, the hostnames will be combined.
+  In that case, the hostnames will be combined. Cf. `ingress.hosts` property.
+  <br>⚠️ <b>Note:</b> this value is used to configure the `SHARE_HOST` and `GLOBAL_aos.baseUrlOverwrite` properties 
+  in the `acs-config.yaml`, and the `ALFRESCO_HOST` property in the `share-config.yaml` config files.
+  This mechanism only works if `ingress.hosts` is an empty list, however.
 
 #### `ingress.hosts`
 
@@ -262,6 +265,10 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
 * Default: empty list
 * Description: The hosts that point to the alfresco cluster for all services besides the syncService service.
   This property can be combined with the `ingress.host` property. In that case, the hostnames will be combined.
+  <br>⚠️ <b>Note:</b> only the first element in this list will be used to configure the `SHARE_HOST` and
+  `GLOBAL_aos.baseUrlOverwrite` properties in the `acs-config.yaml`, and the `ALFRESCO_HOST` property in the
+  `share-config.yaml` config files.
+  If this list is empty, the `ingress.host` property will be used instead.
 
 
 #### `ingress.syncServiceHost`
