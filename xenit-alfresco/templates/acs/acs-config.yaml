@@ -1,3 +1,17 @@
+# Collect all host names.
+{{- $allHostNames := .Values.ingress.hosts }}
+## Add support for the legacy ingress.host property.
+{{- if .Values.ingress.host }}
+  {{- $allHostNames = append $allHostNames .Values.ingress.host }}
+{{- end }}
+## At least one Alfresco hostname should be specified.
+{{- if eq (len $allHostNames) 0}}
+  {{ fail "No hostname specified. Please specify the 'values.ingress.hosts' property (list of hostnames)." }}
+{{- end }}
+
+# Use the first host name as the default host name.
+{{- $defaultHostName := index $allHostNames 0 }}
+
 {{- if and .Values.elastic.enabled .Values.solr.enabled }}
   {{ fail "Both SOLR and elastic search systems are enabled, you can only have 1 (or none) enabled." }}
 {{- end }}
@@ -13,7 +27,7 @@ data:
   DB_URL: {{ quote .Values.acs.dbUrl }}
   DB_DRIVER: {{ quote .Values.acs.dbDriver }}
   {{- if .Values.share.enabled }}
-  SHARE_HOST: {{ quote .Values.ingress.host }}
+  SHARE_HOST: {{ quote $defaultHostName }}
   SHARE_PORT: {{ quote .Values.acs.sharePort }}
   SHARE_PROTOCOL: {{ quote .Values.acs.shareProtocol }}
   {{- end }}
@@ -44,7 +58,7 @@ data:
   {{- else }}
   GLOBAL_transform.service.enabled: 'false'
   {{- end }}
-  GLOBAL_aos.baseUrlOverwrite: '{{ .Values.ingress.syncServiceHost }}://{{ .Values.ingress.host }}/alfresco/aos'
+  GLOBAL_aos.baseUrlOverwrite: '{{ .Values.ingress.syncServiceHost }}://{{ $defaultHostName }}/alfresco/aos'
   {{- if .Values.solr.enabled }}
   GLOBAL_index.subsystem.name: "solr6"
   GLOBAL_solr.port: '30300'
