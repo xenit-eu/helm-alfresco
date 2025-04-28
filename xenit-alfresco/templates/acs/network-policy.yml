@@ -230,7 +230,6 @@ spec:
         - protocol: TCP
           port: 8443
 ---
-#Do we only enable these rules on replicas > 1?
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
