@@ -230,4 +230,46 @@ spec:
         - protocol: TCP
           port: 8443
 ---
+#Do we only enable these rules on replicas > 1?
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-to-acs
+spec:
+  podSelector:
+    matchLabels:
+      app: acs
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: acs
+      ports:
+        - protocol: TCP
+          port: 5701
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: acs-from-acs
+spec:
+  podSelector:
+    matchLabels:
+      app: acs
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: acs
+      ports:
+        - protocol: TCP
+          port: 5701
+
+---
 {{- end }}
