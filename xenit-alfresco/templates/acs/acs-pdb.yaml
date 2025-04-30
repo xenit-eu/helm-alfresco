@@ -1,0 +1,12 @@
+{{- if gt .Values.acs.replicas 1.0 }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: acs-pdb
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: acs
+{{- end }}

@@ -26,6 +26,8 @@ data:
   {{- end }}
   {{- if and (gt .Values.acs.replicas 1.0)  (.Values.general.enterprise) }}
   GLOBAL_alfresco.cluster.enabled: 'true'
+  #turn off hazelcast phone home
+  HZ_PHONE_HOME_ENABLED: 'false'
   {{- end }}
   {{- if not (.Values.general.enterprise) }}
   GLOBAL_local.transform.service.enabled: 'true'

@@ -50,6 +50,14 @@ spec:
       {{- if .Values.acs.serviceAccount }}
       serviceAccountName: {{ .Values.acs.serviceAccount }}
       {{- end }}
+
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: acs
+              topologyKey: "kubernetes.io/hostname"
       containers:
       - name: acs-container
         image: {{ .Values.acs.image.registry }}/{{ .Values.acs.image.repository }}:{{ .Values.acs.image.tag }}
