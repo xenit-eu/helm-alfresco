@@ -57,29 +57,29 @@ spec:
               containerPort: 5672
             - name: web-console
               containerPort: 8161
+          {{- if .Values.mq.customReadinessProbe }}
           readinessProbe:
-            tcpSocket:
-              port: 61616
-            initialDelaySeconds: 60
-            periodSeconds: 20
-            failureThreshold: 6
-            timeoutSeconds: 10
+            {{- toYaml .Values.mq.customReadinessProbe | nindent 12 }}
+          {{- else if .Values.mq.readinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.mq.readinessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.mq.customLivenessProbe }}
           livenessProbe:
-            tcpSocket:
-              port: 61616
-            initialDelaySeconds: 130
-            periodSeconds: 20
-            failureThreshold: 1
-            timeoutSeconds: 10
+            {{- toYaml .Values.mq.customLivenessProbe | nindent 12 }}
+          {{- else if .Values.mq.livenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.mq.livenessProbe | nindent 12 }}
+          {{- end }}
           {{- if or (.Values.mq.resources.requests) ((.Values.mq.resources.limits)) }}
           resources:
             {{- if .Values.mq.resources.requests }}
             requests:
-            {{ toYaml .Values.mq.resources.requests | nindent 14 }}
+            {{- toYaml .Values.mq.resources.requests | nindent 14 }}
             {{- end }}
             {{- if .Values.mq.resources.limits }}
             limits:
-            {{ toYaml .Values.mq.resources.limits | nindent 14 }}
+            {{- toYaml .Values.mq.resources.limits | nindent 14 }}
             {{- end }}
           {{- end }}
           volumeMounts:

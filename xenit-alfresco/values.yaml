@@ -144,6 +144,20 @@ mq:
       tag: '1.35.0'
   strategy:
     type: Recreate
+  readinessProbe:
+    tcpSocket:
+      port: 61616
+    initialDelaySeconds: 60
+    periodSeconds: 20
+    failureThreshold: 6
+    timeoutSeconds: 10
+  livenessProbe:
+    tcpSocket:
+      port: 61616
+    initialDelaySeconds: 130
+    periodSeconds: 20
+    failureThreshold: 1
+    timeoutSeconds: 10
   resources:
     requests:
       memory: "512Mi"
