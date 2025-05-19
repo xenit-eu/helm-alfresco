@@ -28,6 +28,11 @@ spec:
             - name: config-volume
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+          resources:
+            requests:
+              {{ toYaml .Values.ingress.nginx.resources.requests | nindent 14 }}
+            limits:
+              memory: 512Mi
       volumes:
         - name: config-volume
           configMap:
