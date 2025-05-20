@@ -2463,7 +2463,7 @@ additional settings can be added through additionalEnvironmentVariables.
 #### `persistentStorage.mq.storage`
 
 * Required: false
-* Default: `3`
+* Default: `1`
 * Description: The size in GB of the volume that should be reserved
 
 #### `persistentStorage.mq.efs.volumeHandle`
