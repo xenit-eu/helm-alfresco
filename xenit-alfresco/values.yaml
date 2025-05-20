@@ -30,6 +30,10 @@ ingress:
       registry: 'docker.io'
       repository: 'nginx'
       tag: 'alpine'
+    resources:
+      requests:
+        memory: '256Mi'
+        cpu: '0.25'
   ingressAnnotations:
     kubernetes.io/ingress.class: "nginx"
   defaultPath:

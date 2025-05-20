@@ -306,6 +306,17 @@ nginx rules to redirect the normal pages to a 503 maintenance page.
 * Default: `alpine`
 * Description: The tag of the docker image that will be used
 
+### `ingress.nginx.resources.requests`
+
+* Required: false
+* Default:
+```yaml
+requests:
+  memory: '256Mi'
+  cpu: '0.25'
+```
+* Description: The resources that the container will request
+
 #### `ingress.ingressAnnotations`
 
 * Required: false
