@@ -1,15 +1,7 @@
 # Defines the deployment for the alfresco content repository app
 
 # Collect all host names.
-{{- $allAlfrescoHostNames := .Values.ingress.hosts }}
-## Add support for the legacy ingress.host property.
-{{- if .Values.ingress.host }}
-  {{- $allAlfrescoHostNames = append $allAlfrescoHostNames .Values.ingress.host }}
-{{- end }}
-## At least one Alfresco hostname should be specified.
-{{- if eq (len $allAlfrescoHostNames) 0}}
-  {{- fail "No host specified for the Alfresco Ingress controller. Please specify the 'values.ingress.hosts' property (list of hostnames)." }}
-{{- end }}
+{{- $allAlfrescoHostNames := include "allHostNames" . | fromYamlArray }}
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress

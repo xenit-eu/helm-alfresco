@@ -1,14 +1,4 @@
-# Collect all host names.
-{{- $allHostNames := .Values.ingress.hosts }}
-## Add support for the legacy ingress.host property.
-{{- if .Values.ingress.host }}
-  {{- $allHostNames = append $allHostNames .Values.ingress.host }}
-{{- end }}
-## At least one Alfresco hostname should be specified.
-{{- if eq (len $allHostNames) 0}}
-  {{ fail "No hostname specified. Please specify the 'values.ingress.hosts' property (list of hostnames)." }}
-{{- end }}
-
+{{- $allHostNames := include "allHostNames" . | fromYamlArray }}
 # Use the first host name as the default host name.
 {{- $defaultHostName := index $allHostNames 0 }}
 
