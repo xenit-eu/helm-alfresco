@@ -1551,6 +1551,22 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 
 * Description: if `solr.autoBackup.enabled` is true then a cron job will be created that will curl this url
 
+#### `solr.autoBackup.image.registry`
+* Required: false
+* Default: `docker.io`
+* Description: The registry where the Docker image for the automatically Solr backup can be found in.
+
+#### `solr.autoBackup.image.repository`
+* Required: false
+* Default: `curlimages/curl`
+* Description: The repository of the Docker image for the automatically Solr backup that will be used.
+
+#### `solr.autoBackup.image.digest`
+* Required: false
+* Default: `sha256:4026b29997dc7c823b51c164b71e2b51e0fd95cce4601f78202c513d97da2922`
+* Description: The digest of the Docker image for the automatically Solr backup that will be used.
+  Note: this is a digest. Using tags is not supported here.
+
 #### `solr.readinessProbe.enabled`
 
 * Required: false
