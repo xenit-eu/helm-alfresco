@@ -7,7 +7,7 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 ### Changes
 
-[v0.8.19]
+[v0.8.20]
 * Added support for custom Solr backup Docker images.
 
 [v0.8.18]
