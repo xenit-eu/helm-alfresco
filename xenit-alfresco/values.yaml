@@ -55,6 +55,8 @@ acs:
     tag: '7.3.0'
   strategy:
     type: RollingUpdate
+  hostnameAntiAffinity:
+    enabled: true
   resources:
     requests:
       memory: "2Gi"

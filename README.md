@@ -495,6 +495,12 @@ ingress:
 * Default: `RollingUpdate`
 * Description: Can be set to `Recreate` if you want all your pods to be killed before new ones are created
 
+#### `acs.hostnameAntiAffinity.enabled`
+
+* Required: false
+* Default: `true`
+* Description: Enable or disable pod anti-affinity rules for ACS pods. When enabled, ACS pods will be scheduled on different nodes to improve availability and fault tolerance.
+
 #### `acs.dbUrl`
 
 * Required: false
