@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+
+[v0.8.20]
+* Added support for custom Solr backup Docker images.
+
 [v0.8.18]
 * Set resources for (ingress) NGINX pod
 

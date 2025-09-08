@@ -19,7 +19,7 @@ spec:
         spec:
           containers:
             - name: curlimage
-              image: curlimages/curl
+              image: {{ .Values.solr.autoBackup.image.registry }}/{{ .Values.solr.autoBackup.image.repository }}@{{ .Values.solr.autoBackup.image.digest }}
               imagePullPolicy: IfNotPresent
               command:
                 - sh
