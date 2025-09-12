@@ -36,6 +36,9 @@ spec:
         {{ toYaml .Values.postgresql.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.postgresql.priorityClassName }}
+      priorityClassName: {{ .Values.postgresql.priorityClassName }}
+      {{- end }}
       containers:
       - name: postgresql-container
         image: {{ .Values.postgresql.image.registry }}/{{ .Values.postgresql.image.repository }}:{{ .Values.postgresql.image.tag }}

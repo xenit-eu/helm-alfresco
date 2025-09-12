@@ -1,0 +1,12 @@
+{{- if and (.Values.transformServices.enabled) (.Values.transformServices.sharedFileStore.enabled) (.Values.general.enterprise) (gt .Values.transformServices.sharedFileStore.replicas 1.0) -}}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: shared-file-store-pdb
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: shared-file-store
+{{- end }}

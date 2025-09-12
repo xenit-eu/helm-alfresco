@@ -35,6 +35,9 @@ spec:
         {{ toYaml .Values.digitalWorkspace.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.digitalWorkspace.priorityClassName }}
+      priorityClassName: {{ .Values.digitalWorkspace.priorityClassName }}
+      {{- end }}
       containers:
         - name: digital-workspace-container
           image: {{ .Values.digitalWorkspace.image.registry }}/{{ .Values.digitalWorkspace.image.repository }}:{{ .Values.digitalWorkspace.image.tag }}
