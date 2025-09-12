@@ -35,6 +35,9 @@ spec:
         {{ toYaml .Values.transformServices.sharedFileStore.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.transformServices.sharedFileStore.priorityClassName }}
+      priorityClassName: {{ .Values.transformServices.sharedFileStore.priorityClassName }}
+      {{- end }}
       containers:
         - name: shared-file-store-container
           image: {{ .Values.transformServices.sharedFileStore.image.registry }}/{{ .Values.transformServices.sharedFileStore.image.repository }}:{{ .Values.transformServices.sharedFileStore.image.tag }}

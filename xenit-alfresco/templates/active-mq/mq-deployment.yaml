@@ -36,6 +36,9 @@ spec:
         {{ toYaml .Values.mq.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.mq.priorityClassName }}
+      priorityClassName: {{ .Values.mq.priorityClassName }}
+      {{- end }}
       containers:
         - name: activemq
           image: {{ .Values.mq.image.registry }}/{{ .Values.mq.image.repository }}:{{ .Values.mq.image.tag }}

@@ -45,6 +45,9 @@ spec:
       {{- if .Values.solr.serviceAccount }}
       serviceAccountName: {{ .Values.solr.serviceAccount }}
       {{- end }}
+      {{- if .Values.solr.priorityClassName }}
+      priorityClassName: {{ .Values.solr.priorityClassName }}
+      {{- end }}
       containers:
         - name: solr-container
           image: {{ .Values.solr.image.registry }}/{{ .Values.solr.image.repository }}:{{ .Values.solr.image.tag }}

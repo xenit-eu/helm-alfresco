@@ -35,6 +35,9 @@ spec:
         {{ toYaml .Values.share.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.share.priorityClassName }}
+      priorityClassName: {{ .Values.share.priorityClassName }}
+      {{- end }}
       containers:
       - name: share-container
         image: {{ .Values.share.image.registry }}/{{ .Values.share.image.repository }}:{{ .Values.share.image.tag }}

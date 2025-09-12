@@ -34,6 +34,9 @@ spec:
       labels:
         app: ooi
     spec:
+      {{- if .Values.ooi.priorityClassName }}
+      priorityClassName: {{ .Values.ooi.priorityClassName }}
+      {{- end }}
       containers:
         - name: ooi-container
           image: {{ .Values.ooi.image.registry }}/{{ .Values.ooi.image.repository }}:{{ .Values.ooi.image.tag }}

@@ -1,0 +1,12 @@
+{{- if and (.Values.transformServices.enabled) (.Values.transformServices.transformCoreAio.enabled) (gt .Values.transformServices.transformCoreAio.replicas 1.0) -}}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: transform-core-aio-pdb
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: transform-core-aio
+{{- end }}

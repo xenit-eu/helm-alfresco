@@ -50,7 +50,6 @@ spec:
       {{- if .Values.acs.serviceAccount }}
       serviceAccountName: {{ .Values.acs.serviceAccount }}
       {{- end }}
-
       {{- if .Values.acs.hostnameAntiAffinity.enabled }}
       affinity:
         podAntiAffinity:
@@ -59,6 +58,9 @@ spec:
                 matchLabels:
                   app: acs
               topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+      {{- if .Values.acs.priorityClassName }}
+      priorityClassName: {{ .Values.acs.priorityClassName }}
       {{- end }}
       containers:
       - name: acs-container
