@@ -7,6 +7,9 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 ### Changes
 
+[v0.8.22]
+* Add container startup command for the SOLR $BACKUP_URL to fix issue where SOLR returns status 0 for a failed restore.
+
 [v0.8.21]
 * Made node hostname anti-affinity optional for ACS deployment pods via `acs.hostnameAntiAffinity.enabled` configuration option (defaults to `true`).
 
