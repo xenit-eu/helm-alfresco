@@ -17,7 +17,9 @@ data:
   SHARE_PORT: {{ quote .Values.acs.sharePort }}
   SHARE_PROTOCOL: {{ quote .Values.acs.shareProtocol }}
   {{- end }}
+  {{- if .Values.solr.enabled }}
   SOLR_HOST: 'solr-service'
+  {{- end }}
   {{- if .Values.syncService.enabled }}
   GLOBAL_dsync.service.uris: '{{ .Values.ingress.protocol }}://{{ .Values.ingress.syncServiceHost }}/alfresco'
   {{- end }}

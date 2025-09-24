@@ -60,6 +60,7 @@ spec:
         - protocol: TCP
           port: 8090
 ---
+{{- if .Values.solr.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -82,6 +83,7 @@ spec:
         - protocol: TCP
           port: 8443
 ---
+{{- end }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -142,6 +144,7 @@ spec:
         - protocol: TCP
           port: 8099
 ---
+{{- if .Values.solr.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -164,6 +167,7 @@ spec:
         - protocol: TCP
           port: 8443
 ---
+{{- end }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:

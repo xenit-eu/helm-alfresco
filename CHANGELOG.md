@@ -58,7 +58,7 @@ PV and PVC.
 [v0.8.5]
 * SOLR, use "find" to delete write.lock  
 After SOLR restore from backup the active index folder could be set to restore.xxxx preventing the removal of write.lock using the standard rm command.  
- 
+
 [v0.8.4]
 * do not create a pvc for shared-file-store when enterprise=false
 
@@ -118,7 +118,7 @@ After SOLR restore from backup the active index folder could be set to restore.x
 
 [XENOPS-1161] 
 * change liveness probe threshold to trigger after readiness probe failure to avoid looping restarts on slow systems 
- 
+
 
 * make acs liveliness and readiness completely overridable
 * make transformation services components each enable configurable
