@@ -24,6 +24,16 @@ spec:
               command:
                 - sh
                 - -c
+                - |
+                  response=$(curl -s $BACKUP_URL)
+                  if echo "$response" | grep -q "\"exception\""; then
+                    echo "Failure detected: Exception found in response."
+                    echo "$response"
+                    exit 22
+                  else
+                    echo "Success: No exception found.\n $response"
+                    exit 0
+                  fi
               args:
                 - curl $BACKUP_URL
               env:
