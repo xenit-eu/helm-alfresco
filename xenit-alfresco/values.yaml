@@ -168,6 +168,7 @@ mq:
     requests:
       memory: "512Mi"
       cpu: "0.5"
+  enableOtelMetrics: false
 
 postgresql:
   enabled: true

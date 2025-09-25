@@ -7,6 +7,7 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 ### Changes
 
+- add option to enable OpenTelemetry metrics for MQ
 
 [v0.8.22]
 * Add container startup command for the SOLR $BACKUP_URL to fix issue where SOLR returns status 0 for a failed restore.

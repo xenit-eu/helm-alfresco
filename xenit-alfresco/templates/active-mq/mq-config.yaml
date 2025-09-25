@@ -13,4 +13,7 @@ data:
   {{- if .Values.mq.additionalEnvironmentVariables }}
   {{ toYaml .Values.mq.additionalEnvironmentVariables | nindent 2 }}
   {{- end }}
+  {{- if .Values.mq.enableOtelMetrics }}
+  ACTIVEMQ_SUNJMX_START: -Dotel.jmx.target.system=activemq
+  {{- end }}
 {{- end }}
