@@ -82,7 +82,7 @@ data:
 * finally, run skaffold (instead of helm) and wait for the ingress controller to be ready first:
   ```bash
   skaffold dev
-  ``` 
+  ```
 
 ## Image Requirements
 
@@ -1217,6 +1217,12 @@ ingress:
         subPath: subpath
 ```
 
+#### `mq.enableOtelMetrics`
+
+* Required: false
+* Default: false
+* Description: Enable OpenTelemetry agent for JMX metrics collection
+
 ### Postgresql
 
 #### `postgresql.enabled`
@@ -1844,7 +1850,7 @@ additional settings can be added through additionalEnvironmentVariables.
   livenessPercent: "150"
   livenessTransformPeriodSeconds: "600"
   maxTransforms: "100000"
-  ```
+```
 
 
 #### `transformServices.transformCoreAio.podAnnotations`
