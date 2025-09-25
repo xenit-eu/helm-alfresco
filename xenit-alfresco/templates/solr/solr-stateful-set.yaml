@@ -67,7 +67,7 @@ spec:
                 command:
                   - /bin/bash
                   - -c
-                  - find /opt/alfresco-search-services/data/index -name write.lock -delete
+                  - find /opt/alfresco-search-services/data/index -name write.lock -delete ; true
           envFrom:
             - configMapRef:
                 name: solr-configmap
