@@ -7,11 +7,12 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 ### Changes
 
-- add option to enable OpenTelemetry metrics for MQ
+[v0.8.23]
+* Fix solr postStart hook so it also works on initial (empty) start of the solr pod.
+* add option to enable OpenTelemetry metrics for MQ
 
 [v0.8.22]
 * Add container startup command for the SOLR $BACKUP_URL to fix issue where SOLR returns status 0 for a failed restore.
-* Fix solr postStart hook so it also work on initial (empty) start of the solr pod.
 
 [v0.8.21]
 * Made node hostname anti-affinity optional for ACS deployment pods via `acs.hostnameAntiAffinity.enabled` configuration option (defaults to `true`).
