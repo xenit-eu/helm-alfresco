@@ -17,6 +17,9 @@ spec:
           labels:
             app: solr-backup-cron-job
         spec:
+          {{- if .Values.solr.autoBackup.priorityClassName }}
+          priorityClassName: {{ .Values.solr.autoBackup.priorityClassName }}
+          {{- end }}
           containers:
             - name: curlimage
               image: {{ .Values.solr.autoBackup.image.registry }}/{{ .Values.solr.autoBackup.image.repository }}@{{ .Values.solr.autoBackup.image.digest }}

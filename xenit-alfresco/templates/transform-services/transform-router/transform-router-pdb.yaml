@@ -1,0 +1,12 @@
+{{- if and (.Values.transformServices.enabled) (.Values.transformServices.transformRouter.enabled) (.Values.general.enterprise) (gt .Values.transformServices.transformRouter.replicas 1.0) -}}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: transform-router-pdb
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: transform-router
+{{- end }}

@@ -35,6 +35,9 @@ spec:
         {{ toYaml .Values.transformServices.transformRouter.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.transformServices.transformRouter.priorityClassName }}
+      priorityClassName: {{ .Values.transformServices.transformRouter.priorityClassName }}
+      {{- end }}
       containers:
         - name: transform-router-container
           image: {{ .Values.transformServices.transformRouter.image.registry }}/{{ .Values.transformServices.transformRouter.image.repository }}:{{ .Values.transformServices.transformRouter.image.tag }}

@@ -19,6 +19,9 @@ spec:
       labels:
         app: nginx-default
     spec:
+      {{- if .Values.ingress.nginx.priorityClassName }}
+      priorityClassName: {{ .Values.ingress.nginx.priorityClassName }}
+      {{- end }}
       containers:
         - name: nginx
           image: {{ .Values.ingress.nginx.image.registry }}/{{ .Values.ingress.nginx.image.repository }}:{{ .Values.ingress.nginx.image.tag }}

@@ -37,6 +37,9 @@ spec:
         {{ toYaml .Values.syncService.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.syncService.priorityClassName }}
+      priorityClassName: {{ .Values.syncService.priorityClassName }}
+      {{- end }}
       containers:
         - name: sync-service-container
           image: {{ .Values.syncService.image.registry }}/{{ .Values.syncService.image.repository }}:{{ .Values.syncService.image.tag }}

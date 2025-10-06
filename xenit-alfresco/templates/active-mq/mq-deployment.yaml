@@ -39,6 +39,9 @@ spec:
         instrumentation.opentelemetry.io/inject-java: grafana-agent/grafana-instrumentation
         {{- end }}
     spec:
+      {{- if .Values.mq.priorityClassName }}
+      priorityClassName: {{ .Values.mq.priorityClassName }}
+      {{- end }}
       containers:
         - name: activemq
           image: {{ .Values.mq.image.registry }}/{{ .Values.mq.image.repository }}:{{ .Values.mq.image.tag }}

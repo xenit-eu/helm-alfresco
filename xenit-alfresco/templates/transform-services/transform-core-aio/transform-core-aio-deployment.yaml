@@ -35,6 +35,9 @@ spec:
         {{ toYaml .Values.transformServices.transformCoreAio.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.transformServices.transformCoreAio.priorityClassName }}
+      priorityClassName: {{ .Values.transformServices.transformCoreAio.priorityClassName }}
+      {{- end }}
       containers:
         - name: transform-core-aio-container
           image: {{ .Values.transformServices.transformCoreAio.image.registry }}/{{ .Values.transformServices.transformCoreAio.image.repository }}:{{ .Values.transformServices.transformCoreAio.image.tag }}
