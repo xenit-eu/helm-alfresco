@@ -501,6 +501,13 @@ ingress:
 * Default: `true`
 * Description: Enable or disable pod anti-affinity rules for ACS pods. When enabled, ACS pods will be scheduled on different nodes to improve availability and fault tolerance.
 
+#### `acs.affinity`
+
+* Required: false
+* Default: None
+* Description: Can be configured with additional affinity rules as described in [the Kubernetes documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity). If `acs.hostnameAntiAffinity.enabled` is true, these additional affinity rules are merged with the hostname anti affinity rule. 
+* **Warning**: Make sure that any additional rules do not conflict with the existing hostname anti affinity rule if it is enabled.
+
 #### `acs.dbUrl`
 
 * Required: false
