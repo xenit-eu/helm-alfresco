@@ -35,6 +35,7 @@ spec:
         {{ toYaml .Values.share.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
+      terminationGracePeriodSeconds: {{ .Values.share.terminationGracePeriodSeconds }}
       containers:
       - name: share-container
         image: {{ .Values.share.image.registry }}/{{ .Values.share.image.repository }}:{{ .Values.share.image.tag }}
@@ -61,11 +62,8 @@ spec:
           timeoutSeconds: {{ .Values.share.livenessProbe.timeoutSeconds }}
         lifecycle:
           preStop:
-            exec:
-              command:
-                - /bin/bash
-                - -c
-                - sleep 20
+            sleep:
+              seconds: {{ .Values.share.preStopSleepSeconds }}
         envFrom:
           - configMapRef:
               name: share-configmap

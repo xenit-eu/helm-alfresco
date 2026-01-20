@@ -89,6 +89,8 @@ acs:
   customReadinessProbe:
   ingress:
     enabled: true
+  preStopSleepSeconds: 20
+  terminationGracePeriodSeconds: 30
 
 digitalWorkspace:
   enabled: true
@@ -135,6 +137,8 @@ share:
     timeoutSeconds: 10
   ingress:
     enabled: true
+  preStopSleepSeconds: 20
+  terminationGracePeriodSeconds: 30
 
 mq:
   enabled: true

@@ -60,6 +60,7 @@ spec:
                   app: acs
               topologyKey: "kubernetes.io/hostname"
       {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.acs.terminationGracePeriodSeconds }}
       containers:
       - name: acs-container
         image: {{ .Values.acs.image.registry }}/{{ .Values.acs.image.repository }}:{{ .Values.acs.image.tag }}
@@ -80,11 +81,8 @@ spec:
         {{- end }}
         lifecycle:
           preStop:
-            exec:
-              command:
-                - /bin/bash
-                - -c
-                - sleep 20
+            sleep:
+              seconds: {{ .Values.acs.preStopSleepSeconds }}
         envFrom:
           - configMapRef:
               name: acs-configmap
@@ -161,11 +159,8 @@ spec:
           timeoutSeconds: {{ .Values.share.livenessProbe.timeoutSeconds }}
         lifecycle:
           preStop:
-            exec:
-              command:
-                - /bin/bash
-                - -c
-                - sleep 20
+            sleep:
+              seconds: {{ .Values.share.preStopSleepSeconds }}
         envFrom:
           - configMapRef:
               name: share-configmap
