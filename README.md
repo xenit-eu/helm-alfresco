@@ -4,6 +4,8 @@
 
 This is a helm chart for installing Alfresco
 
+**⚠️ Possible breaking change, This chart uses a sleep preStop hook which is only supported from kubernetes v1.29**
+
 ## Helm
 
 [![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com)
@@ -698,6 +700,22 @@ ingress:
   ```
 * Description: add field of init containers to acs deployment
 
+#### `acs.terminationGracePeriodSeconds`
+* Required: false
+* Default: 30
+* Description: this parameter is used as the kubernetes terminationGracePeriod at pod or container termination.
+This time should be higher than the `preStopSleepSeconds` to avoid killing the pod before the preStopHook has finished running.
+
+#### `acs.preStopSleepSeconds`
+* Required: false
+* Default: 20
+* Description: For Share and ACS a preStop sleep period has been build in to gracefully wait X seconds after the pod
+has been requested to terminate. This sleep should allow the pod to terminate any running transactions.  
+Make sure to get this period shorter than the `terminationGracePeriodSeconds`
+
+
+
+
 ### Digital Workspace
 
 #### `digitalWorkspace.enabled`
@@ -1035,6 +1053,21 @@ ingress:
 * Required: false
 * Default: `true`
 * Description: this will enable/disable the ingress for alfresco share. By default this rule will forward calls to /share to share-service:30100
+
+#### `share.terminationGracePeriodSeconds`
+* Required: false
+* Default: 30
+* Description: this parameter is used as the kubernetes terminationGracePeriod at pod or container termination.
+  This time should be higher than the `preStopSleepSeconds` to avoid killing the pod before the preStopHook has finished running.
+
+#### `share.preStopSleepSeconds`
+* Required: false
+* Default: 20
+* Description: For Share and ACS a preStop sleep period has been build in to gracefully wait X seconds after the pod
+  has been requested to terminate. This sleep should allow the pod to terminate any running transactions.  
+  Make sure to get this period shorter than the `terminationGracePeriodSeconds`
+
+
 ### Active MQ
 
 #### `mq.adminLogin`
