@@ -20,11 +20,8 @@ dependencies {
     implementation platform("io.fabric8:kubernetes-client-bom:7.4.0")
     testImplementation 'io.fabric8:kubernetes-junit-jupiter'
 
-    testImplementation 'com.contentgrid.helm.integrationtesting:contentgrid-junit-jupiter-k8s:0.1.2'
-    testImplementation 'com.contentgrid.helm.integrationtesting:contentgrid-helm-client:0.1.2'
-//    testImplementation 'com.contentgrid.helm.integrationtesting:contentgrid-testcontainers-k3s-cilium:0.1.2'
-
-    testImplementation 'org.testcontainers:testcontainers:1.21.4'
+    testImplementation 'com.contentgrid.helm.integrationtesting:contentgrid-junit-jupiter-k8s:0.1.3'
+    testImplementation 'com.contentgrid.helm.integrationtesting:contentgrid-helm-client:0.1.3'
 
     testImplementation 'org.awaitility:awaitility:4.2.2'
 
