@@ -52,6 +52,25 @@ data:
         location /maintenance {
           return 503 'Sorry, this application is currently hibernated.';
         }
+        {{- else }}
+        location /alfresco {
+          proxy_pass http://acs-service:30000;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Forwarded-Port 443;
+        }
+        {{- if and .Values.share.enabled .Values.share.ingress.enabled }}
+        location /share {
+          proxy_pass http://share-service:30100;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Forwarded-Port 443;
+        }
+        {{- end }}
         {{- end }}
         location / {
           return 404 'Sorry, this page is not served here.';
