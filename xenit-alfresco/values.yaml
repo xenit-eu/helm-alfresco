@@ -88,6 +88,8 @@ acs:
     timeoutSeconds: 10
   customReadinessProbe:
   ingress:
+    name: acs-service
+    port: 30000
     enabled: true
   preStopSleepSeconds: 20
   terminationGracePeriodSeconds: 30
@@ -136,6 +138,8 @@ share:
     successThreshold: 1
     timeoutSeconds: 10
   ingress:
+    name: share-service
+    port: 30100
     enabled: true
   preStopSleepSeconds: 20
   terminationGracePeriodSeconds: 30
