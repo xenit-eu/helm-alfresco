@@ -91,6 +91,7 @@ acs:
     name: acs-service
     port: 30000
     enabled: true
+    useNginxProxy: false
   preStopSleepSeconds: 20
   terminationGracePeriodSeconds: 30
 
@@ -141,6 +142,7 @@ share:
     name: share-service
     port: 30100
     enabled: true
+    useNginxProxy: false
   preStopSleepSeconds: 20
   terminationGracePeriodSeconds: 30
 

@@ -53,6 +53,7 @@ data:
           return 503 'Sorry, this application is currently hibernated.';
         }
         {{- else }}
+        {{- if .Values.acs.ingress.useNginxProxy }}
         location /alfresco {
           proxy_pass http://acs-service:30000;
           proxy_set_header Host $host;
@@ -69,7 +70,8 @@ data:
           proxy_http_version        1.1;
           proxy_set_header          Connection "";
         }
-        {{- if and .Values.share.enabled .Values.share.ingress.enabled }}
+        {{- end }}
+        {{- if .Values.share.ingress.useNginxProxy }}
         location /share {
           proxy_pass http://share-service:30100;
           proxy_set_header Host $host;
