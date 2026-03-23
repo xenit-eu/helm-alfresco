@@ -680,6 +680,21 @@ ingress:
 * Required: false
 * Default: `true`
 * Description: this will enable/disable the ingress for the acs-service. By default this rule will forward calls to /alfresco to acs-service:30000
+ 
+#### `acs.ingress.name`
+* Required: false
+* Default: `acs-service`
+* Description: Name of the acs service where the rule will forward calls to.
+
+#### `acs.ingress.port`
+* Required: false
+* Default: `30000`
+* Description: Port of the acs service where the rule will forward calls to.
+
+#### `share.ingress.useNginxProxy`
+* Required: false
+* Default: `false`
+* Description: Whether to add an endpoint configuration for acs in the nginx-default-config.yaml
 
 #### `acs.initContainers`
 
@@ -1053,6 +1068,21 @@ Make sure to get this period shorter than the `terminationGracePeriodSeconds`
 * Required: false
 * Default: `true`
 * Description: this will enable/disable the ingress for alfresco share. By default this rule will forward calls to /share to share-service:30100
+
+#### `share.ingress.name`
+* Required: false
+* Default: `share-service`
+* Description: Name of the share service where the rule will forward calls to.
+
+#### `share.ingress.port`
+* Required: false
+* Default: `30010`
+* Description: Port of the share service where the rule will forward calls to.
+
+#### `share.ingress.useNginxProxy`
+* Required: false
+* Default: `false`
+* Description: Whether to add an endpoint configuration for share in the nginx-default-config.yaml
 
 #### `share.terminationGracePeriodSeconds`
 * Required: false
