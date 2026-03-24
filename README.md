@@ -681,21 +681,26 @@ ingress:
 * Default: `true`
 * Description: this will enable/disable the ingress for the acs-service. By default this rule will forward calls to /alfresco to acs-service:30000
  
-#### `acs.ingress.name`
+#### `acs.ingress.backendService.name`
 * Required: false
 * Default: `acs-service`
-* Description: Name of the acs service where the rule will forward calls to.
+* Description: Name of the backendService where the requests to acs will be forwarded to. Can be configured to nginx to add additional headers for better SSO integration
 
-#### `acs.ingress.port`
+#### `acs.ingress.backendService.port`
 * Required: false
 * Default: `30000`
-* Description: Port of the acs service where the rule will forward calls to.
+* Description: Port of the backendService where the requests to acs will be forwarded to.
 
-#### `share.ingress.useNginxProxy`
+#### `acs.ingress.proxy.enabled`
 * Required: false
 * Default: `false`
-* Description: Whether to add an endpoint configuration for acs in the nginx-default-config.yaml
+* Description: Use this to configure nginx as an intermediate proxy between ingress and acs-service. It will configure Nginx to set X-Forwarded-Proto headers to better allow ACS and share SSO integration.
 
+#### `acs.ingress.proxy.target`
+* Required: false
+* Default: `http://share-service:30100`
+* Description: Use this to configure nginx as an intermediate proxy between ingress and acs-service. This determines the target for `/alfresco` in the nginx-config. 
+ 
 #### `acs.initContainers`
 
 * Required: false
@@ -1067,22 +1072,27 @@ Make sure to get this period shorter than the `terminationGracePeriodSeconds`
 #### `share.ingress.enabled`
 * Required: false
 * Default: `true`
-* Description: this will enable/disable the ingress for alfresco share. By default this rule will forward calls to /share to share-service:30100
+* Description: this will enable/disable the ingress for alfresco share. By default, this rule will forward calls to /share to share-service:30100
 
-#### `share.ingress.name`
+#### `share.ingress.backendService.name`
 * Required: false
 * Default: `share-service`
-* Description: Name of the share service where the rule will forward calls to.
+* Description: Name of the share service where the rule will forward calls to. Can be configured to nginx to add additional headers for better SSO integration
 
-#### `share.ingress.port`
+#### `share.ingress.backendService.port`
 * Required: false
 * Default: `30010`
 * Description: Port of the share service where the rule will forward calls to.
 
-#### `share.ingress.useNginxProxy`
+#### `share.ingress.proxy.enabled`
 * Required: false
 * Default: `false`
-* Description: Whether to add an endpoint configuration for share in the nginx-default-config.yaml
+* Description: Use this to configure nginx as an intermediate proxy between ingress and share-service. It will configure Nginx to set X-Forwarded-Proto headers to better allow ACS and share SSO integration.
+
+#### `share.ingress.proxy.target`
+* Required: false
+* Default: `http://share-service:30100`
+* Description: Use this to configure nginx as an intermediate proxy between ingress and share-service. This determines the target for `/share` in the nginx-config.
 
 #### `share.terminationGracePeriodSeconds`
 * Required: false

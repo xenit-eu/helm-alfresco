@@ -88,10 +88,13 @@ acs:
     timeoutSeconds: 10
   customReadinessProbe:
   ingress:
-    name: acs-service
-    port: 30000
     enabled: true
-    useNginxProxy: false
+    backendService:
+      name: acs-service
+      port: 30000
+    proxy:
+      enabled: false
+      target: http://acs-service:30000
   preStopSleepSeconds: 20
   terminationGracePeriodSeconds: 30
 
@@ -139,10 +142,13 @@ share:
     successThreshold: 1
     timeoutSeconds: 10
   ingress:
-    name: share-service
-    port: 30100
     enabled: true
-    useNginxProxy: false
+    backendService:
+      name: share-service
+      port: 30100
+    proxy:
+      enabled: false
+      target: http://share-service:30100
   preStopSleepSeconds: 20
   terminationGracePeriodSeconds: 30
 

@@ -7,7 +7,7 @@ chronology things are added/fixed/changed and - where possible - links to the PR
 
 ### Changes
 [v0.8.25]
-* Add functionality to make nginx proxy to alfresco and share
+* Add functionality to configure nginx to proxy between ingress and the alfresco and share services. Allows it to set additional headers to better allow SSO integration with ACS and share
 
 [v0.8.24]
 
