@@ -701,6 +701,26 @@ ingress:
 * Default: `http://share-service:30100`
 * Description: Use this to configure nginx as an intermediate proxy between ingress and acs-service. This determines the target for `/alfresco` in the nginx-config. 
  
+ #### `acs.ingress.proxy.nginxConfig`
+* Required: false
+* Default:
+ ```
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto https;
+      proxy_set_header X-Forwarded-Port 443;
+      client_max_body_size      0;
+      proxy_request_buffering   off;
+      proxy_buffering           off;
+      proxy_connect_timeout     300s;
+      proxy_send_timeout        300s;
+      proxy_read_timeout        300s;
+      proxy_http_version        1.1;
+      proxy_set_header          Connection "";
+  ```
+* Description: Used to set nginx configuration for the `/alfresco` location.
+ 
 #### `acs.initContainers`
 
 * Required: false
@@ -1093,6 +1113,26 @@ Make sure to get this period shorter than the `terminationGracePeriodSeconds`
 * Required: false
 * Default: `http://share-service:30100`
 * Description: Use this to configure nginx as an intermediate proxy between ingress and share-service. This determines the target for `/share` in the nginx-config.
+
+#### `share.ingress.proxy.nginxConfig`
+* Required: false
+* Default:
+ ```
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto https;
+      proxy_set_header X-Forwarded-Port 443;
+      client_max_body_size      0;
+      proxy_request_buffering   off;
+      proxy_buffering           off;
+      proxy_connect_timeout     300s;
+      proxy_send_timeout        300s;
+      proxy_read_timeout        300s;
+      proxy_http_version        1.1;
+      proxy_set_header          Connection "";
+  ```
+* Description: Used to set nginx configuration for the `/alfresco` location.
 
 #### `share.terminationGracePeriodSeconds`
 * Required: false
