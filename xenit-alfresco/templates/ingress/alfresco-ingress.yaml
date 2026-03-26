@@ -84,18 +84,18 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: acs-service
+            name: {{ $.Values.acs.ingress.backendService.name }}
             port:
-              number: 30000
+              number: {{ $.Values.acs.ingress.backendService.port }}
       {{- end }}
       {{- if and $.Values.share.enabled $.Values.share.ingress.enabled (not $.Values.general.hibernate) }}
       - path: /share
         pathType: Prefix
         backend:
           service:
-            name: share-service
+            name: {{ $.Values.share.ingress.backendService.name }}
             port:
-              number: 30100
+              number: {{ $.Values.share.ingress.backendService.port }}
       {{- end }}
       {{- if and $.Values.digitalWorkspace.enabled $.Values.digitalWorkspace.ingress.enabled (not $.Values.general.hibernate) }}
       - path: {{ $.Values.digitalWorkspace.basePath }}

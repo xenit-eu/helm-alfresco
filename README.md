@@ -680,7 +680,47 @@ ingress:
 * Required: false
 * Default: `true`
 * Description: this will enable/disable the ingress for the acs-service. By default this rule will forward calls to /alfresco to acs-service:30000
+ 
+#### `acs.ingress.backendService.name`
+* Required: false
+* Default: `acs-service`
+* Description: Name of the backendService where the requests to acs will be forwarded to. Can be configured to nginx to add additional headers for better SSO integration
 
+#### `acs.ingress.backendService.port`
+* Required: false
+* Default: `30000`
+* Description: Port of the backendService where the requests to acs will be forwarded to.
+
+#### `acs.ingress.proxy.enabled`
+* Required: false
+* Default: `false`
+* Description: Use this to configure nginx as an intermediate proxy between ingress and acs-service. It will configure Nginx to set X-Forwarded-Proto headers to better allow ACS and share SSO integration.
+
+#### `acs.ingress.proxy.target`
+* Required: false
+* Default: `http://share-service:30100`
+* Description: Use this to configure nginx as an intermediate proxy between ingress and acs-service. This determines the target for `/alfresco` in the nginx-config. 
+ 
+ #### `acs.ingress.proxy.nginxConfig`
+* Required: false
+* Default:
+ ```
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto https;
+      proxy_set_header X-Forwarded-Port 443;
+      client_max_body_size      0;
+      proxy_request_buffering   off;
+      proxy_buffering           off;
+      proxy_connect_timeout     300s;
+      proxy_send_timeout        300s;
+      proxy_read_timeout        300s;
+      proxy_http_version        1.1;
+      proxy_set_header          Connection "";
+  ```
+* Description: Used to set nginx configuration for the `/alfresco` location.
+ 
 #### `acs.initContainers`
 
 * Required: false
@@ -1052,7 +1092,47 @@ Make sure to get this period shorter than the `terminationGracePeriodSeconds`
 #### `share.ingress.enabled`
 * Required: false
 * Default: `true`
-* Description: this will enable/disable the ingress for alfresco share. By default this rule will forward calls to /share to share-service:30100
+* Description: this will enable/disable the ingress for alfresco share. By default, this rule will forward calls to /share to share-service:30100
+
+#### `share.ingress.backendService.name`
+* Required: false
+* Default: `share-service`
+* Description: Name of the share service where the rule will forward calls to. Can be configured to nginx to add additional headers for better SSO integration
+
+#### `share.ingress.backendService.port`
+* Required: false
+* Default: `30010`
+* Description: Port of the share service where the rule will forward calls to.
+
+#### `share.ingress.proxy.enabled`
+* Required: false
+* Default: `false`
+* Description: Use this to configure nginx as an intermediate proxy between ingress and share-service. It will configure Nginx to set X-Forwarded-Proto headers to better allow ACS and share SSO integration.
+
+#### `share.ingress.proxy.target`
+* Required: false
+* Default: `http://share-service:30100`
+* Description: Use this to configure nginx as an intermediate proxy between ingress and share-service. This determines the target for `/share` in the nginx-config.
+
+#### `share.ingress.proxy.nginxConfig`
+* Required: false
+* Default:
+ ```
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto https;
+      proxy_set_header X-Forwarded-Port 443;
+      client_max_body_size      0;
+      proxy_request_buffering   off;
+      proxy_buffering           off;
+      proxy_connect_timeout     300s;
+      proxy_send_timeout        300s;
+      proxy_read_timeout        300s;
+      proxy_http_version        1.1;
+      proxy_set_header          Connection "";
+  ```
+* Description: Used to set nginx configuration for the `/alfresco` location.
 
 #### `share.terminationGracePeriodSeconds`
 * Required: false

@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.25]
+* Add functionality to configure nginx to proxy between ingress and the alfresco and share services. Allows it to set additional headers to better allow SSO integration with ACS and share
+
 [v0.8.24]
 
 **⚠️ Possible breaking change, preStopHook sleep is only supported from kubernetes v1.29**

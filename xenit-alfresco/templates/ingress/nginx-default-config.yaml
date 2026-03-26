@@ -52,6 +52,23 @@ data:
         location /maintenance {
           return 503 'Sorry, this application is currently hibernated.';
         }
+        {{- else }}
+        {{- if .Values.acs.ingress.proxy.enabled }}
+        location /alfresco {
+          proxy_pass {{ .Values.acs.ingress.proxy.target }};
+          {{- with .Values.acs.ingress.proxy.nginxConfig }}
+          {{- . | nindent 10 }}
+          {{- end }}
+        }
+        {{- end }}
+        {{- if .Values.share.ingress.proxy.enabled }}
+        location /share {
+          proxy_pass {{ .Values.share.ingress.proxy.target }};
+          {{- with .Values.share.ingress.proxy.nginxConfig }}
+          {{- . | nindent 10 }}
+          {{- end }}
+        }
+        {{- end }}
         {{- end }}
         location / {
           return 404 'Sorry, this page is not served here.';
