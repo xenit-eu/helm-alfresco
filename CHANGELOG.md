@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.26]
+* change behaviour of enableOtelMetrics to no longer automatically provide a podAnnotation to enable autoinstrumentation.  
+From now on `instrumentation.opentelemetry.io/inject-java: grafana-agent/grafana-instrumentation` must be added to the `mq.podAnnotation` in order to start collecting the Otel metrics coming from ActiveMQ.  
+Make sure to direct the `instrumentation.opentelemetry.io/inject-java:` to the instrumentation corresponding to your installation.  
+
 [v0.8.25]
 * Add functionality to configure nginx to proxy between ingress and the alfresco and share services. Allows it to set additional headers to better allow SSO integration with ACS and share
 

@@ -35,9 +35,6 @@ spec:
         {{- if .Values.mq.podAnnotations }}
         {{ toYaml .Values.mq.podAnnotations | nindent 8 }}
         {{- end }}
-        {{- if .Values.mq.enableOtelMetrics }}
-        instrumentation.opentelemetry.io/inject-java: grafana-agent/grafana-instrumentation
-        {{- end }}
     spec:
       containers:
         - name: activemq
