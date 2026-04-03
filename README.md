@@ -1334,7 +1334,7 @@ Make sure to get this period shorter than the `terminationGracePeriodSeconds`
 
 * Required: false
 * Default: false
-* Description: Enable OpenTelemetry agent for JMX metrics collection
+* Description: Enable JMX metrics creation in ActiveMQ. Once enabled, the metrics can be picked up by providing a java-instrumentation annotation to the .mq.podAnnotations
 
 ### Postgresql
 
