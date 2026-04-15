@@ -216,3 +216,6 @@ After SOLR restore from backup the active index folder could be set to restore.x
 * added checksum of configmap and secrets for deployment for **Automatically Roll Deployments**
 * changed mq default strategy from RollingUpdate to Recreate because of conflict in updating 
 
+[XENOPS-1392]
+
+* fix syntax error in local-values.yaml `mergeAcsShare`

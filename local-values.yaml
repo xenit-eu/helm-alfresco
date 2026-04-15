@@ -10,7 +10,7 @@ acs:
       memory: "1Gi"
       cpu: "1"
 share:
-  mergeAcsShare: true"
+  mergeAcsShare: true
 mq:
   resources:
     requests:
