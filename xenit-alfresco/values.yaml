@@ -186,7 +186,7 @@ mq:
   image:
     registry: 'docker.io'
     repository: 'alfresco/alfresco-activemq'
-    tag: '5.18.3-jre17-rockylinux8@sha256:25386b20263b7e838605e07fea2713fb65762010c1c677cf82aecefbaed5d227'
+    tag: '5.19.10-jre17-rockylinux8@sha256:fa441fe21c2d7aab5323c3fbf1df6aba46e1b011f5606783188ddd53f3c58f4c'
   init:
     image:
       registry: 'docker.io'
