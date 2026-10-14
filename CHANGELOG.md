@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.27]
+* **Breaking change**: Replace `solr.autoBackup.image.digest` with `solr.autoBackup.image.tag` for the Solr automatic backup image, defaulting to `curlimages/curl:8.15.0`. The `digest` setting is no longer used; custom image overrides must specify the desired image tag.
+
 [v0.8.26]
 * change behaviour of enableOtelMetrics to no longer automatically provide a podAnnotation to enable autoinstrumentation.  
 From now on `instrumentation.opentelemetry.io/inject-java: grafana-agent/grafana-instrumentation` must be added to the `mq.podAnnotation` in order to start collecting the Otel metrics coming from ActiveMQ.  
