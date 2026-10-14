@@ -1686,11 +1686,11 @@ Default: http://solr-service:30300/solr/alfresco/replication?command=backup&repo
 * Default: `curlimages/curl`
 * Description: The repository of the Docker image for the automatically Solr backup that will be used.
 
-#### `solr.autoBackup.image.digest`
+#### `solr.autoBackup.image.tag`
+
 * Required: false
-* Default: `sha256:4026b29997dc7c823b51c164b71e2b51e0fd95cce4601f78202c513d97da2922`
-* Description: The digest of the Docker image for the automatically Solr backup that will be used.
-  Note: this is a digest. Using tags is not supported here.
+* Default: `8.15.0`
+* Description: The tag of the Docker image used for automatic Solr backups.
 
 #### `solr.readinessProbe.enabled`
 
