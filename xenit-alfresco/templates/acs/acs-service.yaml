@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: acs-service
   namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: acs-service
   annotations:
     {{- if .Values.acs.serviceAnnotations }}
     {{ toYaml .Values.acs.serviceAnnotations | nindent 4 }}

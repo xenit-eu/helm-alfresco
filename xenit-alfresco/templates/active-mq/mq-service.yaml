@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: mq-service
   namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: mq-service
   annotations:
     {{- if .Values.mq.serviceAnnotations }}
     {{ toYaml .Values.mq.serviceAnnotations | nindent 4 }}
@@ -15,4 +17,10 @@ spec:
     - protocol: TCP
       port: 61616
       targetPort: 61616
+    {{- if .Values.mq.prometheusJmxExporter.enabled }}
+    - protocol: TCP
+      port: 9404
+      targetPort: 9404
+      name: "metrics"
+    {{- end }}
 {{- end }}

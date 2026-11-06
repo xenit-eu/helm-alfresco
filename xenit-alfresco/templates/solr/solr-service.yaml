@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: solr-service
   namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: solr-service
   annotations:
     {{- if .Values.solr.serviceAnnotations }}
     {{ toYaml .Values.solr.serviceAnnotations | nindent 4 }}

@@ -1,0 +1,36 @@
+{{- range $key, $serviceMonitor := dict "acs" .Values.acs.serviceMonitor "solr" .Values.solr.serviceMonitor "mq" .Values.mq.serviceMonitor }}
+{{- with $serviceMonitor }}
+{{- if .enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $key }}-servicemonitor
+  namespace: {{ $.Release.Namespace | quote }}
+spec:
+  selector:
+    matchLabels:
+      {{- with .matchLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  endpoints:
+    - port: {{ tpl .port $ | quote }}
+      path: {{ tpl .path $ | quote }}
+      scheme: {{ tpl .scheme $ | lower }}
+      interval: {{ $.Values.serviceMonitors.scrapeInterval }}
+      scrapeTimeout: {{ $.Values.serviceMonitors.scrapeTimeout }}
+      {{- with .params }}
+      params:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .relabelings }}
+      relabelings:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .metricRelabelings }}
+      metricRelabelings:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

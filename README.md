@@ -1334,7 +1334,26 @@ Make sure to get this period shorter than the `terminationGracePeriodSeconds`
 
 * Required: false
 * Default: false
-* Description: Enable JMX metrics creation in ActiveMQ. Once enabled, the metrics can be picked up by providing a java-instrumentation annotation to the .mq.podAnnotations
+* Description: Enable JMX metrics creation in ActiveMQ. Once enabled, the metrics can be picked up by providing a java-instrumentation annotation to the .mq.podAnnotations  
+This value is ONLY used by the auto-instrumentation, Prometheus-JMX-Exporter does not require it and will not use it.
+
+#### `mq.prometheusJmxExporter`
+```prometheusJmxExporter:
+  enabled: false
+  image:
+    registry: 'ghcr.io'
+    repository: 'jmx-prometheus-javaagent'
+    tag: '1.0.1'
+  ```
+  
+  * Required: false
+  * Default: false
+  * Description: Enabling the prometheusJmxExporter will inject the jmx-prometheus-javaagent.jar into the activeMQ container.  
+This will make some of the JMX information available as Prometheus metrics on port 9404 `\metrics`.  
+It can be used in combination with the serviceMonitor described below.
+
+
+  
 
 ### Postgresql
 
@@ -2626,4 +2645,21 @@ additional settings can be added through additionalEnvironmentVariables.
         storage: 2
         efs:
           volumeHandle: "efs-identifier"
+```
+### ServiceMonitors
+ServiceMonitors can be enabled for ACS, SOLR and MQ components by enabling the servicemonitor in the values section of
+the corresponding application.  
+When enabling serviceMonitor for a component there is no more need to annotate the pods for prometheus scraping.
+```yaml
+acs:
+  serviceMonitor:
+    enabled: true
+```
+
+
+Default scrape settings that apply to all servicemonitors are:
+```yaml
+serviceMonitors:
+  scrapeInterval: 60s
+  scrapeTimeout: 10s
 ```

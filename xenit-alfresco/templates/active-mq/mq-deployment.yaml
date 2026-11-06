@@ -40,6 +40,11 @@ spec:
         - name: activemq
           image: {{ .Values.mq.image.registry }}/{{ .Values.mq.image.repository }}:{{ .Values.mq.image.tag }}
           imagePullPolicy: {{ .Values.mq.imagePullPolicy | default "IfNotPresent" }}
+          {{- if .Values.mq.prometheusJmxExporter.enabled }}
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-javaagent:/jmx-agent/jmx_prometheus_javaagent.jar=9404:/etc/jmx-config/config.yml"
+          {{- end }}
           envFrom:
             - configMapRef:
                 name: mq-configmap
@@ -57,6 +62,10 @@ spec:
               containerPort: 5672
             - name: web-console
               containerPort: 8161
+            {{- if .Values.mq.prometheusJmxExporter.enabled }}
+            - name: metrics
+              containerPort: 9404
+            {{- end }}
           {{- if .Values.mq.customReadinessProbe }}
           readinessProbe:
             {{- toYaml .Values.mq.customReadinessProbe | nindent 12 }}
@@ -83,6 +92,12 @@ spec:
             {{- end }}
           {{- end }}
           volumeMounts:
+          {{- if .Values.mq.prometheusJmxExporter.enabled }}
+            - name: jmx-agent-volume
+              mountPath: /jmx-agent
+            - name: jmx-config-volume
+              mountPath: /etc/jmx-config
+          {{- end }}
           {{- if .Values.persistentStorage.mq.enabled }}
             - name: data
               mountPath: /opt/activemq/data
@@ -98,8 +113,22 @@ spec:
           {{- if .Values.mq.additionalVolumeMounts }}
           {{- toYaml .Values.mq.additionalVolumeMounts | nindent 12 }}
           {{- end }}
-      {{- if .Values.persistentStorage.mq.initVolumes }}
       initContainers:
+      {{- if .Values.mq.prometheusJmxExporter.enabled }}
+        - name: jmx-exporter
+          image: {{ .Values.mq.prometheusJmxExporter.image.registry }}/{{ .Values.mq.prometheusJmxExporter.image.repository }}:{{ .Values.mq.prometheusJmxExporter.image.tag }}
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "50Mi"
+            limits:
+              memory: "100Mi"
+          command: [ "cp", "/jmx_prometheus_javaagent.jar", "/jmx-agent/" ]
+          volumeMounts:
+            - name: jmx-agent-volume
+              mountPath: /jmx-agent
+      {{- end }}
+      {{- if .Values.persistentStorage.mq.initVolumes }}
         - name: init-fs
           image: {{ .Values.mq.init.image.registry }}/{{ .Values.mq.init.image.repository }}:{{ .Values.mq.init.image.tag }}
           imagePullPolicy: IfNotPresent
@@ -124,6 +153,13 @@ spec:
         {{ toYaml .Values.mq.imagePullSecrets | nindent 8 }}
         {{- end }}
       volumes:
+      {{- if .Values.mq.prometheusJmxExporter.enabled }}
+        - name: jmx-agent-volume
+          emptyDir: {}
+        - name: jmx-config-volume
+          configMap:
+            name: jmx-config
+      {{- end }}
       {{- if .Values.persistentStorage.mq.enabled }}
         - name: data
           persistentVolumeClaim:

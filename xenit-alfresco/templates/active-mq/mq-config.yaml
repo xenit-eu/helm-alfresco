@@ -16,4 +16,41 @@ data:
   {{- if .Values.mq.enableOtelMetrics }}
   ACTIVEMQ_SUNJMX_START: -Dotel.jmx.target.system=activemq
   {{- end }}
+---
+# the following configmap tells the jmx-prometheus exporter which JMX data needs to be exported and how it should
+# translate in prometheus metrics.
+{{- if .Values.mq.prometheusJmxExporter.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jmx-config
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: prometheus-jmx-exporter
+data:
+  config.yml: |
+    # Basic JMX exporter config
+    lowercaseOutputName: true
+    lowercaseOutputLabelNames: true
+data:
+  config.yml: |
+    # Basic JMX exporter config
+    lowercaseOutputName: false
+    lowercaseOutputLabelNames: true
+    rules:
+      # Queue metrics
+      - pattern: org.apache.activemq<type=Broker, brokerName=(\S*), destinationType=(\S*), destinationName=(\S*)><>(QueueSize|ConsumerCount|ProducerCount|MemoryPercentUsage|EnqueueCount|DequeueCount|ExpiredCount|AverageEnqueueTime|MaxEnqueueTime|InflightCount)
+        name: activemq_$4
+        labels:
+          broker: "$1"
+          type: "$2"
+          destination: "$3"
+        type: GAUGE
+       # Broker-level metrics
+      - pattern: org.apache.activemq<type=Broker, brokerName=(\S*)><>(\w+)
+        name: activemq_$2
+        labels:
+          broker: "$1"
+        type: GAUGE
+{{- end }}
 {{- end }}

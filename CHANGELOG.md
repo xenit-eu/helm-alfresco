@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 chronology things are added/fixed/changed and - where possible - links to the PRs involved.
 
 ### Changes
+[v0.8.28]
+* Provide the option to use a prometheusJMXExporter to export ActiveMQ JMX metrics as Prometheus metrics.
+* Provide the option to enable serviceMonitors to scrape for promethus metrics for ACS, SOLR and MQ
+
+[v0.8.27]
+* Solr automatic backup images now use `solr.autoBackup.image.tag` instead of `solr.autoBackup.image.digest.` The digest setting is no longer used.  
+Before upgrading, replace any custom `solr.autoBackup.image.digest` override with `solr.autoBackup.image.tag` set to the desired image tag. A digest-only override will use the default tag, 8.15.0.
+
+The default backup image is docker.io/curlimages/curl:8.15.0.
 [v0.8.26]
 * change behaviour of enableOtelMetrics to no longer automatically provide a podAnnotation to enable autoinstrumentation.  
 From now on `instrumentation.opentelemetry.io/inject-java: grafana-agent/grafana-instrumentation` must be added to the `mq.podAnnotation` in order to start collecting the Otel metrics coming from ActiveMQ.  
