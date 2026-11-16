@@ -354,6 +354,15 @@ transformServices:
         cpu: "150m"
     livenessProbe:
       enabled: true
+    serviceMonitor:
+      enabled: false
+      matchLabels:
+        app.kubernetes.io/name: transform-core-aio-service
+      relabelings: [ ]
+      metricRelabelings: [ ]
+      path: actuator/prometheus
+      port: "transform"
+      scheme: "http"
   transformRouter:
     enabled: true
     replicas: 1

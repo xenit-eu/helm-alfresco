@@ -3,6 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: transform-core-aio-service
+  labels:
+    app.kubernetes.io/name: transform-core-aio-service
   namespace: {{ .Release.Namespace | quote }}
   annotations:
     {{- if .Values.transformServices.transformCoreAio.serviceAnnotations }}
@@ -13,6 +15,7 @@ spec:
     app: transform-core-aio
   ports:
       - protocol: TCP
+        name: 'transform'
         port: 80
         targetPort: 8090
 {{- end }}

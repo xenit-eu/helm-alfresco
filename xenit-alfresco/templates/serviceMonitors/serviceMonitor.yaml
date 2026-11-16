@@ -1,4 +1,4 @@
-{{- range $key, $serviceMonitor := dict "acs" .Values.acs.serviceMonitor "solr" .Values.solr.serviceMonitor "mq" .Values.mq.serviceMonitor }}
+{{- range $key, $serviceMonitor := dict "acs" .Values.acs.serviceMonitor "solr" .Values.solr.serviceMonitor "mq" .Values.mq.serviceMonitor "transformcoreaio" .Values.transformServices.transformCoreAio.serviceMonitor }}
 {{- with $serviceMonitor }}
 {{- if .enabled }}
 ---

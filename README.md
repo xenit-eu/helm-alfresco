@@ -2647,11 +2647,11 @@ additional settings can be added through additionalEnvironmentVariables.
           volumeHandle: "efs-identifier"
 ```
 ### ServiceMonitors
-ServiceMonitors can be enabled for ACS, SOLR and MQ components by enabling the servicemonitor in the values section of
+ServiceMonitors can be enabled for ACS, SOLR, TransformCoreAio and MQ components by enabling the servicemonitor in the values section of
 the corresponding application.  
 When enabling serviceMonitor for a component there is no more need to annotate the pods for prometheus scraping.
 ```yaml
-acs:
+acs / solr / mq / transformservices:transformcoreaio:
   serviceMonitor:
     enabled: true
 ```
